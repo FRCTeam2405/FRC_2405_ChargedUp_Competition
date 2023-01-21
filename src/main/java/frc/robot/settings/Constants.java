@@ -8,6 +8,18 @@ package frc.robot.settings;
  *  For settings that should be changed before
  *  building and deploying the code.
  */
-public class Constants {
-    
+public final class Constants {
+    public static final class Drivetrains {
+        public static final class Differential {
+            public static final class Motor {
+                public static final class Ports {
+                    //TODO! Init these values
+                    public static final int FRONT_LEFT = 0;
+                    public static final int FRONT_RIGHT = 0;
+                    public static final int BACK_LEFT = 0;
+                    public static final int BACK_RIGHT = 0;
+                }
+            }
+        }
+    }
 }
