@@ -7,7 +7,7 @@ package frc.robot.subsystems.drivetrains;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DifferentialDrive extends SubsystemBase {
-  /** Creates a new Differential. */
+  /** Creates a new differential drive Subsystem. */
   public DifferentialDrive() {}
 
   @Override
