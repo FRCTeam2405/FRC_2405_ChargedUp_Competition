@@ -9,6 +9,7 @@ package frc.robot.settings;
  *  building and deploying the code.
  */
 public final class Constants {
+    /** This year we have to support multiple drivetrains, so each drivetrain is a subclass. */
     public static final class Drivetrains {
         public static final class Differential {
             public static final class Motor {
