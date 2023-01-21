@@ -20,6 +20,12 @@ public final class Constants {
                     public static final int BACK_LEFT = 0;
                     public static final int BACK_RIGHT = 0;
                 }
+
+                public static final boolean FRONT_LEFT_REVERSED = false;
+                public static final boolean FRONT_RIGHT_REVERSED = false;
+                public static final boolean BACK_LEFT_REVERSED = false;
+                public static final boolean BACK_RIGHT_REVERSED = false;
+
             }
         }
     }

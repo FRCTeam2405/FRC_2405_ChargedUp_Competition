@@ -24,6 +24,11 @@ public class Differential extends SubsystemBase {
     MotorController backLeftMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.BACK_LEFT);
     MotorController backRightMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.BACK_RIGHT);
 
+    frontLeftMotor.setInverted(Constants.Drivetrains.Differential.Motor.FRONT_LEFT_REVERSED);
+    frontRightMotor.setInverted(Constants.Drivetrains.Differential.Motor.FRONT_RIGHT_REVERSED);
+    backLeftMotor.setInverted(Constants.Drivetrains.Differential.Motor.BACK_LEFT_REVERSED);
+    backRightMotor.setInverted(Constants.Drivetrains.Differential.Motor.BACK_RIGHT_REVERSED);
+
     MotorControllerGroup leftMotors = new MotorControllerGroup(
       frontLeftMotor,
       backLeftMotor
