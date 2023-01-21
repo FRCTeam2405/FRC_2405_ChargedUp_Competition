@@ -19,26 +19,18 @@ public class Differential extends SubsystemBase {
   /** Creates a new differential drive Subsystem. */
   public Differential() {
 
-    MotorController frontLeftMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.FRONT_LEFT);
-    MotorController frontRightMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.FRONT_RIGHT);
-    MotorController backLeftMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.BACK_LEFT);
-    MotorController backRightMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.BACK_RIGHT);
+    WPI_TalonFX leftParentMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.FRONT_LEFT);
+    WPI_TalonFX rightParentMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.FRONT_RIGHT);
+    WPI_TalonFX leftChildMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.BACK_LEFT);
+    WPI_TalonFX rightChildMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.BACK_RIGHT);
 
-    frontLeftMotor.setInverted(Constants.Drivetrains.Differential.Motor.FRONT_LEFT_REVERSED);
-    frontRightMotor.setInverted(Constants.Drivetrains.Differential.Motor.FRONT_RIGHT_REVERSED);
-    backLeftMotor.setInverted(Constants.Drivetrains.Differential.Motor.BACK_LEFT_REVERSED);
-    backRightMotor.setInverted(Constants.Drivetrains.Differential.Motor.BACK_RIGHT_REVERSED);
+    leftParentMotor.setInverted(Constants.Drivetrains.Differential.Motor.FRONT_LEFT_REVERSED);
+    rightParentMotor.setInverted(Constants.Drivetrains.Differential.Motor.FRONT_RIGHT_REVERSED);
 
-    MotorControllerGroup leftMotors = new MotorControllerGroup(
-      frontLeftMotor,
-      backLeftMotor
-    );
-    MotorControllerGroup rightMotors = new MotorControllerGroup(
-      frontRightMotor,
-      backRightMotor
-    );
+    leftChildMotor.follow(leftParentMotor);
+    rightChildMotor.follow(rightParentMotor);
 
-    drive = new DifferentialDrive(leftMotors, rightMotors);
+    drive = new DifferentialDrive(leftParentMotor, rightParentMotor);
   }
 
   @Override
