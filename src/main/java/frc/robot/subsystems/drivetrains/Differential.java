@@ -4,11 +4,14 @@
 
 package frc.robot.subsystems.drivetrains;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.settings.Constants;
 
 public class Differential extends SubsystemBase {
 
@@ -17,10 +20,10 @@ public class Differential extends SubsystemBase {
   /** Creates a new differential drive Subsystem. */
   public Differential() {
 
-    MotorController frontLeftMotor;
-    MotorController frontRightMotor;
-    MotorController backLeftMotor;
-    MotorController backRightMotor;
+    MotorController frontLeftMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.FRONT_LEFT);
+    MotorController frontRightMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.FRONT_RIGHT);
+    MotorController backLeftMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.BACK_LEFT);
+    MotorController backRightMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.BACK_RIGHT);
 
     MotorControllerGroup leftMotors = new MotorControllerGroup(
       frontLeftMotor,
