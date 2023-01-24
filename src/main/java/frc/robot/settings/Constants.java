@@ -15,14 +15,14 @@ public final class Constants {
             public static final class Motor {
                 public static final class Ports {
                     //TODO! Init these values
-                    public static final int FRONT_LEFT = 0;
-                    public static final int FRONT_RIGHT = 0;
-                    public static final int BACK_LEFT = 0;
-                    public static final int BACK_RIGHT = 0;
+                    public static final int FRONT_LEFT = 10;
+                    public static final int FRONT_RIGHT = 11;
+                    public static final int BACK_LEFT = 12;
+                    public static final int BACK_RIGHT = 13;
                 }
 
-                public static final boolean FRONT_LEFT_REVERSED = false;
-                public static final boolean FRONT_RIGHT_REVERSED = true;
+                public static final boolean FRONT_LEFT_REVERSED = true;
+                public static final boolean FRONT_RIGHT_REVERSED = false;
                 public static final boolean BACK_LEFT_REVERSED = false;
                 public static final boolean BACK_RIGHT_REVERSED = true;
 
