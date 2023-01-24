@@ -7,7 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Lights extends SubsystemBase {
-  /** Creates a new Lights. */
+  /** Creates a new Lights subsystem for managing the robot LEDs. */
   public Lights() {}
 
   @Override
