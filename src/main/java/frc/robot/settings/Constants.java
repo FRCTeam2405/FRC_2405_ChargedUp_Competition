@@ -23,4 +23,8 @@ public final class Constants {
             }
         }
     }
+
+    public static final class LEDs {
+        public static final int PORT = 0;
+    }
 }
