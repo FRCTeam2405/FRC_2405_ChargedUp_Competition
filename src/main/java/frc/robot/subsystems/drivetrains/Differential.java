@@ -24,6 +24,8 @@ public class Differential extends SubsystemBase {
     
     leftParentMotor.setInverted(Constants.Drivetrains.Differential.Motor.FRONT_LEFT_REVERSED);
     rightParentMotor.setInverted(Constants.Drivetrains.Differential.Motor.FRONT_RIGHT_REVERSED);
+    leftChildMotor.setInverted(Constants.Drivetrains.Differential.Motor.BACK_LEFT_REVERSED);
+    rightChildMotor.setInverted(Constants.Drivetrains.Differential.Motor.BACK_RIGHT_REVERSED);
 
     leftChildMotor.follow(leftParentMotor);
     rightChildMotor.follow(rightParentMotor);
