@@ -38,11 +38,17 @@ public class Differential extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void DriveArcade (double inspeedx, double inrotationx) {
-    drive.arcadeDrive(inspeedx, inrotationx);
+  public void DriveArcade (double speedX, double rotationTheta) {
+    speedX *= Constants.Drivetrains.Differential.SPEED_LIMIT;
+    rotationTheta *= Constants.Drivetrains.Differential.SPEED_LIMIT;
+
+    drive.arcadeDrive(speedX, rotationTheta);
   }
-  public void DriveTank (double leftspeed, double rightspeed) {
-    drive.tankDrive(leftspeed, rightspeed);
+  public void DriveTank (double leftSpeed, double rightSpeed) {
+    leftSpeed *= Constants.Drivetrains.Differential.SPEED_LIMIT;
+    rightSpeed *= Constants.Drivetrains.Differential.SPEED_LIMIT;
+
+    drive.tankDrive(leftSpeed, rightSpeed);
   } 
 
 }

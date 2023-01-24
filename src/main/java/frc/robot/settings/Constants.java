@@ -27,6 +27,8 @@ public final class Constants {
                 public static final boolean BACK_RIGHT_REVERSED = true;
 
             }
+
+            public static final double SPEED_LIMIT = 0.05;
         }
     }
 }
