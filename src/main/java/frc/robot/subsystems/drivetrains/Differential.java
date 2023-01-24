@@ -38,5 +38,11 @@ public class Differential extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public DifferentialDrive getDrive() { return drive; }
+  public void DriveArcade (double inspeedx, double inrotationx) {
+    drive.arcadeDrive(inspeedx, inrotationx);
+  }
+  public void DriveTank (double leftspeed, double rightspeed) {
+    drive.tankDrive(leftspeed, rightspeed);
+  } 
+
 }
