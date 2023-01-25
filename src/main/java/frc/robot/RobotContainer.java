@@ -32,8 +32,10 @@ public class RobotContainer {
 
   public Command getDifferentialCommand() {
     return new RunCommand(() -> differentialDrive.DriveTank(
-      driverController.getLeftY(),
-      driverController.getRightY()
-    ));
+        driverController.getLeftY(),
+        driverController.getRightY()
+      ),
+      differentialDrive
+    );
   }
 }
