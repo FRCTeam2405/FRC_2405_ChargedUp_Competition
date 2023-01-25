@@ -104,7 +104,6 @@ public class SwerveModule {
     drivingSparkMax.burnFlash();
     turningSparkMax.burnFlash();
 
-    chassisAngularOffset = chassisAngularOffset;
     desiredModuleState.angle = new Rotation2d(turningEncoder.getPosition());
     drivingEncoder.setPosition(0);
   }
