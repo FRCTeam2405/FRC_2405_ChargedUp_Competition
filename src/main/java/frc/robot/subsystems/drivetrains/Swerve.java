@@ -20,45 +20,51 @@ public class Swerve extends SubsystemBase {
     final SwerveModule frontLeftSwerveModule = new SwerveModule(
       Constants.Drivetrains.Swerve.Motors.Drive.FRONT_LEFT_DRIVE_MOTOR_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.FRONT_LEFT_TURNING_MOTOR_PORT,
-      Constants.Drivetrains.Swerve.Odometry.FRONT_LEFT_CHASSIS_ANGULAR_OFFSET);
+      Constants.Drivetrains.Swerve.Odometry.FRONT_LEFT_CHASSIS_ANGULAR_OFFSET    
+    );
     final SwerveModule frontRightSwerveModule = new SwerveModule(
       Constants.Drivetrains.Swerve.Motors.Drive.FRONT_RIGHT_DRIVE_MOTOR_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.FRONT_RIGHT_TURNING_MOTOR_PORT,
-      Constants.Drivetrains.Swerve.Odometry.FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET);
+      Constants.Drivetrains.Swerve.Odometry.FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET
+    );
     final SwerveModule backLeftSwerveModule = new SwerveModule(
       Constants.Drivetrains.Swerve.Motors.Drive.BACK_LEFT_DRIVE_MOTOR_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.BACK_LEFT_TURNING_MOTOR_PORT,
-      Constants.Drivetrains.Swerve.Odometry.BACK_LEFT_CHASSIS_ANGULAR_OFFSET);
+      Constants.Drivetrains.Swerve.Odometry.BACK_LEFT_CHASSIS_ANGULAR_OFFSET
+    );
     final SwerveModule backRightSwerveModule = new SwerveModule(
       Constants.Drivetrains.Swerve.Motors.Drive.BACK_RIGHT_DRIVE_MOTOR_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.BACK_RIGHT_TURNING_MOTOR_PORT,
-      Constants.Drivetrains.Swerve.Odometry.BACK_RIGHT_CHASSIS_ANGULAR_OFFSET);
+      Constants.Drivetrains.Swerve.Odometry.BACK_RIGHT_CHASSIS_ANGULAR_OFFSET
+    );
 
     // The gyro sensor
     final ADIS16470_IMU m_gyro = new ADIS16470_IMU();
 
     // Odometry class for tracking robot pose
     SwerveDriveOdometry swerveOdometry = new SwerveDriveOdometry(
-    Constants.Drivetrains.Swerve.Odometry.DRIVE_KINEMATICS,
-    Rotation2d.fromDegrees(m_gyro.getAngle()),
-    new SwerveModulePosition[] {
-      frontLeftSwerveModule.getPosition(),
-      frontRightSwerveModule.getPosition(),
-      backLeftSwerveModule.getPosition(),
-      backRightSwerveModule.getPosition()
-    });
+      Constants.Drivetrains.Swerve.Odometry.DRIVE_KINEMATICS,
+      Rotation2d.fromDegrees(m_gyro.getAngle()),
+      new SwerveModulePosition[] {
+        frontLeftSwerveModule.getPosition(),
+        frontRightSwerveModule.getPosition(),
+        backLeftSwerveModule.getPosition(),
+        backRightSwerveModule.getPosition()
+      }
+    );
   }
 @Override
   public void periodic() {
     // Update the odometry in the periodic block
     SwerveOdometry.update(
-    Rotation2d.fromDegrees(m_gyro.getAngle()),
-    new SwerveModulePosition[] {
-      frontLeftSwerveModule.getPosition(),
-      frontRightSwerveModule.getPosition(),
-      backLeftSwerveModule.getPosition(),
-      backRightSwerveModule.getPosition()
-      });
+      Rotation2d.fromDegrees(m_gyro.getAngle()),
+      new SwerveModulePosition[] {
+        frontLeftSwerveModule.getPosition(),
+        frontRightSwerveModule.getPosition(),
+        backLeftSwerveModule.getPosition(),
+        backRightSwerveModule.getPosition()
+        }
+      );
 }
 
 /**
