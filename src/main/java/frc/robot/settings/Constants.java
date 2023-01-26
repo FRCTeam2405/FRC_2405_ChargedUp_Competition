@@ -64,18 +64,18 @@ public final class Constants {
             public static final class Motors {
                 public static final class Drive {
                     //TODO! fix later
-                    public static final int FRONT_LEFT_DRIVE_MOTOR_PORT = 0;
-                    public static final int FRONT_RIGHT_DRIVE_MOTOR_PORT = 0;
-                    public static final int BACK_LEFT_DRIVE_MOTOR_PORT = 0;
-                    public static final int BACK_RIGHT_DRIVE_MOTOR_PORT = 0;
+                    public static final int FRONT_LEFT_PORT = 0;
+                    public static final int FRONT_RIGHT_PORT = 0;
+                    public static final int BACK_LEFT_PORT = 0;
+                    public static final int BACK_RIGHT_PORT = 0;
                 }
 
                 public static final class Turning {
                     //TODO! fix later
-                    public static final int FRONT_LEFT_TURNING_MOTOR_PORT = 0;
-                    public static final int FRONT_RIGHT_TURNING_MOTOR_PORT = 0;
-                    public static final int BACK_LEFT_TURNING_MOTOR_PORT = 0;
-                    public static final int BACK_RIGHT_TURNING_MOTOR_PORT = 0;
+                    public static final int FRONT_LEFT_PORT = 0;
+                    public static final int FRONT_RIGHT_PORT = 0;
+                    public static final int BACK_LEFT_PORT = 0;
+                    public static final int BACK_RIGHT_PORT = 0;
                 }
             }
 
