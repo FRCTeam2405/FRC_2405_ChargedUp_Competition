@@ -7,6 +7,7 @@ package frc.robot.subsystems.drivetrains;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -14,10 +15,12 @@ import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Constants;
 import frc.robot.settings.Constants.Drivetrains.Swerve.Odometry;
+import edu.wpi.first.math.geometry.Translation2d;
 
 public class Swerve extends SubsystemBase {
-  
+
   public static SwerveDriveOdometry swerveOdometry;
+  public static SwerveDriveKinematics swerveKinematics;
   public static SwerveModule frontLeftSwerveModule;
   public static SwerveModule frontRightSwerveModule;
   public static SwerveModule backLeftSwerveModule;
@@ -49,9 +52,28 @@ public class Swerve extends SubsystemBase {
       Constants.Drivetrains.Swerve.Odometry.BACK_RIGHT_CHASSIS_ANGULAR_OFFSET
     );
 
+    swerveKinematics = new SwerveDriveKinematics(
+      new Translation2d(
+        Constants.Drivetrains.Swerve.Odometry.WHEEL_BASE / 2,
+        Constants.Drivetrains.Swerve.Odometry.TRACK_WIDTH / 2
+      ),
+      new Translation2d(
+        Constants.Drivetrains.Swerve.Odometry.WHEEL_BASE / 2,
+        -Constants.Drivetrains.Swerve.Odometry.TRACK_WIDTH / 2
+      ),
+      new Translation2d(
+        -Constants.Drivetrains.Swerve.Odometry.WHEEL_BASE / 2,
+        Constants.Drivetrains.Swerve.Odometry.TRACK_WIDTH / 2
+      ),
+      new Translation2d(
+        -Constants.Drivetrains.Swerve.Odometry.WHEEL_BASE / 2,
+        -Constants.Drivetrains.Swerve.Odometry.TRACK_WIDTH / 2
+      )
+    );
+    
     // Odometry class for tracking robot pose
     swerveOdometry = new SwerveDriveOdometry(
-      Constants.Drivetrains.Swerve.Odometry.DRIVE_KINEMATICS,
+      swerveKinematics,
       Rotation2d.fromDegrees(swerveGyro.getAngle()),
     
       new SwerveModulePosition[] {
@@ -123,10 +145,10 @@ public class Swerve extends SubsystemBase {
     ySpeed *= Constants.Drivetrains.Swerve.Speed.MAX_SPEED_METERS_PER_SECONDS;
     rot *= Constants.Drivetrains.Swerve.Speed.MAX_ANGULAR_SPEED;
 
-    var swerveModuleStates = Constants.Drivetrains.Swerve.Odometry.DRIVE_KINEMATICS.toSwerveModuleStates(
+    var swerveModuleStates = swerveKinematics.toSwerveModuleStates(
       fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(swerveGyro.getAngle())) : new ChassisSpeeds(xSpeed, ySpeed, rot)
     );
-    Constants.Drivetrains.Swerve.Odometry.DRIVE_KINEMATICS.desaturateWheelSpeeds(swerveModuleStates, Constants.Drivetrains.Swerve.Speed.MAX_SPEED_METERS_PER_SECONDS);
+    SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Drivetrains.Swerve.Speed.MAX_SPEED_METERS_PER_SECONDS);
     frontLeftSwerveModule.setDesiredState(swerveModuleStates[0]);
     frontRightSwerveModule.setDesiredState(swerveModuleStates[1]);
     backLeftSwerveModule.setDesiredState(swerveModuleStates[2]);
@@ -150,7 +172,7 @@ public class Swerve extends SubsystemBase {
  */
 
   public void setModuleStates(SwerveModuleState[] desiredStates) {
-    Constants.Drivetrains.Swerve.Odometry.DRIVE_KINEMATICS.desaturateWheelSpeeds(desiredStates, Constants.Drivetrains.Swerve.Speed.MAX_SPEED_METERS_PER_SECONDS);
+    SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.Drivetrains.Swerve.Speed.MAX_SPEED_METERS_PER_SECONDS);
     frontLeftSwerveModule.setDesiredState(desiredStates[0]);
     frontRightSwerveModule.setDesiredState(desiredStates[1]);
     backLeftSwerveModule.setDesiredState(desiredStates[2]);

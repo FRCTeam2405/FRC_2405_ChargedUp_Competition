@@ -40,17 +40,13 @@ public final class Constants {
                 public static final double MAX_ANGULAR_SPEED = 2 * Math.PI; // radians per second
             }
             public static final class Odometry {
-            //TODO! FIX ALL
+                //TODO! FIX ALL
                 // Chassis configuration
-                public static final double TRACK_WIDTH = Units.inchesToMeters(26.5);
+                
                 // Distance between centers of right and left wheels on robot
-                public static final double WHEEL_BASE = Units.inchesToMeters(26.5);
+                public static final double TRACK_WIDTH = Units.inchesToMeters(26.5);
                 // Distance between front and back wheels on robot
-                public static final SwerveDriveKinematics DRIVE_KINEMATICS = new SwerveDriveKinematics(
-                new Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2),
-                new Translation2d(WHEEL_BASE / 2, -TRACK_WIDTH / 2),
-                new Translation2d(-WHEEL_BASE / 2, TRACK_WIDTH / 2),
-                new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2));
+                public static final double WHEEL_BASE = Units.inchesToMeters(26.5);
 
                 // Angular offsets of the modules relative to the chassis in radians
                 public static final double FRONT_LEFT_CHASSIS_ANGULAR_OFFSET = -Math.PI / 2;
