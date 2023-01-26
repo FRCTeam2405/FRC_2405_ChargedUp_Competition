@@ -57,6 +57,8 @@ public final class Constants {
                 public static final double FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET = 0;
                 public static final double BACK_LEFT_CHASSIS_ANGULAR_OFFSET = Math.PI;
                 public static final double BACK_RIGHT_CHASSIS_ANGULAR_OFFSET = Math.PI / 2;
+
+                public static final boolean GYRO_REVERSED = false;
             }
 
             public static final class Motors {
