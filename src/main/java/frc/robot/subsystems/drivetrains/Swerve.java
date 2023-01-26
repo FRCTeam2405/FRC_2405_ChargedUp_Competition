@@ -16,14 +16,16 @@ import frc.robot.settings.Constants;
 import frc.robot.settings.Constants.Drivetrains.Swerve.Odometry;
 
 public class Swerve extends SubsystemBase {
-  /** Creates a new Swerve Drive subsystem. */
+  
   public static SwerveDriveOdometry swerveOdometry;
   public static SwerveModule frontLeftSwerveModule;
   public static SwerveModule frontRightSwerveModule;
   public static SwerveModule backLeftSwerveModule;
   public static SwerveModule backRightSwerveModule;
+  //TODO! is this the right gyro?
   public static ADIS16470_IMU swerveGyro = new ADIS16470_IMU();
 
+  /** Creates a new Swerve Drive subsystem. */
   public Swerve() {
     // Create MAXSwerveModules
     final SwerveModule frontLeftSwerveModule = new SwerveModule(
@@ -122,12 +124,13 @@ public class Swerve extends SubsystemBase {
     rot *= Constants.Drivetrains.Swerve.Speed.MAX_ANGULAR_SPEED;
 
     var swerveModuleStates = Constants.Drivetrains.Swerve.Odometry.DRIVE_KINEMATICS.toSwerveModuleStates(
-      fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(swerveGyro.getAngle())) : new ChassisSpeeds(xSpeed, ySpeed, rot));
-      Constants.Drivetrains.Swerve.Odometry.DRIVE_KINEMATICS.desaturateWheelSpeeds(swerveModuleStates, Constants.Drivetrains.Swerve.Speed.MAX_SPEED_METERS_PER_SECONDS);
-      frontLeftSwerveModule.setDesiredState(swerveModuleStates[0]);
-      frontRightSwerveModule.setDesiredState(swerveModuleStates[1]);
-      backLeftSwerveModule.setDesiredState(swerveModuleStates[2]);
-      backRightSwerveModule.setDesiredState(swerveModuleStates[3]);
+      fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(swerveGyro.getAngle())) : new ChassisSpeeds(xSpeed, ySpeed, rot)
+    );
+    Constants.Drivetrains.Swerve.Odometry.DRIVE_KINEMATICS.desaturateWheelSpeeds(swerveModuleStates, Constants.Drivetrains.Swerve.Speed.MAX_SPEED_METERS_PER_SECONDS);
+    frontLeftSwerveModule.setDesiredState(swerveModuleStates[0]);
+    frontRightSwerveModule.setDesiredState(swerveModuleStates[1]);
+    backLeftSwerveModule.setDesiredState(swerveModuleStates[2]);
+    backRightSwerveModule.setDesiredState(swerveModuleStates[3]);
   }
 
 /**
