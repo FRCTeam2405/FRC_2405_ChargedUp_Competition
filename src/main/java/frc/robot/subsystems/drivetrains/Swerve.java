@@ -22,38 +22,35 @@ public class Swerve extends SubsystemBase {
   public static SwerveModule frontRightSwerveModule;
   public static SwerveModule backLeftSwerveModule;
   public static SwerveModule backRightSwerveModule;
-  public static ADIS16470_IMU m_gyro;
+  public static ADIS16470_IMU swerveGyro = new ADIS16470_IMU();
 
   public Swerve() {
     // Create MAXSwerveModules
     final SwerveModule frontLeftSwerveModule = new SwerveModule(
-      Constants.Drivetrains.Swerve.Motors.Drive.FRONT_LEFT_DRIVE_MOTOR_PORT,
-      Constants.Drivetrains.Swerve.Motors.Turning.FRONT_LEFT_TURNING_MOTOR_PORT,
+      Constants.Drivetrains.Swerve.Motors.Drive.FRONT_LEFT_PORT,
+      Constants.Drivetrains.Swerve.Motors.Turning.FRONT_LEFT_PORT,
       Constants.Drivetrains.Swerve.Odometry.FRONT_LEFT_CHASSIS_ANGULAR_OFFSET
     );
     final SwerveModule frontRightSwerveModule = new SwerveModule(
-      Constants.Drivetrains.Swerve.Motors.Drive.FRONT_RIGHT_DRIVE_MOTOR_PORT,
-      Constants.Drivetrains.Swerve.Motors.Turning.FRONT_RIGHT_TURNING_MOTOR_PORT,
+      Constants.Drivetrains.Swerve.Motors.Drive.FRONT_RIGHT_PORT,
+      Constants.Drivetrains.Swerve.Motors.Turning.FRONT_RIGHT_PORT,
       Constants.Drivetrains.Swerve.Odometry.FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET
     );
     final SwerveModule backLeftSwerveModule = new SwerveModule(
-      Constants.Drivetrains.Swerve.Motors.Drive.BACK_LEFT_DRIVE_MOTOR_PORT,
-      Constants.Drivetrains.Swerve.Motors.Turning.BACK_LEFT_TURNING_MOTOR_PORT,
+      Constants.Drivetrains.Swerve.Motors.Drive.BACK_LEFT_PORT,
+      Constants.Drivetrains.Swerve.Motors.Turning.BACK_LEFT_PORT,
       Constants.Drivetrains.Swerve.Odometry.BACK_LEFT_CHASSIS_ANGULAR_OFFSET
     );
     final SwerveModule backRightSwerveModule = new SwerveModule(
-      Constants.Drivetrains.Swerve.Motors.Drive.BACK_RIGHT_DRIVE_MOTOR_PORT,
-      Constants.Drivetrains.Swerve.Motors.Turning.BACK_RIGHT_TURNING_MOTOR_PORT,
+      Constants.Drivetrains.Swerve.Motors.Drive.BACK_RIGHT_PORT,
+      Constants.Drivetrains.Swerve.Motors.Turning.BACK_RIGHT_PORT,
       Constants.Drivetrains.Swerve.Odometry.BACK_RIGHT_CHASSIS_ANGULAR_OFFSET
     );
-
-    // The gyro sensor
-    final ADIS16470_IMU m_gyro = new ADIS16470_IMU();
 
     // Odometry class for tracking robot pose
     swerveOdometry = new SwerveDriveOdometry(
       Constants.Drivetrains.Swerve.Odometry.DRIVE_KINEMATICS,
-      Rotation2d.fromDegrees(m_gyro.getAngle()),
+      Rotation2d.fromDegrees(swerveGyro.getAngle()),
     
       new SwerveModulePosition[] {
         frontLeftSwerveModule.getPosition(),
@@ -67,7 +64,7 @@ public class Swerve extends SubsystemBase {
   public void periodic() {
     // Update the odometry in the periodic block
     swerveOdometry.update(
-      Rotation2d.fromDegrees(m_gyro.getAngle()),
+      Rotation2d.fromDegrees(swerveGyro.getAngle()),
     
       new SwerveModulePosition[] {
         frontLeftSwerveModule.getPosition(),
@@ -96,7 +93,7 @@ public class Swerve extends SubsystemBase {
 
   public void resetOdometry(Pose2d pose) {
     swerveOdometry.resetPosition(
-      Rotation2d.fromDegrees(m_gyro.getAngle()),
+      Rotation2d.fromDegrees(swerveGyro.getAngle()),
       
       new SwerveModulePosition[] {
         frontLeftSwerveModule.getPosition(),
@@ -125,7 +122,7 @@ public class Swerve extends SubsystemBase {
     rot *= Constants.Drivetrains.Swerve.Speed.MAX_ANGULAR_SPEED;
 
     var swerveModuleStates = Constants.Drivetrains.Swerve.Odometry.DRIVE_KINEMATICS.toSwerveModuleStates(
-      fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(m_gyro.getAngle())) : new ChassisSpeeds(xSpeed, ySpeed, rot));
+      fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(swerveGyro.getAngle())) : new ChassisSpeeds(xSpeed, ySpeed, rot));
       Constants.Drivetrains.Swerve.Odometry.DRIVE_KINEMATICS.desaturateWheelSpeeds(swerveModuleStates, Constants.Drivetrains.Swerve.Speed.MAX_SPEED_METERS_PER_SECONDS);
       frontLeftSwerveModule.setDesiredState(swerveModuleStates[0]);
       frontRightSwerveModule.setDesiredState(swerveModuleStates[1]);
@@ -167,7 +164,7 @@ public class Swerve extends SubsystemBase {
 
 /** Zeroes the heading of the robot. */
   public void zeroHeading() {
-    m_gyro.reset();
+    swerveGyro.reset();
   }
 
 /**
@@ -176,7 +173,7 @@ public class Swerve extends SubsystemBase {
  * @return the robot's heading in degrees, from -180 to 180
  */
   public double getHeading() {
-    return Rotation2d.fromDegrees(m_gyro.getAngle()).getDegrees();
+    return Rotation2d.fromDegrees(swerveGyro.getAngle()).getDegrees();
   }
 
 /**
@@ -185,7 +182,7 @@ public class Swerve extends SubsystemBase {
  * @return The turn rate of the robot, in degrees per second
  */
   public double getTurnRate() {
-    return m_gyro.getRate() * (Constants.Drivetrains.Swerve.Odometry.GYRO_REVERSED ? -1.0 : 1.0);
+    return swerveGyro.getRate() * (Constants.Drivetrains.Swerve.Odometry.GYRO_REVERSED ? -1.0 : 1.0);
   }
 }
 
