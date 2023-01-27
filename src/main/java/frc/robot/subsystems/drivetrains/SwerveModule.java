@@ -35,6 +35,7 @@ public class SwerveModule {
    * MAXSwerve Module built with NEOs, SPARKS MAX, and a Through Bore
    * Encoder.
    */
+  //TODO! change this to our swerve module
   public SwerveModule(int drivingCANId, int turningCANId, double chassisAngularOffset) {
     drivingSparkMax = new CANSparkMax(drivingCANId, MotorType.kBrushless);
     turningSparkMax = new CANSparkMax(turningCANId, MotorType.kBrushless);
