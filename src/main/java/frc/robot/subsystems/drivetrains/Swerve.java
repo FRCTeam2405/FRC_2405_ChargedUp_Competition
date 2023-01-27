@@ -14,7 +14,6 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Constants;
-import frc.robot.settings.Constants.Drivetrains.Swerve.Odometry;
 import edu.wpi.first.math.geometry.Translation2d;
 
 public class Swerve extends SubsystemBase {
