@@ -60,37 +60,32 @@ public final class Constants {
             public static final class Motors {
                 public static final class Drive {
                     //TODO! fix later
-                    public static final int FRONT_LEFT_PORT = 0;
-                    public static final int FRONT_RIGHT_PORT = 0;
-                    public static final int BACK_LEFT_PORT = 0;
-                    public static final int BACK_RIGHT_PORT = 0;
+                    public static final int FRONT_LEFT_PORT = 20;
+                    public static final int FRONT_RIGHT_PORT = 21;
+                    public static final int BACK_LEFT_PORT = 22;
+                    public static final int BACK_RIGHT_PORT = 23;
                 }
 
                 public static final class Turning {
                     //TODO! fix later
-                    public static final int FRONT_LEFT_PORT = 0;
-                    public static final int FRONT_RIGHT_PORT = 0;
-                    public static final int BACK_LEFT_PORT = 0;
-                    public static final int BACK_RIGHT_PORT = 0;
+                    public static final int FRONT_LEFT_PORT = 30;
+                    public static final int FRONT_RIGHT_PORT = 31;
+                    public static final int BACK_LEFT_PORT = 32;
+                    public static final int BACK_RIGHT_PORT = 33;
                 }
             }
 
             public static final class Encoders {
                 //TODO! fix later
                 public final int QUAD_COUNTS_PER_ROTATION = 4096;
-                public static final int FRONT_LEFT_PORT = 0;
-                public static final int FRONT_RIGHT_PORT = 0;
-                public static final int BACK_LEFT_PORT = 0;
-                public static final int BACK_RIGHT_PORT = 0;
+                public static final int FRONT_LEFT_PORT = 40;
+                public static final int FRONT_RIGHT_PORT = 41;
+                public static final int BACK_LEFT_PORT = 42;
+                public static final int BACK_RIGHT_PORT = 43;
             }
 
             public static final class Module {
                 //TODO! ALL #'s
-
-                // The MAXSwerve module can be configured with one of three pinion gears: 12T, 13T, or 14T.
-                // This changes the drive speed of the module (a pinion gear with more teeth will result in a
-                // robot that drives faster).
-                public static final int DRIVING_MOTOR_PINION_TEETH = 14;
             
                 // Invert the turning encoder, since the output shaft rotates in the opposite direction of
                 // the steering motor in the MAXSwerve Module.
@@ -99,12 +94,12 @@ public final class Constants {
                 // Calculations required for driving motor conversion factors and feed forward
                 public static final double FREE_SPEED_RPM = 5676;
 
-                public static final double DRIVING_MOTOR_FREE_SPEED_RPS = FREE_SPEED_RPM / 60;
-                public static final double WHEEL_DIAMETER_METERS = 0.0762;
+                public static final double FREE_SPEED_RPS = FREE_SPEED_RPM / 60;
+                public static final double WHEEL_DIAMETER_METERS = 0.096012;
                 public static final double WHEEL_CIRCUMFERENCE_METERS = WHEEL_DIAMETER_METERS * Math.PI;
-                // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15 teeth on the bevel pinion
-                public static final double DRIVING_MOTOR_REDUCTION = (45.0 * 22) / (DRIVING_MOTOR_PINION_TEETH * 15);
-                public static final double DRIVE_WHEEL_FREE_SPEED_RPS = (DRIVING_MOTOR_FREE_SPEED_RPS * WHEEL_CIRCUMFERENCE_METERS)
+                // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15 teeth on the bevel pinion ex. public static final double DRIVING_MOTOR_REDUCTION = (45.0 * 22) / (DRIVING_MOTOR_PINION_TEETH * 15);
+                public static final double DRIVING_MOTOR_REDUCTION = 7.13;
+                public static final double DRIVE_WHEEL_FREE_SPEED_RPS = (FREE_SPEED_RPS * WHEEL_CIRCUMFERENCE_METERS)
                     / DRIVING_MOTOR_REDUCTION;
                 
                 public static final double DRIVING_ENCODER_POSITION_FACTOR = (WHEEL_DIAMETER_METERS * Math.PI)
