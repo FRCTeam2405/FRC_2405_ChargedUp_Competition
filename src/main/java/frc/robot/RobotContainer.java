@@ -37,7 +37,7 @@ public class RobotContainer {
       () ->
         swerveDrive.drive(
           // In WPILib, the front of the robot faces positive X
-          // in the coordinate plane. However, the xbox joystick's
+          // in the coordinate plane. However, the Xbox joystick's
           // X axis is horizontal (when held correctly), so to make
           // movement intuitive, we must swap the X and Y axes in the input.
           driverController.getLeftY(),
