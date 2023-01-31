@@ -67,6 +67,7 @@ public class SwerveModule {
 
     // Invert the turning encoder, since the output shaft rotates in the opposite direction of
     // the steering motor in the MAXSwerve Module.
+    //TODO! is this true for our module?
     turningEncoder.setInverted(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_INVERTED);
 
     // Enable PID wrap around for the turning motor. This will allow the PID
