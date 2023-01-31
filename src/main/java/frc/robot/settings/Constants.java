@@ -34,8 +34,8 @@ public final class Constants {
 
         public static final class Swerve {
             public static final class Speed {
-                public static final double MAX_SPEED_METERS_PER_SECONDS = 4.8;
-                public static final double MAX_ANGULAR_SPEED = 2 * Math.PI; // radians per second
+                public static final double MAX_SPEED_METERS_PER_SECONDS = 2;
+                public static final double MAX_ANGULAR_SPEED = 1 * Math.PI; // radians per second
             }
             public static final class Odometry {
                 //TODO! FIX ALL
