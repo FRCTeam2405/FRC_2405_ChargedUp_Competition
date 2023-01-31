@@ -16,6 +16,7 @@ import edu.wpi.first.math.util.Units;
 public final class Constants {
     /** This year we have to support multiple drivetrains, so each drivetrain is a subclass. */
     public static final class Drivetrains {
+
         public static final class Differential {
             public static final class Motors {               
                 public static final int FRONT_LEFT_PORT = 0;
@@ -33,6 +34,9 @@ public final class Constants {
         }
 
         public static final class Swerve {
+
+            public static final boolean FIELD_RELATIVE = true;
+
             public static final class Speed {
                 public static final double MAX_SPEED_METERS_PER_SECONDS = 2;
                 public static final double MAX_ANGULAR_SPEED = 1 * Math.PI; // radians per second
@@ -135,5 +139,9 @@ public final class Constants {
                 }
             }
         }
+    }
+
+    public static final class Controllers {
+        public static final int DRIVER_CONTROLLER_PORT = 0;
     }
 }
