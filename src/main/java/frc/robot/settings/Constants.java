@@ -35,7 +35,7 @@ public final class Constants {
 
         public static final class Swerve {
 
-            public static final boolean FIELD_RELATIVE = true;
+            public static final boolean FIELD_RELATIVE = false;
 
             public static final class Speed {
                 public static final double MAX_SPEED_METERS_PER_SECONDS = 2;

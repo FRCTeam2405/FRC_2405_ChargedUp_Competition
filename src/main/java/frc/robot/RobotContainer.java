@@ -14,12 +14,17 @@ import frc.robot.subsystems.drivetrains.Swerve;
 public class RobotContainer {
 
   // Declare subsystems
-  private final Swerve swerveDrive = new Swerve();
+  private final Swerve swerveDrive;
 
   // Declare controllers
   private XboxController driverController = new XboxController(Constants.Controllers.DRIVER_CONTROLLER_PORT);
 
   public RobotContainer() {
+
+    swerveDrive = new Swerve();
+
+    swerveDrive.navX.calibrate();
+
     configureBindings();
 
     // Set default commands

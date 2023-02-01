@@ -20,14 +20,14 @@ import edu.wpi.first.math.geometry.Translation2d;
 
 public class Swerve extends SubsystemBase {
 
-  public static SwerveDriveOdometry swerveOdometry;
-  public static SwerveDriveKinematics swerveKinematics;
-  public static SwerveModule frontLeftSwerveModule;
-  public static SwerveModule frontRightSwerveModule;
-  public static SwerveModule backLeftSwerveModule;
-  public static SwerveModule backRightSwerveModule;
+  public SwerveDriveOdometry swerveOdometry;
+  public SwerveDriveKinematics swerveKinematics;
+  public SwerveModule frontLeftSwerveModule;
+  public SwerveModule frontRightSwerveModule;
+  public SwerveModule backLeftSwerveModule;
+  public SwerveModule backRightSwerveModule;
 
-  public static AHRS navX;
+  public AHRS navX;
 
   /** Creates a new Swerve Drive subsystem. */
   public Swerve() {
@@ -35,22 +35,22 @@ public class Swerve extends SubsystemBase {
     navX = new AHRS(Port.kMXP);
 
     // Create MAXSwerveModules
-    final SwerveModule frontLeftSwerveModule = new SwerveModule(
+    frontLeftSwerveModule = new SwerveModule(
       Constants.Drivetrains.Swerve.Motors.Drive.FRONT_LEFT_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.FRONT_LEFT_PORT,
       Constants.Drivetrains.Swerve.Odometry.FRONT_LEFT_CHASSIS_ANGULAR_OFFSET
     );
-    final SwerveModule frontRightSwerveModule = new SwerveModule(
+    frontRightSwerveModule = new SwerveModule(
       Constants.Drivetrains.Swerve.Motors.Drive.FRONT_RIGHT_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.FRONT_RIGHT_PORT,
       Constants.Drivetrains.Swerve.Odometry.FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET
     );
-    final SwerveModule backLeftSwerveModule = new SwerveModule(
+    backLeftSwerveModule = new SwerveModule(
       Constants.Drivetrains.Swerve.Motors.Drive.BACK_LEFT_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.BACK_LEFT_PORT,
       Constants.Drivetrains.Swerve.Odometry.BACK_LEFT_CHASSIS_ANGULAR_OFFSET
     );
-    final SwerveModule backRightSwerveModule = new SwerveModule(
+    backRightSwerveModule = new SwerveModule(
       Constants.Drivetrains.Swerve.Motors.Drive.BACK_RIGHT_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.BACK_RIGHT_PORT,
       Constants.Drivetrains.Swerve.Odometry.BACK_RIGHT_CHASSIS_ANGULAR_OFFSET
@@ -90,17 +90,21 @@ public class Swerve extends SubsystemBase {
   }
   @Override
   public void periodic() {
-    // Update the odometry in the periodic block
-    swerveOdometry.update(
-      Rotation2d.fromDegrees(navX.getAngle()),
+    // Once all swerve modules have been initialized
+    if(backRightSwerveModule != null) {
+      // Update the odometry in the periodic block
+      swerveOdometry.update(
+        Rotation2d.fromDegrees(navX.getAngle()),
     
-      new SwerveModulePosition[] {
-        frontLeftSwerveModule.getPosition(),
-        frontRightSwerveModule.getPosition(),
-        backLeftSwerveModule.getPosition(),
-        backRightSwerveModule.getPosition()
-      }
-    );
+        new SwerveModulePosition[] {
+          frontLeftSwerveModule.getPosition(),
+          frontRightSwerveModule.getPosition(),
+          backLeftSwerveModule.getPosition(),
+          backRightSwerveModule.getPosition()
+        }
+      );
+    }
+    
   }
 
 /**
