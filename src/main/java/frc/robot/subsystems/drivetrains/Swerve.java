@@ -154,7 +154,9 @@ public class Swerve extends SubsystemBase {
     rot *= Constants.Drivetrains.Swerve.Speed.MAX_ANGULAR_SPEED;
 
     var swerveModuleStates = swerveKinematics.toSwerveModuleStates(
-      fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(navX.getAngle())) : new ChassisSpeeds(xSpeed, ySpeed, rot)
+      fieldRelative // ternary operator - runs ? if true, : if false
+        ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(navX.getAngle()))
+        : new ChassisSpeeds(xSpeed, ySpeed, rot)
     );
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Drivetrains.Swerve.Speed.MAX_SPEED_METERS_PER_SECONDS);
     frontLeftSwerveModule.setDesiredState(swerveModuleStates[0]);
