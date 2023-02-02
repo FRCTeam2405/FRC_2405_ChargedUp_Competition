@@ -45,8 +45,8 @@ public class RobotContainer {
           // in the coordinate plane. However, the Xbox joystick's
           // X axis is horizontal (when held correctly), so to make
           // movement intuitive, we must swap the X and Y axes in the input.
-          driverController.getLeftY(),
           driverController.getLeftX(),
+          driverController.getLeftY(),
           driverController.getRightX(),
           Constants.Drivetrains.Swerve.FIELD_RELATIVE
         ),

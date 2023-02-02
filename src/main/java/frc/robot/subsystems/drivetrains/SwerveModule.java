@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems.drivetrains;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -13,6 +14,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 import com.revrobotics.SparkMaxPIDController;
+import com.ctre.phoenix.sensors.WPI_CANCoder;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 
@@ -21,7 +23,7 @@ public class SwerveModule {
   private final CANSparkMax turningSparkMax;
 
   private final RelativeEncoder drivingEncoder;
-  private final AbsoluteEncoder turningEncoder;
+  private final RelativeEncoder turningEncoder;
 
   private final SparkMaxPIDController drivingPIDController;
   private final SparkMaxPIDController turningPIDController;
@@ -35,7 +37,7 @@ public class SwerveModule {
    * MAXSwerve Module built with NEOs, SPARKS MAX, and a Through Bore
    * Encoder.
    */
-  public SwerveModule(int drivingCANId, int turningCANId, double chassisAngularOffset) {
+  public SwerveModule(int drivingCANId, int turningCANId, int canCoderID, double chassisAngularOffset) {
 
     angularOffset = chassisAngularOffset;
 
@@ -49,7 +51,7 @@ public class SwerveModule {
 
     // Setup encoders and PID controllers for the driving and turning SPARKS MAX.
     drivingEncoder = drivingSparkMax.getEncoder();
-    turningEncoder = turningSparkMax.getAbsoluteEncoder(Type.kDutyCycle);
+    turningEncoder = turningSparkMax.getEncoder();
     drivingPIDController = drivingSparkMax.getPIDController();
     turningPIDController = turningSparkMax.getPIDController();
     drivingPIDController.setFeedbackDevice(drivingEncoder);
@@ -71,6 +73,7 @@ public class SwerveModule {
     // the steering motor in the MAXSwerve Module.
     //TODO! is this true for our module?
     turningEncoder.setInverted(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_INVERTED);
+
 
     // Enable PID wrap around for the turning motor. This will allow the PID
     // controller to go through 0 to get to the setpoint i.e. going from 350 degrees

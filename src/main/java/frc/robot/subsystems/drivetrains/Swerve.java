@@ -38,21 +38,25 @@ public class Swerve extends SubsystemBase {
     frontLeftSwerveModule = new SwerveModule(
       Constants.Drivetrains.Swerve.Motors.Drive.FRONT_LEFT_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.FRONT_LEFT_PORT,
+      Constants.Drivetrains.Swerve.Encoders.FRONT_LEFT_PORT,
       Constants.Drivetrains.Swerve.Odometry.FRONT_LEFT_CHASSIS_ANGULAR_OFFSET
     );
     frontRightSwerveModule = new SwerveModule(
       Constants.Drivetrains.Swerve.Motors.Drive.FRONT_RIGHT_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.FRONT_RIGHT_PORT,
+      Constants.Drivetrains.Swerve.Encoders.FRONT_RIGHT_PORT,
       Constants.Drivetrains.Swerve.Odometry.FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET
     );
     backLeftSwerveModule = new SwerveModule(
       Constants.Drivetrains.Swerve.Motors.Drive.BACK_LEFT_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.BACK_LEFT_PORT,
+      Constants.Drivetrains.Swerve.Encoders.BACK_LEFT_PORT,
       Constants.Drivetrains.Swerve.Odometry.BACK_LEFT_CHASSIS_ANGULAR_OFFSET
     );
     backRightSwerveModule = new SwerveModule(
       Constants.Drivetrains.Swerve.Motors.Drive.BACK_RIGHT_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.BACK_RIGHT_PORT,
+      Constants.Drivetrains.Swerve.Encoders.BACK_RIGHT_PORT,
       Constants.Drivetrains.Swerve.Odometry.BACK_RIGHT_CHASSIS_ANGULAR_OFFSET
     );
 
