@@ -14,6 +14,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 import com.revrobotics.SparkMaxPIDController;
+import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.WPI_CANCoder;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
@@ -23,7 +24,7 @@ public class SwerveModule {
   private final CANSparkMax turningSparkMax;
 
   private final RelativeEncoder drivingEncoder;
-  private final RelativeEncoder turningEncoder;
+  private final WPI_CANCoder turningEncoder;
 
   private final SparkMaxPIDController drivingPIDController;
   private final PIDController turningPIDController;
@@ -51,7 +52,7 @@ public class SwerveModule {
 
     // Setup encoders and PID controllers for the driving and turning SPARKS MAX.
     drivingEncoder = drivingSparkMax.getEncoder();
-    turningEncoder = turningSparkMax.getEncoder();
+    turningEncoder = new WPI_CANCoder(canCoderID);
     drivingPIDController = drivingSparkMax.getPIDController();
     turningPIDController = new PIDController(
       Constants.Drivetrains.Swerve.Module.PID.DRIVING_MOTOR_P,
@@ -69,8 +70,8 @@ public class SwerveModule {
     // Apply position and velocity conversion factors for the turning encoder. We
     // want these in radians and radians per second to use with WPILib's swerve
     // APIs.
-    turningEncoder.setPositionConversionFactor(Constants.Drivetrains.Swerve.Module.DRIVING_ENCODER_POSITION_FACTOR);
-    turningEncoder.setVelocityConversionFactor(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_VELOCITY_FACTOR);
+    // turningEncoder.setPositionConversionFactor(Constants.Drivetrains.Swerve.Module.DRIVING_ENCODER_POSITION_FACTOR);
+    // turningEncoder.setVelocityConversionFactor(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_VELOCITY_FACTOR);
 
     // Invert the turning encoder, since the output shaft rotates in the opposite direction of
     // the steering motor in the MAXSwerve Module.
@@ -82,6 +83,8 @@ public class SwerveModule {
     // controller to go through 0 to get to the setpoint i.e. going from 350 degrees
     // to 10 degrees will go through 0 rather than the other direction which is a
     // longer route.
+    turningEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
+
     turningPIDController.enableContinuousInput(
       Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_POSITION_PID_MINIMUM_INPUT,
       Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_POSITION_PID_MAXIMUM_INPUT
@@ -100,14 +103,14 @@ public class SwerveModule {
 
     // Set the PID gains for the turning motor.
     //TODO! Tune these
-    turningPIDController.setP(Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_P);
-    turningPIDController.setI(Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_I);
-    turningPIDController.setD(Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_D);
-    turningPIDController.setFF(Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_FF);
-    turningPIDController.setOutputRange(
-      Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_MINIMUM_OUTPUT,
-      Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_MAXIMUM_OUTPUT
-    );
+    // turningPIDController.setP(Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_P);
+    // turningPIDController.setI(Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_I);
+    // turningPIDController.setD(Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_D);
+    // turningPIDController.setFF(Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_FF);
+    // turningPIDController.setOutputRange(
+    //   Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_MINIMUM_OUTPUT,
+    //   Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_MAXIMUM_OUTPUT
+    // );
 
     drivingSparkMax.setIdleMode(Constants.Drivetrains.Swerve.Module.DRIVING_MOTOR_IDLE_MODE);
     turningSparkMax.setIdleMode(Constants.Drivetrains.Swerve.Module.TURNING_MOTOR_IDLE_MODE);
@@ -181,6 +184,8 @@ public class SwerveModule {
   }
 
   public void turnWheel() {
-    turningSparkMax.set(turningPIDController.calculate(turningEncoder.getPosition()));
+    if(!turningPIDController.atSetpoint()) {
+      turningSparkMax.set(turningPIDController.calculate(turningEncoder.getAbsolutePosition()));
+    }
   }
 }
