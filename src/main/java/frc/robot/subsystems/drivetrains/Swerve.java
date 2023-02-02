@@ -107,6 +107,12 @@ public class Swerve extends SubsystemBase {
           backRightSwerveModule.getPosition()
         }
       );
+
+      // Turn wheels towards the desired positions
+      frontLeftSwerveModule.turnWheel();
+      frontRightSwerveModule.turnWheel();
+      backLeftSwerveModule.turnWheel();
+      backRightSwerveModule.turnWheel();
     }
     
   }

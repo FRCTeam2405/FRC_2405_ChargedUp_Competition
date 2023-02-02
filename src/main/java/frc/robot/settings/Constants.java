@@ -126,15 +126,15 @@ public final class Constants {
                     public static final double DRIVING_MOTOR_I = 0;
                     public static final double DRIVING_MOTOR_D = 0;
                     public static final double DRIVING_MOTOR_FF = 1 / DRIVE_WHEEL_FREE_SPEED_RPS;
-                    public static final double DRIVING_MOTOR_MINIMUM_OUTPUT = -1;
-                    public static final double DRIVING_MOTOR_MAXIMUM_OUTPUT = 1;
+                    public static final double DRIVING_MOTOR_MINIMUM_OUTPUT = -0.4;
+                    public static final double DRIVING_MOTOR_MAXIMUM_OUTPUT = 0.4;
 
                     public static final double TURNING_MOTOR_P = 1;
                     public static final double TURNING_MOTOR_I = 0;
                     public static final double TURNING_MOTOR_D = 0;
                     public static final double TURNING_MOTOR_FF = 0 / DRIVE_WHEEL_FREE_SPEED_RPS;
-                    public static final double TURNING_MOTOR_MINIMUM_OUTPUT = -1;
-                    public static final double TURNING_MOTOR_MAXIMUM_OUTPUT = 1;
+                    public static final double TURNING_MOTOR_MINIMUM_OUTPUT = -0.4;
+                    public static final double TURNING_MOTOR_MAXIMUM_OUTPUT = 0.4;
                 
                 }
             }

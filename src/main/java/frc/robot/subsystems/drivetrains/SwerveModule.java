@@ -26,7 +26,7 @@ public class SwerveModule {
   private final RelativeEncoder turningEncoder;
 
   private final SparkMaxPIDController drivingPIDController;
-  private final SparkMaxPIDController turningPIDController;
+  private final PIDController turningPIDController;
 
   private double angularOffset;
   private SwerveModuleState desiredModuleState = new SwerveModuleState(0.0, new Rotation2d());
@@ -53,9 +53,13 @@ public class SwerveModule {
     drivingEncoder = drivingSparkMax.getEncoder();
     turningEncoder = turningSparkMax.getEncoder();
     drivingPIDController = drivingSparkMax.getPIDController();
-    turningPIDController = turningSparkMax.getPIDController();
+    turningPIDController = new PIDController(
+      Constants.Drivetrains.Swerve.Module.PID.DRIVING_MOTOR_P,
+      Constants.Drivetrains.Swerve.Module.PID.DRIVING_MOTOR_I,
+      Constants.Drivetrains.Swerve.Module.PID.DRIVING_MOTOR_D
+    );
     drivingPIDController.setFeedbackDevice(drivingEncoder);
-    turningPIDController.setFeedbackDevice(turningEncoder);
+    turningPIDController.
 
     // Apply position and velocity conversion factors for the driving encoder. The
     // native units for position and velocity are rotations and RPM, respectively,
@@ -72,7 +76,7 @@ public class SwerveModule {
     // Invert the turning encoder, since the output shaft rotates in the opposite direction of
     // the steering motor in the MAXSwerve Module.
     //TODO! is this true for our module?
-    turningEncoder.setInverted(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_INVERTED);
+    //turningEncoder.setInverted(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_INVERTED);
 
 
     // Enable PID wrap around for the turning motor. This will allow the PID
@@ -168,11 +172,15 @@ public class SwerveModule {
 
     // Command driving and turning SPARKS MAX towards their respective setpoints.
     drivingPIDController.setReference(optimizedDesiredState.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity);
-    turningPIDController.setReference(optimizedDesiredState.angle.getRadians(), CANSparkMax.ControlType.kPosition);
+    turningPIDController.setSetpoint(optimizedDesiredState.angle.getRadians());
   }
 
   /** Zeroes all the SwerveModule encoders. */
   public void resetEncoders() {
     drivingEncoder.setPosition(0);
+  }
+
+  public void turnWheel() {
+    turningSparkMax.set(turningPIDController.calculate(turningEncoder.getPosition()));
   }
 }
