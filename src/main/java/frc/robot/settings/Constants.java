@@ -112,8 +112,8 @@ public final class Constants {
                 public static final double TURNING_ENCODER_POSITION_FACTOR = (2 * Math.PI); // radians
                 public static final double TURNING_ENCODER_VELOCITY_FACTOR = (2 * Math.PI) / 60.0; // radians per second
                 
-                public static final double TURNING_ENCODER_POSITION_PID_MINIMUM_INPUT = 0; // radians
-                public static final double TURNING_ENCODER_POSITION_PID_MAXIMUM_INPUT = TURNING_ENCODER_POSITION_FACTOR; // radians
+                public static final double TURNING_ENCODER_POSITION_PID_MINIMUM_INPUT = 0; // degrees
+                public static final double TURNING_ENCODER_POSITION_PID_MAXIMUM_INPUT = 360; // degrees
             
                 public static final IdleMode DRIVING_MOTOR_IDLE_MODE = IdleMode.kBrake;
                 public static final IdleMode TURNING_MOTOR_IDLE_MODE = IdleMode.kBrake;

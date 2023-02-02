@@ -59,7 +59,6 @@ public class SwerveModule {
       Constants.Drivetrains.Swerve.Module.PID.DRIVING_MOTOR_D
     );
     drivingPIDController.setFeedbackDevice(drivingEncoder);
-    turningPIDController.
 
     // Apply position and velocity conversion factors for the driving encoder. The
     // native units for position and velocity are rotations and RPM, respectively,
@@ -83,9 +82,10 @@ public class SwerveModule {
     // controller to go through 0 to get to the setpoint i.e. going from 350 degrees
     // to 10 degrees will go through 0 rather than the other direction which is a
     // longer route.
-    turningPIDController.setPositionPIDWrappingEnabled(true);
-    turningPIDController.setPositionPIDWrappingMinInput(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_POSITION_PID_MINIMUM_INPUT);
-    turningPIDController.setPositionPIDWrappingMaxInput(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_POSITION_PID_MAXIMUM_INPUT);
+    turningPIDController.enableContinuousInput(
+      Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_POSITION_PID_MINIMUM_INPUT,
+      Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_POSITION_PID_MAXIMUM_INPUT
+    );
 
     // Set the PID gains for the driving motor.
     //TODO! Tune these
@@ -172,7 +172,7 @@ public class SwerveModule {
 
     // Command driving and turning SPARKS MAX towards their respective setpoints.
     drivingPIDController.setReference(optimizedDesiredState.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity);
-    turningPIDController.setSetpoint(optimizedDesiredState.angle.getRadians());
+    turningPIDController.setSetpoint(optimizedDesiredState.angle.getDegrees());
   }
 
   /** Zeroes all the SwerveModule encoders. */
