@@ -26,5 +26,13 @@ public final class Constants {
 
     public static final class LEDs {
         public static final int PORT = 0;
+        public static final class Colors {
+            public static final double LED_SETTING_DEFAULT = 0.11;
+            public static final double STROBE_RED = -0.11;
+            public static final double HEARTBEAT_RED = -0.25;
+            public static final double SOLID_RED = 0.61;
+
+            public static final double SHOT_BLUE = -0.83;
+        }
     }
 }
