@@ -9,7 +9,7 @@ import frc.robot.settings.Constants;
 
 public class Lights extends SubsystemBase {
 
-  private PWMSparkMax rawLights = new PWMSparkMax(Constants.LEDs.PORT);
+  public PWMSparkMax rawLights = new PWMSparkMax(Constants.LEDs.PORT);
 
   /** Creates a new Lights subsystem for managing the robot LEDs. */
   public Lights() {}
