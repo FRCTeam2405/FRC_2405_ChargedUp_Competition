@@ -9,6 +9,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.settings.Constants;
 
 import com.revrobotics.CANSparkMax;
@@ -166,8 +167,7 @@ public class SwerveModule {
         -1, 1
       ) * Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_MAXIMUM_OUTPUT
     );
-    System.out.println(turningPIDController.calculate(turningEncoder.getAbsolutePosition()));
-  }
+    SmartDashboard.putNumber("calculate", turningPIDController.calculate(turningEncoder.getAbsolutePosition()));  }
 
   /** Zeroes all the SwerveModule encoders. */
   public void resetEncoders() {
