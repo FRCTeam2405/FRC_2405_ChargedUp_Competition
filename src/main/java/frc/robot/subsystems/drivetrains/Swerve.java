@@ -6,6 +6,8 @@ package frc.robot.subsystems.drivetrains;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -22,6 +24,7 @@ public class Swerve extends SubsystemBase {
 
   public SwerveDriveOdometry swerveOdometry;
   public SwerveDriveKinematics swerveKinematics;
+
   public SwerveModule frontLeftSwerveModule;
   public SwerveModule frontRightSwerveModule;
   public SwerveModule backLeftSwerveModule;
@@ -34,7 +37,7 @@ public class Swerve extends SubsystemBase {
 
     navX = new AHRS(Port.kMXP);
 
-    // Create MAXSwerveModules
+    // Create SwerveModules
     frontLeftSwerveModule = new SwerveModule(
       Constants.Drivetrains.Swerve.Motors.Drive.FRONT_LEFT_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.FRONT_LEFT_PORT,
@@ -108,11 +111,11 @@ public class Swerve extends SubsystemBase {
         }
       );
 
-      // Turn wheels towards the desired positions
-      frontLeftSwerveModule.turnWheel();
-      frontRightSwerveModule.turnWheel();
-      backLeftSwerveModule.turnWheel();
-      backRightSwerveModule.turnWheel();
+      // // Turn wheels towards the desired positions
+      // frontLeftSwerveModule.turnWheel();
+      // frontRightSwerveModule.turnWheel();
+      // backLeftSwerveModule.turnWheel();
+      // backRightSwerveModule.turnWheel();
     }
     
   }

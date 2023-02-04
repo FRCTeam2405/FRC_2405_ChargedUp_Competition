@@ -84,6 +84,9 @@ public final class Constants {
                 public static final int FRONT_RIGHT_PORT = 41;
                 public static final int BACK_LEFT_PORT = 42;
                 public static final int BACK_RIGHT_PORT = 43;
+
+                public static final double ERROR_TOLERANCE = 3.0;
+                public static final double DERIVATIVE_TOLERANCE = 1.0;
             }
 
             public static final class Module {
@@ -112,8 +115,8 @@ public final class Constants {
                 public static final double TURNING_ENCODER_POSITION_FACTOR = (2 * Math.PI); // radians
                 public static final double TURNING_ENCODER_VELOCITY_FACTOR = (2 * Math.PI) / 60.0; // radians per second
                 
-                public static final double TURNING_ENCODER_POSITION_PID_MINIMUM_INPUT = 0; // degrees
-                public static final double TURNING_ENCODER_POSITION_PID_MAXIMUM_INPUT = 360; // degrees
+                public static final double TURNING_ENCODER_POSITION_PID_MINIMUM_INPUT = -180; // degrees
+                public static final double TURNING_ENCODER_POSITION_PID_MAXIMUM_INPUT = 180; // degrees
             
                 public static final IdleMode DRIVING_MOTOR_IDLE_MODE = IdleMode.kBrake;
                 public static final IdleMode TURNING_MOTOR_IDLE_MODE = IdleMode.kBrake;
@@ -129,12 +132,12 @@ public final class Constants {
                     public static final double DRIVING_MOTOR_MINIMUM_OUTPUT = -0.4;
                     public static final double DRIVING_MOTOR_MAXIMUM_OUTPUT = 0.4;
 
-                    public static final double TURNING_MOTOR_P = 1;
-                    public static final double TURNING_MOTOR_I = 0;
-                    public static final double TURNING_MOTOR_D = 0;
+                    public static final double TURNING_MOTOR_P = 0.015;
+                    public static final double TURNING_MOTOR_I = 0.0005;
+                    public static final double TURNING_MOTOR_D = 0.0001;
                     public static final double TURNING_MOTOR_FF = 0 / DRIVE_WHEEL_FREE_SPEED_RPS;
-                    public static final double TURNING_MOTOR_MINIMUM_OUTPUT = -0.4;
-                    public static final double TURNING_MOTOR_MAXIMUM_OUTPUT = 0.4;
+                    public static final double TURNING_MOTOR_MINIMUM_OUTPUT = -0.2;
+                    public static final double TURNING_MOTOR_MAXIMUM_OUTPUT = 0.2;
                 
                 }
             }
