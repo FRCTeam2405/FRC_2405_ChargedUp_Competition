@@ -71,9 +71,9 @@ public class SwerveModule {
 
     // Turning PIDController setup
     turningPIDController = new PIDController(
-      Constants.Drivetrains.Swerve.Module.PID.DRIVING_MOTOR_P,
-      Constants.Drivetrains.Swerve.Module.PID.DRIVING_MOTOR_I,
-      Constants.Drivetrains.Swerve.Module.PID.DRIVING_MOTOR_D
+      Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_P,
+      Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_I,
+      Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_D
     );
     turningPIDController.enableContinuousInput(
       Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_POSITION_PID_MINIMUM_INPUT,
@@ -163,11 +163,11 @@ public class SwerveModule {
     turningPIDController.setSetpoint(optimizedDesiredState.angle.getDegrees());
     turningSparkMax.set(
       MathUtil.clamp(
-        turningPIDController.calculate(turningEncoder.getAbsolutePosition()),
+        turningPIDController.calculate(turningEncoder.getAbsolutePosition()) / 5.0,
         -1, 1
       ) * Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_MAXIMUM_OUTPUT
     );
-    SmartDashboard.putNumber("calculate", turningPIDController.calculate(turningEncoder.getAbsolutePosition()));  }
+    SmartDashboard.putNumber("calculate", turningPIDController.calculate(turningEncoder.getAbsolutePosition()) / 5.0);  }
 
   /** Zeroes all the SwerveModule encoders. */
   public void resetEncoders() {
