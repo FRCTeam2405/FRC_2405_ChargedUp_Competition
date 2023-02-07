@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Constants;
 
@@ -12,7 +13,9 @@ public class Lights extends SubsystemBase {
   public PWMSparkMax rawLights = new PWMSparkMax(Constants.LEDs.PORT);
 
   /** Creates a new Lights subsystem for managing the robot LEDs. */
-  public Lights() {}
+  public Lights() {
+    SmartDashboard.putNumber("LEDSet", Constants.LEDs.Colors.LED_SETTING_DEFAULT);
+    }
 
   @Override
   public void periodic() {
