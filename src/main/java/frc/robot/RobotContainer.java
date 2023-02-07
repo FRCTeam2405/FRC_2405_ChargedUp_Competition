@@ -9,9 +9,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.settings.Constants;
+import frc.robot.settings.DashboardConfig;
 import frc.robot.subsystems.drivetrains.Swerve;
 
 public class RobotContainer {
+
+  private final DashboardConfig config;
 
   // Declare subsystems
   private final Swerve swerveDrive;
@@ -20,6 +23,8 @@ public class RobotContainer {
   private XboxController driverController = new XboxController(Constants.Controllers.DRIVER_CONTROLLER_PORT);
 
   public RobotContainer() {
+
+    config = new DashboardConfig();
 
     swerveDrive = new Swerve();
 

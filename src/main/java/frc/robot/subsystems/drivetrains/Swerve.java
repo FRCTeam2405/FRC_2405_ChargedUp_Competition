@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems.drivetrains;
 
+import javax.swing.text.StyleContext.SmallAttributeSet;
+
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.MathUtil;
@@ -16,6 +18,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Constants;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -116,6 +119,19 @@ public class Swerve extends SubsystemBase {
       // frontRightSwerveModule.turnWheel();
       // backLeftSwerveModule.turnWheel();
       // backRightSwerveModule.turnWheel();
+
+      frontLeftSwerveModule.updateTurningPID();
+      frontRightSwerveModule.updateTurningPID();
+      backLeftSwerveModule.updateTurningPID();
+      backRightSwerveModule.updateTurningPID();
+
+      double turningP = SmartDashboard.getNumber("turningP", Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_P);
+      double turningI = SmartDashboard.getNumber("turningI", Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_I);
+      double turningD = SmartDashboard.getNumber("turningD", Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_D);
+      frontLeftSwerveModule.setPID(turningP, turningI, turningD);
+      frontRightSwerveModule.setPID(turningP, turningI, turningD);
+      backLeftSwerveModule.setPID(turningP, turningI, turningD);
+      backRightSwerveModule.setPID(turningP, turningI, turningD);
     }
     
   }

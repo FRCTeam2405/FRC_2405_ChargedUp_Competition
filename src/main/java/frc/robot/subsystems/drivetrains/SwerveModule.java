@@ -29,7 +29,9 @@ public class SwerveModule {
   private final CANCoder turningEncoder;
 
   private final SparkMaxPIDController drivingPIDController;
+
   private final PIDController turningPIDController;
+  private double turningPIDOutput;
 
   private double angularOffset;
   private SwerveModuleState desiredModuleState = new SwerveModuleState(0.0, new Rotation2d());
@@ -71,9 +73,10 @@ public class SwerveModule {
 
     // Turning PIDController setup
     turningPIDController = new PIDController(
-      Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_P,
-      Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_I,
-      Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_D
+      SmartDashboard.getNumber("TurningP", Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_P),
+      SmartDashboard.getNumber("TurningI", Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_I),
+      SmartDashboard.getNumber("TurningD", Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_D),
+      20.0
     );
     turningPIDController.enableContinuousInput(
       Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_POSITION_PID_MINIMUM_INPUT,
@@ -83,6 +86,7 @@ public class SwerveModule {
       Constants.Drivetrains.Swerve.Encoders.ERROR_TOLERANCE
       // Constants.Drivetrains.Swerve.Encoders.DERIVATIVE_TOLERANCE
     );
+    turningPIDController.setIntegratorRange(canCoderID, chassisAngularOffset);
 
     // Set the PID gains for the driving motor.
     //TODO! Tune these
@@ -107,8 +111,9 @@ public class SwerveModule {
 
     desiredModuleState.angle = new Rotation2d(turningEncoder.getPosition());
     drivingEncoder.setPosition(0);
-    turningPIDController.calculate(turningEncoder.getAbsolutePosition());
+    turningPIDOutput = turningPIDController.calculate(turningEncoder.getAbsolutePosition());
   }
+  
 
   /**
    * Returns the current state of the module.
@@ -161,17 +166,31 @@ public class SwerveModule {
     drivingPIDController.setReference(optimizedDesiredState.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity);
 
     turningPIDController.setSetpoint(optimizedDesiredState.angle.getDegrees());
-    turningSparkMax.set(
-      MathUtil.clamp(
-        turningPIDController.calculate(turningEncoder.getAbsolutePosition()) / 5.0,
-        -1, 1
-      ) * Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_MAXIMUM_OUTPUT
-    );
-    SmartDashboard.putNumber("calculate", turningPIDController.calculate(turningEncoder.getAbsolutePosition()) / 5.0);  }
+    double speed = MathUtil.clamp(
+      turningPIDOutput / 180.0,
+      -1, 1
+    ) * Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_MAXIMUM_OUTPUT;
+    if(!turningPIDController.atSetpoint()) {
+      turningSparkMax.set(speed);
+    } else {
+      turningSparkMax.set(0.0);
+    }
+    SmartDashboard.putNumber("calculate", speed);
+  }
 
   /** Zeroes all the SwerveModule encoders. */
   public void resetEncoders() {
     drivingEncoder.setPosition(0);
+  }
+
+  public void updateTurningPID() {
+    turningPIDOutput = turningPIDController.calculate(turningEncoder.getAbsolutePosition());
+  }
+
+  public void setPID(double p, double i, double d) {
+    turningPIDController.setP(p);
+    turningPIDController.setI(i);
+    turningPIDController.setD(d);
   }
 
 //   public void turnWheel() {
