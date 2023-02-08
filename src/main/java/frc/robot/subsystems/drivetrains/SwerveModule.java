@@ -17,7 +17,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 import com.revrobotics.SparkMaxPIDController;
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
-import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix.sensors.WPI_CANCoder;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 
@@ -26,7 +26,7 @@ public class SwerveModule {
   private final CANSparkMax turningSparkMax;
 
   private final RelativeEncoder drivingEncoder;
-  private final CANCoder turningEncoder;
+  private final WPI_CANCoder turningEncoder;
 
   private final SparkMaxPIDController drivingPIDController;
 
@@ -68,7 +68,7 @@ public class SwerveModule {
 
     
     // Turning encoder setup
-    turningEncoder = new CANCoder(canCoderID);    
+    turningEncoder = new WPI_CANCoder(canCoderID);    
     turningEncoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
 
     // Turning PIDController setup
@@ -175,7 +175,8 @@ public class SwerveModule {
     } else {
       turningSparkMax.set(0.0);
     }
-    SmartDashboard.putNumber("calculate", speed);
+    SmartDashboard.putNumber("MotorInput", speed);
+    
   }
 
   /** Zeroes all the SwerveModule encoders. */
@@ -184,7 +185,13 @@ public class SwerveModule {
   }
 
   public void updateTurningPID() {
-    turningPIDOutput = turningPIDController.calculate(turningEncoder.getAbsolutePosition());
+    double encoderPosition = turningEncoder.getAbsolutePosition();
+    SmartDashboard.putNumber("AbsolutePos", encoderPosition);
+    SmartDashboard.putNumber("RelativePos", turningEncoder.getPosition());
+    SmartDashboard.putNumber("Velocity", turningEncoder.getVelocity());
+    SmartDashboard.putNumber("Timestamp", turningEncoder.getLastTimestamp());
+    turningPIDOutput = turningPIDController.calculate(encoderPosition);
+    SmartDashboard.putNumber("id", turningEncoder.getDeviceID());
   }
 
   public void setPID(double p, double i, double d) {

@@ -38,8 +38,8 @@ public final class Constants {
             public static final boolean FIELD_RELATIVE = false;
 
             public static final class Speed {
-                public static final double MAX_SPEED_METERS_PER_SECONDS = 1;
-                public static final double MAX_ANGULAR_SPEED = 0.5 * Math.PI; // radians per second
+                public static final double MAX_SPEED_METERS_PER_SECONDS = 0.5;
+                public static final double MAX_ANGULAR_SPEED = 0.25 * Math.PI; // radians per second
             }
             public static final class Odometry {
                 //TODO! FIX ALL
@@ -125,7 +125,7 @@ public final class Constants {
                 public static final int TURNING_MOTOR_CURRENT_LIMIT = 20; // amps
 
                 public static final class PID {
-                    public static final double DRIVING_MOTOR_P = 0.04;
+                    public static final double DRIVING_MOTOR_P = 0;
                     public static final double DRIVING_MOTOR_I = 0;
                     public static final double DRIVING_MOTOR_D = 0;
                     public static final double DRIVING_MOTOR_FF = 1 / DRIVE_WHEEL_FREE_SPEED_RPS;
