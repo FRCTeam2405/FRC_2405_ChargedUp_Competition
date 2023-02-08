@@ -26,6 +26,8 @@ import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
 
 public class SwerveModule {
+  private final String moduleName;
+
   private final CANSparkMax drivingSparkMax;
   private final CANSparkMax turningSparkMax;
 
@@ -45,6 +47,8 @@ public class SwerveModule {
    * Encoder.
    */
   public SwerveModule(String name, int drivingCANId, int turningCANId, double chassisAngularOffset) {
+
+    moduleName = name;
 
     angularOffset = chassisAngularOffset;
 
@@ -70,7 +74,7 @@ public class SwerveModule {
     drivingPIDController.setFeedbackDevice(drivingEncoder);
 
     turningPIDController = turningSparkMax.getPIDController();
-    turningPIDController.setFeedbackDevice(turningEncoder);
+    //turningPIDController.setFeedbackDevice(turningEncoder);
 
     //TODO! Tune these
     drivingPIDController.setP(Constants.Drivetrains.Swerve.Module.PID.DRIVING_MOTOR_P);
@@ -158,6 +162,11 @@ public class SwerveModule {
     // Command driving and turning SPARKS MAX towards their respective setpoints.
     drivingPIDController.setReference(optimizedDesiredState.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity);
     turningPIDController.setReference(optimizedDesiredState.angle.getRadians(), CANSparkMax.ControlType.kPosition);
+
+    turningSparkMax.set(0.1);
+
+    SmartDashboard.putNumber((moduleName + "EncoderVel"), turningEncoder.getVelocity());
+    SmartDashboard.putNumber((moduleName + "TurnMotorOutput"), turningSparkMax.getAppliedOutput());
   }
 
   /** Zeroes all the SwerveModule encoders. */
