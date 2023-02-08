@@ -90,6 +90,13 @@ public final class Constants {
             }
 
             public static final class Module {
+
+                public static final String FRONT_LEFT_NAME = "FrontLeft";
+                public static final String FRONT_RIGHT_NAME = "FrontRight";
+                public static final String BACK_LEFT_NAME = "BackLeft";
+                public static final String BACK_RIGHT_NAME = "BackRight";
+
+
                 //TODO! ALL #'s
             
                 // Invert the turning encoder, since the output shaft rotates in the opposite direction of

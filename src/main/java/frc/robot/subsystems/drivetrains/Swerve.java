@@ -42,27 +42,27 @@ public class Swerve extends SubsystemBase {
 
     // Create SwerveModules
     frontLeftSwerveModule = new SwerveModule(
+      Constants.Drivetrains.Swerve.Module.FRONT_LEFT_NAME,
       Constants.Drivetrains.Swerve.Motors.Drive.FRONT_LEFT_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.FRONT_LEFT_PORT,
-      Constants.Drivetrains.Swerve.Encoders.FRONT_LEFT_PORT,
       Constants.Drivetrains.Swerve.Odometry.FRONT_LEFT_CHASSIS_ANGULAR_OFFSET
     );
     frontRightSwerveModule = new SwerveModule(
+      Constants.Drivetrains.Swerve.Module.FRONT_RIGHT_NAME,
       Constants.Drivetrains.Swerve.Motors.Drive.FRONT_RIGHT_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.FRONT_RIGHT_PORT,
-      Constants.Drivetrains.Swerve.Encoders.FRONT_RIGHT_PORT,
       Constants.Drivetrains.Swerve.Odometry.FRONT_RIGHT_CHASSIS_ANGULAR_OFFSET
     );
     backLeftSwerveModule = new SwerveModule(
+      Constants.Drivetrains.Swerve.Module.BACK_LEFT_NAME,
       Constants.Drivetrains.Swerve.Motors.Drive.BACK_LEFT_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.BACK_LEFT_PORT,
-      Constants.Drivetrains.Swerve.Encoders.BACK_LEFT_PORT,
       Constants.Drivetrains.Swerve.Odometry.BACK_LEFT_CHASSIS_ANGULAR_OFFSET
     );
     backRightSwerveModule = new SwerveModule(
+      Constants.Drivetrains.Swerve.Module.BACK_RIGHT_NAME,
       Constants.Drivetrains.Swerve.Motors.Drive.BACK_RIGHT_PORT,
       Constants.Drivetrains.Swerve.Motors.Turning.BACK_RIGHT_PORT,
-      Constants.Drivetrains.Swerve.Encoders.BACK_RIGHT_PORT,
       Constants.Drivetrains.Swerve.Odometry.BACK_RIGHT_CHASSIS_ANGULAR_OFFSET
     );
 
@@ -113,27 +113,7 @@ public class Swerve extends SubsystemBase {
           backRightSwerveModule.getPosition()
         }
       );
-
-      // // Turn wheels towards the desired positions
-      // frontLeftSwerveModule.turnWheel();
-      // frontRightSwerveModule.turnWheel();
-      // backLeftSwerveModule.turnWheel();
-      // backRightSwerveModule.turnWheel();
-
-      frontLeftSwerveModule.updateTurningPID();
-      frontRightSwerveModule.updateTurningPID();
-      backLeftSwerveModule.updateTurningPID();
-      backRightSwerveModule.updateTurningPID();
-
-      double turningP = SmartDashboard.getNumber("turningP", Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_P);
-      double turningI = SmartDashboard.getNumber("turningI", Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_I);
-      double turningD = SmartDashboard.getNumber("turningD", Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_D);
-      frontLeftSwerveModule.setPID(turningP, turningI, turningD);
-      frontRightSwerveModule.setPID(turningP, turningI, turningD);
-      backLeftSwerveModule.setPID(turningP, turningI, turningD);
-      backRightSwerveModule.setPID(turningP, turningI, turningD);
-    }
-    
+    }    
   }
 
 /**
