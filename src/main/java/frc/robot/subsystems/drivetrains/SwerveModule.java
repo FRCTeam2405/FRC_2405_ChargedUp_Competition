@@ -20,15 +20,17 @@ import com.revrobotics.SparkMaxPIDController;
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.WPI_CANCoder;
 import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.AlternateEncoderType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
+import com.revrobotics.SparkMaxAlternateEncoder;
 
 public class SwerveModule {
   private final CANSparkMax drivingSparkMax;
   private final CANSparkMax turningSparkMax;
 
   private final RelativeEncoder drivingEncoder;
-  private final AbsoluteEncoder turningEncoder;
+  private final RelativeEncoder turningEncoder;
 
   private final SparkMaxPIDController drivingPIDController;
   private final SparkMaxPIDController turningPIDController;
@@ -59,9 +61,10 @@ public class SwerveModule {
     drivingEncoder.setVelocityConversionFactor(Constants.Drivetrains.Swerve.Module.DRIVING_ENCODER_VELOCITY_FACTOR);
 
     //TODO! make sure this is correct
-    turningEncoder = turningSparkMax.getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);
+    turningEncoder = turningSparkMax.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 4096);
     turningEncoder.setPositionConversionFactor(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_POSITION_FACTOR);
     turningEncoder.setVelocityConversionFactor(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_VELOCITY_FACTOR);
+    
 
     drivingPIDController = drivingSparkMax.getPIDController();
     drivingPIDController.setFeedbackDevice(drivingEncoder);
