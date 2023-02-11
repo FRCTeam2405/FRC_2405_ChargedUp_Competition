@@ -165,6 +165,7 @@ public class SwerveModule {
 
     turningSparkMax.set(0.1);
 
+    SmartDashboard.putNumber((moduleName + "EncoderPos"), turningEncoder.getPosition());
     SmartDashboard.putNumber((moduleName + "EncoderVel"), turningEncoder.getVelocity());
     SmartDashboard.putNumber((moduleName + "TurnMotorOutput"), turningSparkMax.getAppliedOutput());
   }
