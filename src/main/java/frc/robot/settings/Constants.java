@@ -65,4 +65,16 @@ public final class Constants {
             }
         }
     }
+
+    public static final class EdgeDetection {
+        public static final int FRONT_LEFT_PING = 0;
+        public static final int FRONT_RIGHT_PING = 0;
+        public static final int BACK_LEFT_PING = 0;
+        public static final int BACK_RIGHT_PING = 0;
+
+        public static final int FRONT_LEFT_ECHO = 0;
+        public static final int FRONT_RIGHT_ECHO = 0;
+        public static final int BACK_LEFT_ECHO = 0;
+        public static final int BACK_RIGHT_ECHO = 0;
+    }
 }
