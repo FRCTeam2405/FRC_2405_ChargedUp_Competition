@@ -12,20 +12,20 @@ import frc.robot.settings.Constants;
 
 public class Differential extends SubsystemBase {
 
-  private WPI_TalonFX leftParentMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.FRONT_LEFT);
-  private WPI_TalonFX rightParentMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.FRONT_RIGHT);
-  private WPI_TalonFX leftChildMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.BACK_LEFT);
-  private WPI_TalonFX rightChildMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motor.Ports.BACK_RIGHT);
+  private WPI_TalonFX leftParentMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motors.Ports.FRONT_LEFT);
+  private WPI_TalonFX rightParentMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motors.Ports.FRONT_RIGHT);
+  private WPI_TalonFX leftChildMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motors.Ports.BACK_LEFT);
+  private WPI_TalonFX rightChildMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motors.Ports.BACK_RIGHT);
 
   DifferentialDrive drive;
 
   /** Creates a new differential drive Subsystem. */
   public Differential() {
     
-    leftParentMotor.setInverted(Constants.Drivetrains.Differential.Motor.FRONT_LEFT_REVERSED);
-    rightParentMotor.setInverted(Constants.Drivetrains.Differential.Motor.FRONT_RIGHT_REVERSED);
-    leftChildMotor.setInverted(Constants.Drivetrains.Differential.Motor.BACK_LEFT_REVERSED);
-    rightChildMotor.setInverted(Constants.Drivetrains.Differential.Motor.BACK_RIGHT_REVERSED);
+    leftParentMotor.setInverted(Constants.Drivetrains.Differential.Motors.FRONT_LEFT_REVERSED);
+    rightParentMotor.setInverted(Constants.Drivetrains.Differential.Motors.FRONT_RIGHT_REVERSED);
+    leftChildMotor.setInverted(Constants.Drivetrains.Differential.Motors.BACK_LEFT_REVERSED);
+    rightChildMotor.setInverted(Constants.Drivetrains.Differential.Motors.BACK_RIGHT_REVERSED);
 
     leftChildMotor.follow(leftParentMotor);
     rightChildMotor.follow(rightParentMotor);
