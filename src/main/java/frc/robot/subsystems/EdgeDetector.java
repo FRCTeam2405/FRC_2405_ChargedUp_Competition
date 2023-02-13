@@ -36,6 +36,8 @@ public class EdgeDetector extends SubsystemBase {
       Constants.EdgeDetection.BACK_RIGHT_ECHO
     );
 
+    Ultrasonic.setAutomaticMode(true);
+
   }
 
   @Override

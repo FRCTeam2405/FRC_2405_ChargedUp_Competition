@@ -8,11 +8,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.subsystems.EdgeDetector;
 import frc.robot.subsystems.drivetrains.Differential;
 
 public class RobotContainer {
 
   private Differential differentialDrive;
+  private EdgeDetector edgeDetector;
   private XboxController driverController;
 
 
@@ -20,6 +22,7 @@ public class RobotContainer {
     configureBindings();
     differentialDrive = new Differential();
     differentialDrive.setDefaultCommand(getDifferentialCommand());
+    edgeDetector = new EdgeDetector();
   }
 
   private void configureBindings() {
