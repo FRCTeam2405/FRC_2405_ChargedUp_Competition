@@ -23,4 +23,24 @@ public final class Constants {
             }
         }
     }
+
+    public static final class GrabbingArm {
+        
+        /** Lowest arm position, for intake
+         * and output to the bottom row.
+         * Measured in degrees of the driving motor.
+        */
+        public static final int LOW_ARM_POSITION = 0;
+        /** Medium arm position, for output
+         * to the middle row.
+         * Measured in degrees of the driving motor.
+        */
+        public static final int MED_ARM_POSITION = 0;
+        /** Highest arm position, for output
+         * to the top row.
+         * Measured in degrees of the driving motor.
+        */
+        public static final int HIGH_ARM_POSITION = 0;
+
+    }
 }
