@@ -178,15 +178,17 @@ public class Swerve extends SubsystemBase {
   
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
 
-
-
+    double[] ratedValues = rateLimit(xSpeed, ySpeed, rot);
+    xSpeed = ratedValues[0];
+    ySpeed = ratedValues[1];
+    rot = ratedValues[2];
 
     // Adjust input based on max speed
     xSpeed *= Constants.Drivetrains.Swerve.Speed.MAX_SPEED_METERS_PER_SECONDS;
     ySpeed *= Constants.Drivetrains.Swerve.Speed.MAX_SPEED_METERS_PER_SECONDS;
     rot *= Constants.Drivetrains.Swerve.Speed.MAX_ANGULAR_SPEED;
 
-    var swerveModuleStates = swerveKinematics.toSwerveModuleStates(
+    SwerveModuleState[] swerveModuleStates = swerveKinematics.toSwerveModuleStates(
       fieldRelative // ternary operator - runs ? if true, : if false
         ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(navX.getAngle()))
         : new ChassisSpeeds(xSpeed, ySpeed, rot)
