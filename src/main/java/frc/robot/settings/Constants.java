@@ -98,6 +98,7 @@ public final class Constants {
 
 
                 //TODO! ALL #'s
+                //TODO! Organize these please
             
                 // Invert the turning encoder, since the output shaft rotates in the opposite direction of
                 // the steering motor in the MAXSwerve Module.
@@ -119,8 +120,9 @@ public final class Constants {
                 public static final double DRIVING_ENCODER_VELOCITY_FACTOR = ((WHEEL_DIAMETER_METERS * Math.PI)
                     / DRIVING_MOTOR_REDUCTION) / 60.0; // meters per second
                 
-                public static final double TURNING_ENCODER_POSITION_FACTOR = (2 * Math.PI); // radians
-                public static final double TURNING_ENCODER_VELOCITY_FACTOR = (2 * Math.PI) / 60.0; // radians per second
+                public static final double TURNING_GEAR_RATIO = 15.42857;
+                public static final double TURNING_ENCODER_POSITION_FACTOR = (2 * Math.PI) / TURNING_GEAR_RATIO; // radians
+                public static final double TURNING_ENCODER_VELOCITY_FACTOR = (2 * Math.PI) / TURNING_GEAR_RATIO / 60.0; // radians per second
                 
                 public static final double TURNING_ENCODER_POSITION_PID_MINIMUM_INPUT = -180; // degrees
                 public static final double TURNING_ENCODER_POSITION_PID_MAXIMUM_INPUT = 180; // degrees
