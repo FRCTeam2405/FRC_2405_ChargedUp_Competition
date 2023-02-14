@@ -124,8 +124,8 @@ public final class Constants {
                 public static final double TURNING_ENCODER_POSITION_FACTOR = (2 * Math.PI) / TURNING_GEAR_RATIO; // radians
                 public static final double TURNING_ENCODER_VELOCITY_FACTOR = (2 * Math.PI) / TURNING_GEAR_RATIO / 60.0; // radians per second
                 
-                public static final double TURNING_ENCODER_POSITION_PID_MINIMUM_INPUT = -180; // degrees
-                public static final double TURNING_ENCODER_POSITION_PID_MAXIMUM_INPUT = 180; // degrees
+                public static final double TURNING_ENCODER_POSITION_PID_MINIMUM_INPUT = 0; // radians
+                public static final double TURNING_ENCODER_POSITION_PID_MAXIMUM_INPUT = TURNING_ENCODER_POSITION_FACTOR; // radians
             
                 public static final IdleMode DRIVING_MOTOR_IDLE_MODE = IdleMode.kBrake;
                 public static final IdleMode TURNING_MOTOR_IDLE_MODE = IdleMode.kBrake;
@@ -134,14 +134,14 @@ public final class Constants {
                 public static final int TURNING_MOTOR_CURRENT_LIMIT = 20; // amps
 
                 public static final class PID {
-                    public static final double DRIVING_MOTOR_P = 0;
+                    public static final double DRIVING_MOTOR_P = 0.04;
                     public static final double DRIVING_MOTOR_I = 0;
                     public static final double DRIVING_MOTOR_D = 0;
                     public static final double DRIVING_MOTOR_FF = 1 / DRIVE_WHEEL_FREE_SPEED_RPS;
                     public static final double DRIVING_MOTOR_MINIMUM_OUTPUT = -0.4;
                     public static final double DRIVING_MOTOR_MAXIMUM_OUTPUT = 0.4;
 
-                    public static final double TURNING_MOTOR_P = 0;
+                    public static final double TURNING_MOTOR_P = 1;
                     public static final double TURNING_MOTOR_I = 0;
                     public static final double TURNING_MOTOR_D = 0;
                     public static final double TURNING_MOTOR_FF = 0 / DRIVE_WHEEL_FREE_SPEED_RPS;
