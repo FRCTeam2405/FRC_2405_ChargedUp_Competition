@@ -40,7 +40,7 @@ public class SwerveModule extends SubsystemBase {
    * MAXSwerve Module built with NEOs, SPARKS MAX, and a Through Bore
    * Encoder.
    */
-  public SwerveModule(String name, int drivingCANId, int turningCANId, double chassisAngularOffset) {
+  public SwerveModule(String name, int drivingCANId, int turningCANId, double chassisAngularOffset, int canCoderId) {
 
     moduleName = name;
 
@@ -63,7 +63,7 @@ public class SwerveModule extends SubsystemBase {
     turningEncoder.setPositionConversionFactor(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_POSITION_FACTOR);
     turningEncoder.setVelocityConversionFactor(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_VELOCITY_FACTOR);
 
-    canCoder = new WPI_CANCoder(turningCANId);
+    canCoder = new WPI_CANCoder(canCoderId);
     turningEncoder.setPosition(
       (canCoder.getAbsolutePosition() / 180 * Math.PI)
       / Constants.Drivetrains.Swerve.Module.TURNING_GEAR_RATIO
