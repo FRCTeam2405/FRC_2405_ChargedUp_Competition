@@ -8,15 +8,16 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Constants;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController;
-import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix.sensors.WPI_CANCoder;
 import com.revrobotics.RelativeEncoder;
 
-public class SwerveModule {
+public class SwerveModule extends SubsystemBase {
   private final String moduleName;
 
   private final CANSparkMax drivingSparkMax;
@@ -25,7 +26,7 @@ public class SwerveModule {
   private final RelativeEncoder drivingEncoder;
   private final RelativeEncoder turningEncoder;
 
-  private final CANCoder canCoder;
+  public WPI_CANCoder canCoder;
 
   private final SparkMaxPIDController drivingPIDController;
   private final SparkMaxPIDController turningPIDController;
@@ -62,7 +63,7 @@ public class SwerveModule {
     turningEncoder.setPositionConversionFactor(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_POSITION_FACTOR);
     turningEncoder.setVelocityConversionFactor(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_VELOCITY_FACTOR);
 
-    canCoder = new CANCoder(turningCANId);
+    canCoder = new WPI_CANCoder(turningCANId);
     turningEncoder.setPosition(
       (canCoder.getAbsolutePosition() / 180 * Math.PI)
       / Constants.Drivetrains.Swerve.Module.TURNING_GEAR_RATIO
@@ -113,6 +114,16 @@ public class SwerveModule {
 
   }
   
+  @Override
+  public void periodic() {
+    // turningEncoder.setPosition(
+    //   (canCoder.getAbsolutePosition() / 180 * Math.PI)
+    //   / Constants.Drivetrains.Swerve.Module.TURNING_GEAR_RATIO
+    // );
+
+    // SmartDashboard.putNumber(moduleName + "CANCoder", canCoder.getAbsolutePosition());
+    // SmartDashboard.putNumber(moduleName + "TurningEncoder", turningEncoder.getPosition());
+  }
 
   /**
    * Returns the current state of the module.

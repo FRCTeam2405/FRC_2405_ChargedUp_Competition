@@ -110,8 +110,8 @@ public class Swerve extends SubsystemBase {
       }
     );
 
-    magLimiter = new SlewRateLimiter(0);
-    rotLimiter = new SlewRateLimiter(0);
+    magLimiter = new SlewRateLimiter(Constants.Drivetrains.Swerve.Module.MAG_SLEW_RATE_LIMIT);
+    rotLimiter = new SlewRateLimiter(Constants.Drivetrains.Swerve.Module.ROT_SLEW_RATE_LIMIT);
 
     previousTime = WPIUtilJNI.now() * 1e-6;
   }
@@ -130,6 +130,12 @@ public class Swerve extends SubsystemBase {
           backRightSwerveModule.getPosition()
         }
       );
+
+      SmartDashboard.putNumber("FLCANCoder", frontLeftSwerveModule.canCoder.getAbsolutePosition());
+      SmartDashboard.putNumber("FRCANCoder", frontRightSwerveModule.canCoder.getAbsolutePosition());
+      SmartDashboard.putNumber("BRCANCoder", backRightSwerveModule.canCoder.getAbsolutePosition());
+      SmartDashboard.putNumber("BLCANCoder", backLeftSwerveModule.canCoder.getAbsolutePosition());
+
     }    
   }
 
@@ -262,7 +268,7 @@ public class Swerve extends SubsystemBase {
     // Calculate the direction slew rate based on an estimate of the lateral acceleration
     double directionSlewRate;
     if (slewTranslationMag != 0.0) {
-      directionSlewRate = Math.abs(0 / slewTranslationMag);
+      directionSlewRate = Math.abs(Constants.Drivetrains.Swerve.Module.DIR_SLEW_RATE_LIMIT / slewTranslationMag);
     } else {
       directionSlewRate = 500.0; //some high number that means the slew rate is effectively instantaneous
     }

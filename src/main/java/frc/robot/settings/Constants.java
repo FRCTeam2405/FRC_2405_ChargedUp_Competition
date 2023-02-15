@@ -133,6 +133,10 @@ public final class Constants {
                 public static final int DRIVING_MOTOR_CURRENT_LIMIT = 50; // amps
                 public static final int TURNING_MOTOR_CURRENT_LIMIT = 20; // amps
 
+                public static final double DIR_SLEW_RATE_LIMIT = 1.2;
+                public static final double MAG_SLEW_RATE_LIMIT = 1.8;
+                public static final double ROT_SLEW_RATE_LIMIT = 2.0;
+            
                 public static final class PID {
                     public static final double DRIVING_MOTOR_P = 0.04;
                     public static final double DRIVING_MOTOR_I = 0;
@@ -141,12 +145,12 @@ public final class Constants {
                     public static final double DRIVING_MOTOR_MINIMUM_OUTPUT = -0.4;
                     public static final double DRIVING_MOTOR_MAXIMUM_OUTPUT = 0.4;
 
-                    public static final double TURNING_MOTOR_P = 1;
-                    public static final double TURNING_MOTOR_I = 0;
-                    public static final double TURNING_MOTOR_D = 0;
+                    public static final double TURNING_MOTOR_P = 0.25;
+                    public static final double TURNING_MOTOR_I = 0.0005;
+                    public static final double TURNING_MOTOR_D = 0.0001;
                     public static final double TURNING_MOTOR_FF = 0 / DRIVE_WHEEL_FREE_SPEED_RPS;
-                    public static final double TURNING_MOTOR_MINIMUM_OUTPUT = -0.25;
-                    public static final double TURNING_MOTOR_MAXIMUM_OUTPUT = 0.25;
+                    public static final double TURNING_MOTOR_MINIMUM_OUTPUT = -0.4;
+                    public static final double TURNING_MOTOR_MAXIMUM_OUTPUT = 0.4;
                 
                 }
             }
