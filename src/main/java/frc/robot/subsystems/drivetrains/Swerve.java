@@ -84,18 +84,22 @@ public class Swerve extends SubsystemBase {
     );
 
     swerveKinematics = new SwerveDriveKinematics(
+      // Front Left
       new Translation2d(
         Constants.Drivetrains.Swerve.Odometry.WHEEL_BASE / 2,
         Constants.Drivetrains.Swerve.Odometry.TRACK_WIDTH / 2
       ),
+      // Front Right
       new Translation2d(
         Constants.Drivetrains.Swerve.Odometry.WHEEL_BASE / 2,
         -Constants.Drivetrains.Swerve.Odometry.TRACK_WIDTH / 2
       ),
+      // Back Left
       new Translation2d(
         -Constants.Drivetrains.Swerve.Odometry.WHEEL_BASE / 2,
         Constants.Drivetrains.Swerve.Odometry.TRACK_WIDTH / 2
       ),
+      // Back Right
       new Translation2d(
         -Constants.Drivetrains.Swerve.Odometry.WHEEL_BASE / 2,
         -Constants.Drivetrains.Swerve.Odometry.TRACK_WIDTH / 2
