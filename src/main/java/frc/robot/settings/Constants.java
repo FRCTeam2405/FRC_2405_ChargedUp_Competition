@@ -46,9 +46,9 @@ public final class Constants {
                 // Chassis configuration
                 
                 // Distance between centers of right and left wheels on robot
-                public static final double TRACK_WIDTH = Units.inchesToMeters(26.5);
+                public static final double TRACK_WIDTH = 0.5461;
                 // Distance between front and back wheels on robot
-                public static final double WHEEL_BASE = Units.inchesToMeters(26.5);
+                public static final double WHEEL_BASE = 0.5715;
 
                 // Angular offsets of the modules relative to the chassis in radians
                 public static final double FRONT_LEFT_CHASSIS_ANGULAR_OFFSET = -Math.PI / 2;
@@ -113,7 +113,7 @@ public final class Constants {
                 public static final double FREE_SPEED_RPM = 5676;
 
                 public static final double FREE_SPEED_RPS = FREE_SPEED_RPM / 60;
-                public static final double WHEEL_DIAMETER_METERS = 0.096012;
+                public static final double WHEEL_DIAMETER_METERS = 0.1524;
                 public static final double WHEEL_CIRCUMFERENCE_METERS = WHEEL_DIAMETER_METERS * Math.PI;
                 // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15 teeth on the bevel pinion ex. public static final double DRIVING_MOTOR_REDUCTION = (45.0 * 22) / (DRIVING_MOTOR_PINION_TEETH * 15);
                 public static final double DRIVING_MOTOR_REDUCTION = 7.13;
