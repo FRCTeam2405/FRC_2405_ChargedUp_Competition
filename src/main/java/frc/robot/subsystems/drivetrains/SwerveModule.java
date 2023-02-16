@@ -14,6 +14,7 @@ import frc.robot.settings.Constants;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController;
+import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.WPI_CANCoder;
 import com.revrobotics.RelativeEncoder;
 
@@ -24,12 +25,12 @@ public class SwerveModule extends SubsystemBase {
   private final CANSparkMax turningSparkMax;
 
   private final RelativeEncoder drivingEncoder;
-  private final RelativeEncoder turningEncoder;
+  public final RelativeEncoder turningEncoder;
 
   public WPI_CANCoder canCoder;
 
-  private final SparkMaxPIDController drivingPIDController;
-  private final SparkMaxPIDController turningPIDController;
+  private SparkMaxPIDController drivingPIDController;
+  private SparkMaxPIDController turningPIDController;
 
   private double angularOffset;
   private SwerveModuleState desiredModuleState = new SwerveModuleState(0.0, new Rotation2d());
@@ -64,10 +65,11 @@ public class SwerveModule extends SubsystemBase {
     turningEncoder.setVelocityConversionFactor(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_VELOCITY_FACTOR);
 
     canCoder = new WPI_CANCoder(canCoderId);
-    turningEncoder.setPosition(
-      (canCoder.getAbsolutePosition() / 180 * Math.PI)
-      / Constants.Drivetrains.Swerve.Module.TURNING_GEAR_RATIO
-    );
+    canCoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
+    // turningEncoder.setPosition(
+    //   ((canCoder.getAbsolutePosition() / 180 * Math.PI) - 180)
+    //   / Constants.Drivetrains.Swerve.Module.TURNING_GEAR_RATIO
+    // );
 
     drivingPIDController = drivingSparkMax.getPIDController();
     drivingPIDController.setFeedbackDevice(drivingEncoder);
@@ -109,7 +111,7 @@ public class SwerveModule extends SubsystemBase {
     drivingSparkMax.burnFlash();
     turningSparkMax.burnFlash();
 
-    desiredModuleState.angle = new Rotation2d(turningEncoder.getPosition());
+    desiredModuleState.angle = new Rotation2d(0);
     drivingEncoder.setPosition(0);
 
   }
@@ -181,5 +183,18 @@ public class SwerveModule extends SubsystemBase {
   /** Zeroes all the SwerveModule encoders. */
   public void resetEncoders() {
     drivingEncoder.setPosition(0);
+  }
+
+  public void alignTurningEncoder(double offset) {
+    turningEncoder.setPosition(
+      (
+        (
+          ( canCoder.getAbsolutePosition() + offset )
+          % 360
+        )
+        * Math.PI / 180
+      )
+      / Constants.Drivetrains.Swerve.Module.TURNING_GEAR_RATIO
+    );
   }
 }

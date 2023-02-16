@@ -87,6 +87,11 @@ public final class Constants {
 
                 public static final double ERROR_TOLERANCE = 3.0;
                 public static final double DERIVATIVE_TOLERANCE = 1.0;
+
+                public static final double FRONT_LEFT_OFFSET = 58.7;
+                public static final double FRONT_RIGHT_OFFSET = 69.6;
+                public static final double BACK_LEFT_OFFSET = 168.0;
+                public static final double BACK_RIGHT_OFFSET = 3.7;
             }
 
             public static final class Module {

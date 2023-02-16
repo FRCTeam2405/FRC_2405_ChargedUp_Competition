@@ -5,6 +5,7 @@
 package frc.robot.subsystems.drivetrains;
 
 
+import com.ctre.phoenix.sensors.CANCoder;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -119,8 +120,15 @@ public class Swerve extends SubsystemBase {
 
     previousTime = WPIUtilJNI.now() * 1e-6;
   }
+
+  private int periodicLoops = 0;
+
   @Override
   public void periodic() {
+
+    periodicLoops += 1;
+    periodicLoops %= 50;
+
     // Once all swerve modules have been initialized
     if(backRightSwerveModule != null) {
       // Update the odometry in the periodic block
@@ -135,12 +143,20 @@ public class Swerve extends SubsystemBase {
         }
       );
 
-      SmartDashboard.putNumber("FLCANCoder", frontLeftSwerveModule.canCoder.getAbsolutePosition());
-      SmartDashboard.putNumber("FRCANCoder", frontRightSwerveModule.canCoder.getAbsolutePosition());
-      SmartDashboard.putNumber("BRCANCoder", backRightSwerveModule.canCoder.getAbsolutePosition());
-      SmartDashboard.putNumber("BLCANCoder", backLeftSwerveModule.canCoder.getAbsolutePosition());
+      // Add offset, then wrap to 0-360 degrees
+      SmartDashboard.putNumber("FLCANCoder", (frontLeftSwerveModule.canCoder.getAbsolutePosition() + Constants.Drivetrains.Swerve.Encoders.FRONT_LEFT_OFFSET) % 360);
+      SmartDashboard.putNumber("FRCANCoder", (frontRightSwerveModule.canCoder.getAbsolutePosition() + Constants.Drivetrains.Swerve.Encoders.FRONT_RIGHT_OFFSET) % 360);
+      SmartDashboard.putNumber("BRCANCoder", (backRightSwerveModule.canCoder.getAbsolutePosition() + Constants.Drivetrains.Swerve.Encoders.BACK_RIGHT_OFFSET) % 360);
+      SmartDashboard.putNumber("BLCANCoder", (backLeftSwerveModule.canCoder.getAbsolutePosition() + Constants.Drivetrains.Swerve.Encoders.BACK_LEFT_OFFSET) % 360);
 
     }    
+
+    if(periodicLoops == 1) {
+      frontLeftSwerveModule.alignTurningEncoder(Constants.Drivetrains.Swerve.Encoders.FRONT_LEFT_OFFSET);
+      frontRightSwerveModule.alignTurningEncoder(Constants.Drivetrains.Swerve.Encoders.FRONT_RIGHT_OFFSET);
+      backLeftSwerveModule.alignTurningEncoder(Constants.Drivetrains.Swerve.Encoders.BACK_LEFT_OFFSET);
+      backRightSwerveModule.alignTurningEncoder(Constants.Drivetrains.Swerve.Encoders.BACK_RIGHT_OFFSET);
+    }
   }
 
 /**
