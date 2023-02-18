@@ -16,6 +16,8 @@ public class EdgeDetector extends SubsystemBase {
   Ultrasonic backLeftSensor;
   Ultrasonic backRightSensor;
 
+  boolean enabled = false;
+
   /** Creates a new EdgeDetector. */
   public EdgeDetector() {
 
@@ -40,11 +42,20 @@ public class EdgeDetector extends SubsystemBase {
 
   }
 
+  public void setEnabled(boolean enable) {
+    Ultrasonic.setAutomaticMode(enable);
+    enabled = enable;
+  }
+
   @Override
   public void periodic() {
     SmartDashboard.putNumber("FrontLeftUltrasonic", frontLeftSensor.getRangeInches());
     SmartDashboard.putNumber("FrontRightUltrasonic", frontRightSensor.getRangeInches());
     SmartDashboard.putNumber("BackLeftUltrasonic", backLeftSensor.getRangeInches());
     SmartDashboard.putNumber("BackRightUltrasonic", backRightSensor.getRangeInches());
+
+    if(enabled) {
+      //TODO!
+    }
   }
 }
