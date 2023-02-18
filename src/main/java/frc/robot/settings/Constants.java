@@ -76,5 +76,7 @@ public final class Constants {
         public static final int FRONT_RIGHT_ECHO = 3;
         public static final int BACK_LEFT_ECHO = 5;
         public static final int BACK_RIGHT_ECHO = 7;
+
+        public static final double EDGE_THRESHOLD = 34524;
     }
 }
