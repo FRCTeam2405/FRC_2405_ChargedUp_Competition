@@ -83,8 +83,8 @@ public class SwerveModule extends SubsystemBase {
     drivingPIDController.setD(Constants.Drivetrains.Swerve.PID.Driving.D);
     drivingPIDController.setFF(Constants.Drivetrains.Swerve.PID.Driving.FF);
     drivingPIDController.setOutputRange(
-      Constants.Drivetrains.Swerve.Motors.Drive.MINIMUM_OUTPUT,
-      Constants.Drivetrains.Swerve.Motors.Drive.MAXIMUM_OUTPUT
+      Constants.Drivetrains.Swerve.Motors.Driving.MINIMUM_OUTPUT,
+      Constants.Drivetrains.Swerve.Motors.Driving.MAXIMUM_OUTPUT
     );
 
     turningPIDController.setPositionPIDWrappingEnabled(true);
@@ -100,10 +100,10 @@ public class SwerveModule extends SubsystemBase {
       Constants.Drivetrains.Swerve.Motors.Turning.MAXIMUM_OUTPUT
     );
 
-    drivingSparkMax.setIdleMode(Constants.Drivetrains.Swerve.Motors.Drive.IDLE_MODE);  
+    drivingSparkMax.setIdleMode(Constants.Drivetrains.Swerve.Motors.Driving.IDLE_MODE);  
     turningSparkMax.setIdleMode(Constants.Drivetrains.Swerve.Motors.Turning.IDLE_MODE);
 
-    drivingSparkMax.setSmartCurrentLimit(Constants.Drivetrains.Swerve.Motors.Drive.CURRENT_LIMIT);
+    drivingSparkMax.setSmartCurrentLimit(Constants.Drivetrains.Swerve.Motors.Driving.CURRENT_LIMIT);
     turningSparkMax.setSmartCurrentLimit(Constants.Drivetrains.Swerve.Motors.Turning.CURRENT_LIMIT);
 
     // Save the SPARK MAX configurations. If a SPARK MAX browns out during

@@ -75,7 +75,7 @@ public final class Constants {
             }
 
             public static final class Motors {
-                public static final class Drive {
+                public static final class Driving {
                     //TODO! fix later
                     public static final int FRONT_LEFT_PORT = 20;
                     public static final int FRONT_RIGHT_PORT = 21;
