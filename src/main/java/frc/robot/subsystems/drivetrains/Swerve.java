@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems.drivetrains;
 
-
-import com.ctre.phoenix.sensors.CANCoder;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -220,11 +218,7 @@ public class Swerve extends SubsystemBase {
         ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(navX.getAngle()))
         : new ChassisSpeeds(xSpeed, ySpeed, rot)
     );
-    SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Drivetrains.Swerve.Speed.MAX_SPEED_METERS_PER_SECONDS);
-    frontLeftSwerveModule.setDesiredState(swerveModuleStates[0]);
-    frontRightSwerveModule.setDesiredState(swerveModuleStates[1]);
-    backLeftSwerveModule.setDesiredState(swerveModuleStates[2]);
-    backRightSwerveModule.setDesiredState(swerveModuleStates[3]);
+    setModuleStates(swerveModuleStates);
   }
 
 /**
