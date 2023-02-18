@@ -56,13 +56,13 @@ public class SwerveModule extends SubsystemBase {
     turningSparkMax.restoreFactoryDefaults();
 
     drivingEncoder = drivingSparkMax.getEncoder();
-    drivingEncoder.setPositionConversionFactor(Constants.Drivetrains.Swerve.Module.DRIVING_ENCODER_POSITION_FACTOR);
-    drivingEncoder.setVelocityConversionFactor(Constants.Drivetrains.Swerve.Module.DRIVING_ENCODER_VELOCITY_FACTOR);
+    drivingEncoder.setPositionConversionFactor(Constants.Drivetrains.Swerve.Encoders.Driving.POSITION_FACTOR);
+    drivingEncoder.setVelocityConversionFactor(Constants.Drivetrains.Swerve.Encoders.Driving.VELOCITY_FACTOR);
 
     //TODO! make sure this is correct
     turningEncoder = turningSparkMax.getEncoder();
-    turningEncoder.setPositionConversionFactor(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_POSITION_FACTOR);
-    turningEncoder.setVelocityConversionFactor(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_VELOCITY_FACTOR);
+    turningEncoder.setPositionConversionFactor(Constants.Drivetrains.Swerve.Encoders.Turning.POSITION_FACTOR);
+    turningEncoder.setVelocityConversionFactor(Constants.Drivetrains.Swerve.Encoders.Turning.VELOCITY_FACTOR);
 
     canCoder = new WPI_CANCoder(canCoderId);
     canCoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
@@ -78,33 +78,33 @@ public class SwerveModule extends SubsystemBase {
     turningPIDController.setFeedbackDevice(turningEncoder);
 
     //TODO! Tune these
-    drivingPIDController.setP(Constants.Drivetrains.Swerve.Module.PID.DRIVING_MOTOR_P);
-    drivingPIDController.setI(Constants.Drivetrains.Swerve.Module.PID.DRIVING_MOTOR_I);
-    drivingPIDController.setD(Constants.Drivetrains.Swerve.Module.PID.DRIVING_MOTOR_D);
-    drivingPIDController.setFF(Constants.Drivetrains.Swerve.Module.PID.DRIVING_MOTOR_FF);
+    drivingPIDController.setP(Constants.Drivetrains.Swerve.PID.Driving.P);
+    drivingPIDController.setI(Constants.Drivetrains.Swerve.PID.Driving.I);
+    drivingPIDController.setD(Constants.Drivetrains.Swerve.PID.Driving.D);
+    drivingPIDController.setFF(Constants.Drivetrains.Swerve.PID.Driving.FF);
     drivingPIDController.setOutputRange(
-      Constants.Drivetrains.Swerve.Module.PID.DRIVING_MOTOR_MINIMUM_OUTPUT,
-      Constants.Drivetrains.Swerve.Module.PID.DRIVING_MOTOR_MAXIMUM_OUTPUT
+      Constants.Drivetrains.Swerve.Motors.Drive.MINIMUM_OUTPUT,
+      Constants.Drivetrains.Swerve.Motors.Drive.MAXIMUM_OUTPUT
     );
 
     turningPIDController.setPositionPIDWrappingEnabled(true);
-    turningPIDController.setPositionPIDWrappingMinInput(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_POSITION_PID_MINIMUM_INPUT);
-    turningPIDController.setPositionPIDWrappingMaxInput(Constants.Drivetrains.Swerve.Module.TURNING_ENCODER_POSITION_PID_MAXIMUM_INPUT);
+    turningPIDController.setPositionPIDWrappingMinInput(Constants.Drivetrains.Swerve.PID.Turning.ENCODER_MINIMUM_INPUT);
+    turningPIDController.setPositionPIDWrappingMaxInput(Constants.Drivetrains.Swerve.PID.Turning.ENCODER_MAXIMUM_INPUT);
 
-    turningPIDController.setP(Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_P);
-    turningPIDController.setI(Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_I);
-    turningPIDController.setD(Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_D);
-    turningPIDController.setFF(Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_FF);
+    turningPIDController.setP(Constants.Drivetrains.Swerve.PID.Turning.P);
+    turningPIDController.setI(Constants.Drivetrains.Swerve.PID.Turning.I);
+    turningPIDController.setD(Constants.Drivetrains.Swerve.PID.Turning.D);
+    turningPIDController.setFF(Constants.Drivetrains.Swerve.PID.Turning.FF);
     turningPIDController.setOutputRange(
-      Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_MINIMUM_OUTPUT,
-      Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_MAXIMUM_OUTPUT
+      Constants.Drivetrains.Swerve.Motors.Turning.MINIMUM_OUTPUT,
+      Constants.Drivetrains.Swerve.Motors.Turning.MAXIMUM_OUTPUT
     );
 
-    drivingSparkMax.setIdleMode(Constants.Drivetrains.Swerve.Module.DRIVING_MOTOR_IDLE_MODE);  
-    turningSparkMax.setIdleMode(Constants.Drivetrains.Swerve.Module.TURNING_MOTOR_IDLE_MODE);
+    drivingSparkMax.setIdleMode(Constants.Drivetrains.Swerve.Motors.Drive.IDLE_MODE);  
+    turningSparkMax.setIdleMode(Constants.Drivetrains.Swerve.Motors.Turning.IDLE_MODE);
 
-    drivingSparkMax.setSmartCurrentLimit(Constants.Drivetrains.Swerve.Module.DRIVING_MOTOR_CURRENT_LIMIT);
-    turningSparkMax.setSmartCurrentLimit(Constants.Drivetrains.Swerve.Module.TURNING_MOTOR_CURRENT_LIMIT);
+    drivingSparkMax.setSmartCurrentLimit(Constants.Drivetrains.Swerve.Motors.Drive.CURRENT_LIMIT);
+    turningSparkMax.setSmartCurrentLimit(Constants.Drivetrains.Swerve.Motors.Turning.CURRENT_LIMIT);
 
     // Save the SPARK MAX configurations. If a SPARK MAX browns out during
     // operation, it will maintain the above configurations.
@@ -194,7 +194,7 @@ public class SwerveModule extends SubsystemBase {
         )
         * Math.PI / 180
       )
-      / Constants.Drivetrains.Swerve.Module.TURNING_GEAR_RATIO
+      / Constants.Drivetrains.Swerve.Measurements.TURNING_GEAR_RATIO
     );
   }
 }

@@ -10,9 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DashboardConfig {
 
     public DashboardConfig() {
-        SmartDashboard.putNumber("TurningP", Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_P);
-        SmartDashboard.putNumber("TurningI", Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_I);
-        SmartDashboard.putNumber("TurningD", Constants.Drivetrains.Swerve.Module.PID.TURNING_MOTOR_D);
+        
     }
 
 }
