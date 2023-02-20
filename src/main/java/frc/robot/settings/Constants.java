@@ -25,8 +25,10 @@ public final class Constants {
     }
 
     public static final class Intake {
-        
 
+        public static final double INTAKE_SPEED = 0;
+        public static final double OUTPUT_SPEED = 0;
+        
         public static final class Positions {
             /**
              * Lowest arm position, for intake
@@ -57,6 +59,13 @@ public final class Constants {
             */
             public static final double EXTENDED_WRIST = 0;
 
+        }
+
+        public static final class Ports {
+            public static final int ARM_MOTOR = 0;
+            public static final int WRIST_MOTOR = 0;
+            public static final int LEFT_GRIP_MOTOR = 0;
+            public static final int RIGHT_GRIP_MOTOR = 0;
         }
 
     }
