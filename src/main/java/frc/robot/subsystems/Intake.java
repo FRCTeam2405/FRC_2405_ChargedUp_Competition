@@ -5,13 +5,25 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.settings.Constants;
 
 public class Intake extends SubsystemBase {
+
+  public double desiredArmPosition;
+  public double desiredWristPosition;
+
   /** Creates a new Intake. */
-  public Intake() {}
+  public Intake() {
+    desiredArmPosition = Constants.Intake.Positions.LOW_ARM_POSITION;
+    desiredWristPosition = Constants.Intake.Positions.COLLAPSED_WRIST;
+  }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    //TODO! Drive motors towards desired positions
+  }
+
+  public void driveGrip(double speed) {
+    //TODO! Drive motors
   }
 }
