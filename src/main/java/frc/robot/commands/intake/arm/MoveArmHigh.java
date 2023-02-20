@@ -15,7 +15,8 @@ public class MoveArmHigh extends InstantCommand {
 
   private Intake intake;
 
-  public MoveArmHigh() {
+  public MoveArmHigh(Intake setIntake) {
+    intake = setIntake;
     // Declare subsystem dependencies.
     addRequirements(intake);
   }

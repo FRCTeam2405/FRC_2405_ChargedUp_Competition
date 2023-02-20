@@ -13,7 +13,8 @@ public class OutputPiece extends CommandBase {
   private Intake intake;
 
   /** Creates a new IntakePiece. */
-  public OutputPiece() {
+  public OutputPiece(Intake setIntake) {
+    intake = setIntake;
     // Declare subsystem dependencies.
     addRequirements(intake);
   }

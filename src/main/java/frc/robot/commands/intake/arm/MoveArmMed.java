@@ -15,7 +15,8 @@ public class MoveArmMed extends InstantCommand {
 
   private Intake intake;
 
-  public MoveArmMed() {
+  public MoveArmMed(Intake setIntake) {
+    intake = setIntake;
     // Declare subsystem dependencies.
     addRequirements(intake);
   }

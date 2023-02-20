@@ -15,7 +15,8 @@ public class CollapseArm extends InstantCommand {
 
   private Intake intake;
 
-  public CollapseArm() {
+  public CollapseArm(Intake setIntake) {
+    intake = setIntake;
     // Declare subsystem dependencies.
     addRequirements(intake);
   }
