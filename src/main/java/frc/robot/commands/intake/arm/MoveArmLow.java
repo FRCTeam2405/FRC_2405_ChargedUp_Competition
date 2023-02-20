@@ -23,7 +23,7 @@ public class MoveArmLow extends InstantCommand {
 
   @Override
   public void end(boolean interrupted) {
-    intake.desiredArmPosition = Constants.Intake.Positions.LOW_ARM_POSITION;
+    intake.desiredArmPosition = Constants.Intake.Positions.LOW_ARM;
     intake.desiredWristPosition = Constants.Intake.Positions.EXTENDED_WRIST;
   }
 }

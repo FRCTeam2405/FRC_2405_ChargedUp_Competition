@@ -77,17 +77,17 @@ public final class Constants {
              * and output to the bottom row.
              * Measured in degrees.
              */
-            public static final double LOW_ARM_POSITION = 0;
+            public static final double LOW_ARM = 0;
             /**
              * Medium arm position, for output
              * to the middle row. Measured in degrees.
              */
-            public static final double MED_ARM_POSITION = 0;
+            public static final double MED_ARM = 0;
             /**
              * Highest arm position, for output
              * to the top row. Measured in degrees.
              */
-            public static final double HIGH_ARM_POSITION = 0;
+            public static final double HIGH_ARM = 0;
 
 
             /**
