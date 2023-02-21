@@ -14,7 +14,7 @@ public class Intake extends SubsystemBase {
 
   /** Creates a new Intake. */
   public Intake() {
-    desiredArmPosition = Constants.Intake.Positions.LOW_ARM_POSITION;
+    desiredArmPosition = Constants.Intake.Positions.LOW_ARM;
     desiredWristPosition = Constants.Intake.Positions.COLLAPSED_WRIST;
   }
 
