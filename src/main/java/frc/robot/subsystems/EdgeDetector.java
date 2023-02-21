@@ -22,20 +22,20 @@ public class EdgeDetector extends SubsystemBase {
   public EdgeDetector() {
 
     frontLeftSensor = new Ultrasonic(
-      Constants.EdgeDetection.FRONT_LEFT_PING,
-      Constants.EdgeDetection.FRONT_LEFT_ECHO
+      Constants.EdgeDetection.Ports.FRONT_LEFT_PING,
+      Constants.EdgeDetection.Ports.FRONT_LEFT_ECHO
     );
     frontRightSensor = new Ultrasonic(
-      Constants.EdgeDetection.FRONT_RIGHT_PING,
-      Constants.EdgeDetection.FRONT_RIGHT_ECHO
+      Constants.EdgeDetection.Ports.FRONT_RIGHT_PING,
+      Constants.EdgeDetection.Ports.FRONT_RIGHT_ECHO
     );
     backLeftSensor = new Ultrasonic(
-      Constants.EdgeDetection.BACK_LEFT_PING,
-      Constants.EdgeDetection.BACK_LEFT_ECHO
+      Constants.EdgeDetection.Ports.BACK_LEFT_PING,
+      Constants.EdgeDetection.Ports.BACK_LEFT_ECHO
     );
     backRightSensor = new Ultrasonic(
-      Constants.EdgeDetection.BACK_RIGHT_PING,
-      Constants.EdgeDetection.BACK_RIGHT_ECHO
+      Constants.EdgeDetection.Ports.BACK_RIGHT_PING,
+      Constants.EdgeDetection.Ports.BACK_RIGHT_ECHO
     );
     Ultrasonic.setAutomaticMode(enabled);
   }

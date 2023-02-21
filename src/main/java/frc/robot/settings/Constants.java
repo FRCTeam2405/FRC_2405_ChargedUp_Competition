@@ -71,16 +71,17 @@ public final class Constants {
         public static final boolean ENABLED_DEFAULT = false;
         public static final double EDGE_THRESHOLD = 34524;
 
-        public static final int FRONT_LEFT_PING = 0;
-        public static final int FRONT_RIGHT_PING = 2;
-        public static final int BACK_LEFT_PING = 4;
-        public static final int BACK_RIGHT_PING = 6;
+        public static final class Ports {
 
-        public static final int FRONT_LEFT_ECHO = 1;
-        public static final int FRONT_RIGHT_ECHO = 3;
-        public static final int BACK_LEFT_ECHO = 5;
-        public static final int BACK_RIGHT_ECHO = 7;
+            public static final int FRONT_LEFT_PING = 0;
+            public static final int FRONT_RIGHT_PING = 2;
+            public static final int BACK_LEFT_PING = 4;
+            public static final int BACK_RIGHT_PING = 6;
 
-
+            public static final int FRONT_LEFT_ECHO = 1;
+            public static final int FRONT_RIGHT_ECHO = 3;
+            public static final int BACK_LEFT_ECHO = 5;
+            public static final int BACK_RIGHT_ECHO = 7;
+        }
     }
 }
