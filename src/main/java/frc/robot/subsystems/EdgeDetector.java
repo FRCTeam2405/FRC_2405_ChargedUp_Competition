@@ -16,7 +16,7 @@ public class EdgeDetector extends SubsystemBase {
   Ultrasonic backLeftSensor;
   Ultrasonic backRightSensor;
 
-  boolean enabled = false;
+  boolean enabled = Constants.EdgeDetection.ENABLED_DEFAULT;
 
   /** Creates a new EdgeDetector. */
   public EdgeDetector() {
@@ -37,9 +37,7 @@ public class EdgeDetector extends SubsystemBase {
       Constants.EdgeDetection.BACK_RIGHT_PING,
       Constants.EdgeDetection.BACK_RIGHT_ECHO
     );
-
-    Ultrasonic.setAutomaticMode(true);
-
+    Ultrasonic.setAutomaticMode(enabled);
   }
 
   public void setEnabled(boolean enable) {
