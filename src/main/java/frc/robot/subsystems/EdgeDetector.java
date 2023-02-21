@@ -45,6 +45,8 @@ public class EdgeDetector extends SubsystemBase {
     enabled = enable;
   }
 
+  public boolean getEnabled() { return enabled; }
+
   @Override
   public void periodic() {
     SmartDashboard.putNumber("FrontLeftUltrasonic", frontLeftSensor.getRangeInches());
