@@ -21,8 +21,8 @@ public class MoveArmMed extends InstantCommand {
     addRequirements(intake);
   }
 
-  @Override
-  public void end(boolean interrupted) {
+  @Override 
+  public void initialize() {
     intake.desiredArmPosition = Constants.Intake.Positions.MED_ARM;
     intake.desiredWristPosition = Constants.Intake.Positions.EXTENDED_WRIST;
   }
