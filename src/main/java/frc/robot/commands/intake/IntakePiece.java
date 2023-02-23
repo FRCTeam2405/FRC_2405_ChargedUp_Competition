@@ -27,7 +27,7 @@ public class IntakePiece extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //TODO!
+    // The controller should handle cancelling the command via whileHeld
     return false;
   }
 }
