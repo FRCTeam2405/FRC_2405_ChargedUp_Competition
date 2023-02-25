@@ -21,7 +21,6 @@ public class SwerveContainer extends SubsystemBase {
     } catch(IOException exception) {
       SmartDashboard.putString("ERROR", "Swerve failed to init: " + exception.getMessage() + ". Did you remember to enter the swerve configuration?");
     }
-    
   }
 
   /** 
