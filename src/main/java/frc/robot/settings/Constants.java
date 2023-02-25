@@ -6,8 +6,6 @@ package frc.robot.settings;
 
 import com.revrobotics.CANSparkMax.IdleMode;
 
-import edu.wpi.first.math.util.Units;
-
 /** Program-wide constants for the robot.
  *  For settings that should be changed before
  *  building and deploying the code.
@@ -36,10 +34,11 @@ public final class Constants {
         public static final class Swerve {
 
             public static final boolean FIELD_RELATIVE = true;
+            public static final boolean OPEN_LOOP = false;
 
             public static final class Speed {
-                public static final double MAX_SPEED_METERS_PER_SECONDS = 0.5;
-                public static final double MAX_ANGULAR_SPEED = 0.5 * Math.PI; // radians per second
+                public static final double MAX_TRANSLATION_MPS = 0.5;
+                public static final double MAX_ANGULAR_RPS = 0.5 * Math.PI; // radians per second
             }
 
             public static final class Odometry {

@@ -10,14 +10,14 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.settings.Constants;
 import frc.robot.settings.DashboardConfig;
-import frc.robot.subsystems.drivetrains.Swerve;
+import frc.robot.subsystems.drivetrains.SwerveContainer;
 
 public class RobotContainer {
 
   private final DashboardConfig config;
 
   // Declare subsystems
-  private final Swerve swerveDrive;
+  private final SwerveContainer swerveDrive;
 
   // Declare controllers
   private XboxController driverController = new XboxController(Constants.Controllers.DRIVER_CONTROLLER_PORT);
@@ -26,14 +26,12 @@ public class RobotContainer {
 
     config = new DashboardConfig();
 
-    swerveDrive = new Swerve();
-
-    swerveDrive.navX.calibrate();
+    swerveDrive = new SwerveContainer();
 
     configureBindings();
 
     // Set default commands
-    swerveDrive.setDefaultCommand(getSwerveCommand());
+    swerveDrive.setDefaultCommand(new DriveSwerve(swerveDrive, driverController));
   }
 
   private void configureBindings() {}
@@ -42,20 +40,4 @@ public class RobotContainer {
     return Commands.print("No autonomous command configured");
   }
 
-  public Command getSwerveCommand() {
-    return new RunCommand(
-      () ->
-        swerveDrive.drive(
-          // In WPILib, the front of the robot faces positive X
-          // in the coordinate plane. However, the Xbox joystick's
-          // X axis is horizontal (when held correctly), so to make
-          // movement intuitive, we must swap the X and Y axes in the input.
-          driverController.getLeftX(),
-          driverController.getLeftY(),
-          driverController.getRightX(),
-          Constants.Drivetrains.Swerve.FIELD_RELATIVE
-        ),
-      swerveDrive
-    );
-  }
 }
