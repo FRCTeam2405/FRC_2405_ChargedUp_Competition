@@ -20,10 +20,10 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //TODO! Drive motors towards desired positions
+    //TODO! Drive arm motors towards desired positions
   }
 
   public void driveGrip(double speed) {
-    //TODO! Drive motors
+    //TODO! Drive grip motors
   }
 }
