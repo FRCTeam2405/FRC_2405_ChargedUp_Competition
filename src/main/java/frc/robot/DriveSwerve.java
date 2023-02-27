@@ -42,6 +42,9 @@ public class DriveSwerve extends CommandBase {
   public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
+  
+  // Should return false, we are relying on the 
+  // controller to handle stopping the command
   @Override
   public boolean isFinished() {
     return false;
