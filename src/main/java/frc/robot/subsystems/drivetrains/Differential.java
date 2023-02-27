@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Constants;
 
 public class Differential extends SubsystemBase {
-
+  public boolean autoBalenceEnabled = true;
 
   private WPI_TalonFX leftParentMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motors.Ports.FRONT_LEFT);
   private WPI_TalonFX rightParentMotor = new WPI_TalonFX(Constants.Drivetrains.Differential.Motors.Ports.FRONT_RIGHT);
@@ -103,7 +103,7 @@ public class Differential extends SubsystemBase {
   
   public void operatorControl() {
     drive.setSafetyEnabled(true);
-      while (isOperatorControl() && isEnabled()) {
+      while (autoBalenceEnabled) {
 
           double xAxisRate            = stick.getX();
           double yAxisRate            = stick.getY();
