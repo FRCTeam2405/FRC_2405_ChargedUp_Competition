@@ -104,11 +104,10 @@ public final class Constants {
         }
 
         public static final class Ports {
-            public static final int ARM_MOTOR = 0;
-            public static final int WRIST_MOTOR = 0;
-            public static final int LEFT_GRIP_MOTOR = 0;
-            public static final int RIGHT_GRIP_MOTOR = 0;
+            public static final int ARM_MOTOR = 34;
+            public static final int WRIST_MOTOR = 35;
+            public static final int LEFT_GRIP_MOTOR = 36;
+            public static final int RIGHT_GRIP_MOTOR = 37;
         }
-
     }
 }
