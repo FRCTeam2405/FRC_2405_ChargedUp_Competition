@@ -6,6 +6,10 @@ package frc.robot.settings;
 
 import com.revrobotics.CANSparkMax.IdleMode;
 
+import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.util.Units;
+import swervelib.math.Matter;
+
 /** Program-wide constants for the robot.
  *  For settings that should be changed before
  *  building and deploying the code.
@@ -71,6 +75,11 @@ public final class Constants {
                 public static final double TURNING_GEAR_RATIO = 15.42857;
                 
                 public static final double DRIVE_WHEEL_FREE_SPEED_RPS = (FREE_SPEED_RPS * WHEEL_CIRCUMFERENCE_METERS) / DRIVING_GEAR_RATIO;
+
+                public static final double ROBOT_MASS = 0;
+                public static final double CHASSIS_MASS = 0;
+                public static final double MESSAGE_LOOP_TIME = 0.13;
+                public static final Matter CHASSIS_CG = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), CHASSIS_MASS);
             }
 
             public static final class Motors {
@@ -174,5 +183,14 @@ public final class Constants {
 
     public static final class Controllers {
         public static final int DRIVER_CONTROLLER_PORT = 0;
+
+        public static final class DriverController {
+            public static final double joystickDeadband = 0;
+
+            public static final double speedX = 0;
+            public static final double speedY = 0;
+            public static final double rotationX = 0;
+            public static final double rotationY = 0;
+        }
     }
 }

@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot;
+package frc.robot.commands.swerve;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -35,7 +35,7 @@ public class DriveSwerve extends CommandBase {
   static final double kOonBalanceAngleThresholdDegrees  = 5;
 
   public void operatorControl() {
-      myRobot.setSafetyEnabled(true);
+          drive.setSafetyEnabled(true);
 
           double xAxisRate            = stick.getX();
           double yAxisRate            = stick.getY();
@@ -77,7 +77,7 @@ public class DriveSwerve extends CommandBase {
           }
           
           try {
-              myRobot.driveCartesian(xAxisRate, yAxisRate, stick.getTwist(),0);
+              drive.drive(moveX, moveY, rotTheta);
           } catch( RuntimeException ex ) {
               String err_string = "Drive system error:  " + ex.getMessage();
               DriverStation.reportError(err_string, true);
