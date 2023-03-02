@@ -3,12 +3,16 @@ package frc.robot.subsystems.drivetrains;
 import java.io.File;
 import java.io.IOException;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Constants;
 import swervelib.SwerveDrive;
+import swervelib.parser.SwerveDriveConfiguration;
 import swervelib.parser.SwerveParser;
 
 public class SwerveContainer extends SubsystemBase {
@@ -21,6 +25,11 @@ public class SwerveContainer extends SubsystemBase {
     } catch(IOException exception) {
       SmartDashboard.putString("ERROR", "Swerve failed to init: " + exception.getMessage() + ". Did you remember to enter the swerve configuration?");
     }
+  }
+
+  @Override
+  public void periodic() {
+    rawSwerveDrive.updateOdometry();
   }
 
   /** 
@@ -45,6 +54,28 @@ public class SwerveContainer extends SubsystemBase {
       Constants.Drivetrains.Swerve.FIELD_RELATIVE,
       Constants.Drivetrains.Swerve.OPEN_LOOP
     );
+  }
+
+  public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, double headingX, double headingY) {
+    xInput = Math.pow(xInput, 3);
+    yInput = Math.pow(yInput, 3);
+    return rawSwerveDrive.swerveController.getTargetSpeeds(xInput, yInput, headingX, headingY, rawSwerveDrive.getYaw().getRadians());
+  }
+
+  public void driveRaw(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
+    rawSwerveDrive.drive(translation, rotation, fieldRelative, isOpenLoop);
+  }
+
+  public Pose2d getPose() {
+    return rawSwerveDrive.getPose();
+  }
+
+  public ChassisSpeeds getFieldVelocity() {
+    return rawSwerveDrive.getFieldVelocity();
+  }
+
+  public SwerveDriveConfiguration getSwerveDriveConfiguration() {
+    return rawSwerveDrive.swerveDriveConfiguration;
   }
 }
 
