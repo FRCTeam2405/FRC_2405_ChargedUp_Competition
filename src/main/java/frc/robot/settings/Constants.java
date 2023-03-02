@@ -7,6 +7,7 @@ package frc.robot.settings;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
 
 /** Program-wide constants for the robot.
@@ -78,7 +79,7 @@ public final class Constants {
                 public static final double ROBOT_MASS = 0;
                 public static final double CHASSIS_MASS = 0;
                 public static final double MESSAGE_LOOP_TIME = 0.13;
-                public static final Matter CHASSIS_CG = new Matter(new Translation3d(0, 0, 8), CHASSIS_MASS);
+                public static final Matter CHASSIS_CG = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), CHASSIS_MASS);
             }
 
             public static final class Motors {
