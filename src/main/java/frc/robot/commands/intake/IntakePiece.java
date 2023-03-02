@@ -24,6 +24,11 @@ public class IntakePiece extends CommandBase {
     intake.driveGrip(Constants.Intake.INTAKE_SPEED);
   }
 
+  @Override
+  public void end(boolean interrupted) {
+    intake.driveGrip(0);
+  }
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
