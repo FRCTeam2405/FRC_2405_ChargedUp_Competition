@@ -35,7 +35,7 @@ public class DriveSwerve extends CommandBase {
   static final double kOonBalanceAngleThresholdDegrees  = 5;
 
   public void operatorControl() {
-      myRobot.setSafetyEnabled(true);
+          drive.setSafetyEnabled(true);
 
           double xAxisRate            = stick.getX();
           double yAxisRate            = stick.getY();
@@ -77,7 +77,7 @@ public class DriveSwerve extends CommandBase {
           }
           
           try {
-              myRobot.driveCartesian(xAxisRate, yAxisRate, stick.getTwist(),0);
+              drive.drive(moveX, moveY, rotTheta);
           } catch( RuntimeException ex ) {
               String err_string = "Drive system error:  " + ex.getMessage();
               DriverStation.reportError(err_string, true);
