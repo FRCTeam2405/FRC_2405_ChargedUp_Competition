@@ -68,8 +68,8 @@ public final class Constants {
 
     public static final class Intake {
 
-        public static final double INTAKE_SPEED = 0;
-        public static final double OUTPUT_SPEED = 0;
+        public static final double INTAKE_SPEED = 0.1;
+        public static final double OUTPUT_SPEED = 0.1;
         
         public static final class Positions {
             /**
