@@ -27,6 +27,11 @@ public class SwerveContainer extends SubsystemBase {
     }
   }
 
+  @Override
+  public void periodic() {
+    rawSwerveDrive.updateOdometry();
+  }
+
   /** 
    * Move the swerve drivetrain based on XY speed and rotational speed.
    * Inputs should be in a range from -1.0 to 1.0
