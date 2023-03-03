@@ -4,8 +4,11 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,17 +20,26 @@ public class Intake extends SubsystemBase {
   public double desiredWristPosition;
 
   WPI_TalonFX armMotor;
+
   CANSparkMax wristMotor;
+  SparkMaxPIDController wristPID;
+
   CANSparkMax leftGripMotor;
   CANSparkMax rightGripMotor;
 
   /** Creates a new Intake. */
   public Intake() {
+    
     desiredArmPosition = Constants.Intake.Positions.LOW_ARM;
     desiredWristPosition = Constants.Intake.Positions.COLLAPSED_WRIST;
+    
 
     armMotor = new WPI_TalonFX(Constants.Intake.Ports.ARM_MOTOR);
+
     wristMotor = new CANSparkMax(Constants.Intake.Ports.WRIST_MOTOR, MotorType.kBrushless);
+    wristPID = wristMotor.getPIDController();
+
+    //TODO! settings
 
     leftGripMotor = new CANSparkMax(Constants.Intake.Ports.LEFT_GRIP_MOTOR, MotorType.kBrushless);
     rightGripMotor = new CANSparkMax(Constants.Intake.Ports.RIGHT_GRIP_MOTOR, MotorType.kBrushless);
@@ -35,7 +47,10 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //TODO! Drive arm motors towards desired positions
+  
+    //TODO! do gear ratio and encoder res
+    armMotor.set(ControlMode.Position, desiredArmPosition);
+    wristPID.setReference((desiredWristPosition / 360), ControlType.kPosition);
   }
 
   public void driveGrip(double speed) {
