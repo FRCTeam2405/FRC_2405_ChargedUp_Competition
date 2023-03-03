@@ -7,25 +7,22 @@ package frc.robot.commands.swerve;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrains.SwerveContainer;
 
-public class DriveSwerve extends CommandBase {
+public class SwerveAutobalence extends CommandBase {
 
   SwerveContainer swerveDrive;
   XboxController controller;
   AHRS ahrs;
   DifferentialDrive drive;
-  Joystick stick;
 
   /** Creates a new DriveSwerve. */
-  public DriveSwerve(SwerveContainer swerve, XboxController xboxController) {
+  public SwerveAutobalence(SwerveContainer swerve) {
 
     swerveDrive = swerve;
-    controller = xboxController;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(swerveDrive);
@@ -37,8 +34,8 @@ public class DriveSwerve extends CommandBase {
   public void operatorControl() {
           drive.setSafetyEnabled(true);
 
-          double xAxisRate            = stick.getX();
-          double yAxisRate            = stick.getY();
+          double xAxisRate = 0;
+          double yAxisRate = 0;
           double pitchAngleDegrees    = ahrs.getPitch();
           double rollAngleDegrees     = ahrs.getRoll();
           
@@ -77,7 +74,7 @@ public class DriveSwerve extends CommandBase {
           }
           
           try {
-              drive.drive(moveX, moveY, rotTheta);
+              swerveDrive.drive(xAxisRate, yAxisRate, 0);
           } catch( RuntimeException ex ) {
               String err_string = "Drive system error:  " + ex.getMessage();
               DriverStation.reportError(err_string, true);
@@ -91,11 +88,7 @@ public class DriveSwerve extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    swerveDrive.drive(
-      controller.getLeftY(),
-      controller.getLeftX(),
-      controller.getRightX()
-    );
+    this.operatorControl();
   }
 
   // Called once the command ends or is interrupted.
