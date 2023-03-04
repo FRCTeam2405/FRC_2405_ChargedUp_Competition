@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.swerve.AbsoluteDrive;
-import frc.robot.commands.swerve.DriveSwerve;
+import frc.robot.commands.swerve.SwerveAutobalence;
 import frc.robot.settings.Constants;
 import frc.robot.settings.DashboardConfig;
 import frc.robot.subsystems.drivetrains.SwerveContainer;
@@ -24,17 +24,26 @@ public class RobotContainer {
   // Declare subsystems
   private final SwerveContainer swerveDrive;
 
+  //Declare commands
+  private final SwerveAutobalence commandBalence;
+
   // Declare controllers
   private Joystick driverLeftStick = new Joystick(Constants.Controllers.DRIVER_CONTROLLER_PORT);
   private Joystick driverRightStick = new Joystick(Constants.Controllers.DRIVER_CONTROLLER_PORT);
 
   private XboxController driverController = new XboxController(Constants.Controllers.DRIVER_CONTROLLER_PORT);
+  private final JoystickButton driverMainButtonX = new JoystickButton(driverController, Constants.Controllers.DriverController.DRIVER_CONTROLLER_BUTTON_X);
+  private final JoystickButton driverMainButtonB = new JoystickButton(driverController, Constants.Controllers.DriverController.DRIVER_CONTROLLER_BUTTON_B);
+  private final JoystickButton driverMainButtonY = new JoystickButton(driverController, Constants.Controllers.DriverController.DRIVER_CONTROLLER_BUTTON_Y);
+  private final JoystickButton driverMainButtonA = new JoystickButton(driverController, Constants.Controllers.DriverController.DRIVER_CONTROLLER_BUTTON_A);
 
   public RobotContainer() {
 
     config = new DashboardConfig();
 
     swerveDrive = new SwerveContainer();
+
+    commandBalence = new SwerveAutobalence(swerveDrive);
 
     configureBindings();
 
@@ -58,7 +67,14 @@ public class RobotContainer {
     return () -> controller.getRawAxis(axis);
   }
 
-  private void configureBindings() {}
+  private void configureBindings() {
+    //driverMainButtonX.whenHeld();
+    //driverMainButtonB.whenHeld();
+    //driverMainButtonY.whenHeld();
+    driverMainButtonA.whenPressed(commandBalence);
+
+
+  }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");

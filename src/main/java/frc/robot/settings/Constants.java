@@ -191,6 +191,11 @@ public final class Constants {
             public static final double speedY = 0;
             public static final double rotationX = 0;
             public static final double rotationY = 0;
+            
+            public static final int DRIVER_CONTROLLER_BUTTON_X = 3;
+            public static final int DRIVER_CONTROLLER_BUTTON_B = 2;
+            public static final int DRIVER_CONTROLLER_BUTTON_Y = 4;
+            public static final int DRIVER_CONTROLLER_BUTTON_A = 1;
         }
     }
 }
