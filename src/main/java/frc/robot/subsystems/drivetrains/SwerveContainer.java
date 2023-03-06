@@ -24,7 +24,10 @@ public class SwerveContainer extends SubsystemBase {
       rawSwerveDrive = new SwerveParser(new File(Filesystem.getDeployDirectory(), "swerve")).createSwerveDrive();
     } catch(IOException exception) {
       SmartDashboard.putString("ERROR", "Swerve failed to init: " + exception.getMessage() + ". Did you remember to enter the swerve configuration?");
+      return;
     }
+
+    rawSwerveDrive.setMotorIdleMode(false);
   }
 
   @Override
