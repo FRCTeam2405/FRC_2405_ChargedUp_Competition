@@ -62,6 +62,13 @@ public class SwerveContainer extends SubsystemBase {
     return rawSwerveDrive.swerveController.getTargetSpeeds(xInput, yInput, headingX, headingY, rawSwerveDrive.getYaw().getRadians());
   }
 
+  public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, Rotation2d angle)
+  {
+    xInput = Math.pow(xInput, 3);
+    yInput = Math.pow(yInput, 3);
+    return rawSwerveDrive.swerveController.getTargetSpeeds(xInput, yInput, angle.getRadians(), rawSwerveDrive.getYaw().getRadians());
+  }
+
   public void driveRaw(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
     rawSwerveDrive.drive(translation, rotation, fieldRelative, isOpenLoop);
   }
@@ -76,6 +83,10 @@ public class SwerveContainer extends SubsystemBase {
 
   public SwerveDriveConfiguration getSwerveDriveConfiguration() {
     return rawSwerveDrive.swerveDriveConfiguration;
+  }
+
+  public Rotation2d getYaw() {
+    return rawSwerveDrive.getYaw();
   }
 }
 

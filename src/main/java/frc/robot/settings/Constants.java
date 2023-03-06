@@ -182,15 +182,20 @@ public final class Constants {
     }
 
     public static final class Controllers {
-        public static final int DRIVER_CONTROLLER_PORT = 0;
+        public static final int DRIVER_JOYSTICK_PORT = 0;
+        public static final int DRIVER_WHEEL_PORT = 1;
 
-        public static final class DriverController {
-            public static final double joystickDeadband = 0;
+        
+        public static final class Axis {
+            public static final int JOYSTICK_X = 0;
+            public static final int JOYSTICK_Y = 1;
 
-            public static final double speedX = 0;
-            public static final double speedY = 0;
-            public static final double rotationX = 0;
-            public static final double rotationY = 0;
+            public static final int WHEEL_X = 0;
         }
+        
+        public static final double joystickDeadband = 0.1;
+        public static final double wheelDeadband = 0.2;
+        
+
     }
 }
