@@ -42,7 +42,7 @@ public final class Constants {
 
             public static final class Speed {
                 public static final double MAX_TRANSLATION_MPS = 0.5;
-                public static final double MAX_ANGULAR_RPS = 0.25 * (2 * Math.PI); // radians per second
+                public static final double MAX_ANGULAR_RPS = 0.5 * (2 * Math.PI); // radians per second
             }
 
             public static final class Odometry {

@@ -38,16 +38,17 @@ public class RobotContainer {
     // Set default commands
     swerveDrive.setDefaultCommand(new AbsoluteDrive3Axis(
       swerveDrive,
-      axisDeadband(driverStick, Constants.Controllers.Axis.JOYSTICK_X, Constants.Controllers.joystickDeadband),
-      axisDeadband(driverStick, Constants.Controllers.Axis.JOYSTICK_Y, Constants.Controllers.joystickDeadband),
-      axisDeadband(driverWheel, Constants.Controllers.Axis.WHEEL_X, Constants.Controllers.wheelDeadband)
+      axisDeadband(driverStick, Constants.Controllers.Axis.JOYSTICK_Y, Constants.Controllers.joystickDeadband, true),
+      axisDeadband(driverStick, Constants.Controllers.Axis.JOYSTICK_X, Constants.Controllers.joystickDeadband, true),
+      axisDeadband(driverWheel, Constants.Controllers.Axis.WHEEL_X, Constants.Controllers.wheelDeadband, false)
     ));
   }
 
-  private DoubleSupplier axisDeadband(Joystick controller, int axis, double deadband) {
+  private DoubleSupplier axisDeadband(Joystick controller, int axis, double deadband, boolean inverted) {
+    double invertedMultiplier = inverted ? -1.0 : 1.0;
     return () -> (
       Math.abs(controller.getRawAxis(axis)) > deadband
-    ) ? controller.getRawAxis(axis) : 0;
+    ) ? controller.getRawAxis(axis) * invertedMultiplier : 0;
   }
 
   private void configureBindings() {}

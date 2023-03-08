@@ -54,31 +54,31 @@ public class AbsoluteDrive3Axis extends CommandBase {
     ChassisSpeeds desiredSpeeds = swerve.getTargetSpeeds(
       moveX.getAsDouble(),
       moveY.getAsDouble(),
-      new Rotation2d(headingTheta.getAsDouble() * Math.PI)
+      new Rotation2d(headingTheta.getAsDouble() * Constants.Drivetrains.Swerve.Speed.MAX_ANGULAR_RPS)
     );
 
-    // Limit velocity to prevent tippy
-    Translation2d translation = SwerveController.getTranslation2d(desiredSpeeds);
+    // // Limit velocity to prevent tippy
+    // Translation2d translation = SwerveController.getTranslation2d(desiredSpeeds);
 
-    translation = SwerveMath.limitVelocity(
-      translation,
-      swerve.getFieldVelocity(),
-      swerve.getPose(),
-      Constants.Drivetrains.Swerve.Measurements.MESSAGE_LOOP_TIME,
-      Constants.Drivetrains.Swerve.Measurements.ROBOT_MASS,
-      List.of(Constants.Drivetrains.Swerve.Measurements.CHASSIS_CG),
-      swerve.getSwerveDriveConfiguration()
-    );
+    // translation = SwerveMath.limitVelocity(
+    //   translation,
+    //   swerve.getFieldVelocity(),
+    //   swerve.getPose(),
+    //   Constants.Drivetrains.Swerve.Measurements.MESSAGE_LOOP_TIME,
+    //   Constants.Drivetrains.Swerve.Measurements.ROBOT_MASS,
+    //   List.of(Constants.Drivetrains.Swerve.Measurements.CHASSIS_CG),
+    //   swerve.getSwerveDriveConfiguration()
+    // );
 
 
-    SmartDashboard.putNumber("LimitedTranslation", translation.getX());
-    SmartDashboard.putString("Translation", translation.toString());
+    // SmartDashboard.putNumber("LimitedTranslation", translation.getX());
+    // SmartDashboard.putString("Translation", translation.toString());
 
     // Make the robot move
     swerve.driveRaw(
-      translation,
+      SwerveController.getTranslation2d(desiredSpeeds),
       desiredSpeeds.omegaRadiansPerSecond,
-      true,
+      Constants.Drivetrains.Swerve.FIELD_RELATIVE,
       Constants.Drivetrains.Swerve.OPEN_LOOP
     );
   }
