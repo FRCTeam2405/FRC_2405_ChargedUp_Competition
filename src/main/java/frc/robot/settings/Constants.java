@@ -89,6 +89,8 @@ public final class Constants {
              */
             public static final double HIGH_ARM = 0;
 
+            public static final double PICKUP_HIGH = 0;
+
 
             /**
              * Inner wrist position, for storage
