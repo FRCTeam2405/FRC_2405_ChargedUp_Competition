@@ -58,29 +58,28 @@ public class AbsoluteDrive3Axis extends CommandBase {
   public void execute() {
 
     // Cube the input values to make small inputs smaller, big inputs bigger
-    double correctedMoveX = Math.pow(moveX.getAsDouble(), 3);
-    double correctedMoveY = Math.pow(moveY.getAsDouble(), 3);
-    double correctedTurnTheta = Math.pow(turnTheta.getAsDouble(), 3);
+    double correctedMoveX = Math.pow(moveX.getAsDouble(), 3) * Speed.MAX_TRANSLATION_MPS;
+    double correctedMoveY = Math.pow(moveY.getAsDouble(), 3) * Speed.MAX_TRANSLATION_MPS;
+    double correctedTurnTheta = turnTheta.getAsDouble() * Speed.MAX_ANGULAR_RPS;
 
-    if(correctedTurnTheta != 0) {
-      // Use delta time to make this speed consistent over time
-      double deltaTimeSeconds = time.get() - previousTime;
-      desiredAngle += correctedTurnTheta * Speed.MAX_ANGULAR_RPS * deltaTimeSeconds;
-      SmartDashboard.putNumber("deltaTime", deltaTimeSeconds);
-    } else {
-      desiredAngle = swerve.getYaw().getRadians();
-    }
+    // if(correctedTurnTheta != 0) {
+    //   // Use delta time to make this speed consistent over time
+    //   double deltaTimeSeconds = time.get() - previousTime;
+    //   desiredAngle += correctedTurnTheta * Speed.MAX_ANGULAR_RPS * deltaTimeSeconds;
+    //   SmartDashboard.putNumber("deltaTime", deltaTimeSeconds);
+    // } else {
+    //   desiredAngle = swerve.getYaw().getRadians();
+    // }
     
     
-    SmartDashboard.putNumber("inputCubed", correctedTurnTheta);
-    SmartDashboard.putNumber("desiredAng", desiredAngle);
+    SmartDashboard.putNumber("input", correctedTurnTheta);
+    // SmartDashboard.putNumber("desiredAng", desiredAngle);
     SmartDashboard.putNumber("configMaxAngularVelocity", swerve.getController().config.maxAngularVelocity);
 
-    ChassisSpeeds desiredSpeeds = swerve.getController().getTargetSpeeds(
+    ChassisSpeeds desiredSpeeds = swerve.getController().getRawTargetSpeeds(
       correctedMoveX,
       correctedMoveY,
-      desiredAngle,
-      swerve.getYaw().getRadians()
+      correctedTurnTheta
     );
 
     // // Limit velocity to prevent tippy

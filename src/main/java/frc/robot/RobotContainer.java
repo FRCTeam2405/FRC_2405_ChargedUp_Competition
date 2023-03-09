@@ -38,7 +38,7 @@ public class RobotContainer {
       swerveDrive,
       axisDeadband(driverStick, Constants.Controllers.Axis.JOYSTICK_Y, Constants.Controllers.joystickDeadband, true),
       axisDeadband(driverStick, Constants.Controllers.Axis.JOYSTICK_X, Constants.Controllers.joystickDeadband, true),
-      axisDeadband(driverWheel, Constants.Controllers.Axis.WHEEL_X, Constants.Controllers.wheelDeadband, false)
+      axisDeadband(driverWheel, Constants.Controllers.Axis.WHEEL_X, Constants.Controllers.wheelDeadband, true)
     ));
   }
 

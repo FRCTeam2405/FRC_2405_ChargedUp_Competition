@@ -53,8 +53,8 @@ public final class Constants {
             public static final boolean OPEN_LOOP = false;
 
             public static final class Speed {
-                public static final double MAX_TRANSLATION_MPS = 0.5;
-                public static final double MAX_ANGULAR_RPS = 0.5 * (2 * Math.PI); // radians per second
+                public static final double MAX_TRANSLATION_MPS = 4.0;
+                public static final double MAX_ANGULAR_RPS = 0.4 * (2 * Math.PI); // radians per second
             }
 
             public static final class Odometry {
@@ -205,7 +205,7 @@ public final class Constants {
             public static final int WHEEL_X = 0;
         }
         
-        public static final double joystickDeadband = 0.1;
+        public static final double joystickDeadband = 0.05;
         public static final double wheelDeadband = 0.2;
         
 
