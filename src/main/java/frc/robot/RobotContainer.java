@@ -49,9 +49,20 @@ public class RobotContainer {
     ) ? controller.getRawAxis(axis) * invertedMultiplier : 0;
   }
 
-  private void configureBindings() {}
+  private void configureBindings() {
+    driverController = new XboxController(0); //TODO! convert to constant
+  }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
+  }
+
+  public Command getDifferentialCommand() {
+    return new RunCommand(() -> differentialDrive.DriveTank(
+        driverController.getLeftY(),
+        driverController.getRightY()
+      ),
+      differentialDrive
+    );
   }
 }
