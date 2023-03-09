@@ -6,12 +6,15 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.swerve.AbsoluteDrive3Axis;
 import frc.robot.settings.Constants;
 import frc.robot.settings.DashboardConfig;
+import frc.robot.settings.Constants.Intake;
 import frc.robot.subsystems.drivetrains.SwerveContainer;
 
 public class RobotContainer {
@@ -20,6 +23,7 @@ public class RobotContainer {
 
   // Declare subsystems
   private final SwerveContainer swerveDrive;
+  private final Compressor airCompressor = new Compressor(Intake.Ports.COMPRESSOR, PneumaticsModuleType.CTREPCM);
 
   // Declare controllers
   private Joystick driverStick = new Joystick(Constants.Controllers.DRIVER_JOYSTICK_PORT);
