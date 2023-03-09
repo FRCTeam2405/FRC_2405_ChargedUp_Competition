@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Constants;
+import frc.robot.settings.Constants.Drivetrains.Swerve.Speed;
+import swervelib.SwerveController;
 import swervelib.SwerveDrive;
 import swervelib.parser.SwerveDriveConfiguration;
 import swervelib.parser.SwerveParser;
@@ -33,6 +35,10 @@ public class SwerveContainer extends SubsystemBase {
   @Override
   public void periodic() {
     rawSwerveDrive.updateOdometry();
+
+    SmartDashboard.putNumber("gyroPitch", rawSwerveDrive.getPitch().getDegrees());
+    SmartDashboard.putNumber("gyroRoll", rawSwerveDrive.getRoll().getDegrees());
+    SmartDashboard.putNumber("gyroYaw", rawSwerveDrive.getYaw().getDegrees());
   }
 
   /** 
@@ -40,6 +46,7 @@ public class SwerveContainer extends SubsystemBase {
    * Inputs should be in a range from -1.0 to 1.0
    */
   public void drive(double moveX, double moveY, double rotTheta) {
+
     // Multiply the inputs (range -1 to 1) by the max speeds
     moveX *= Constants.Drivetrains.Swerve.Speed.MAX_TRANSLATION_MPS;
     moveY *= Constants.Drivetrains.Swerve.Speed.MAX_TRANSLATION_MPS;
@@ -90,6 +97,10 @@ public class SwerveContainer extends SubsystemBase {
 
   public Rotation2d getYaw() {
     return rawSwerveDrive.getYaw();
+  }
+
+  public SwerveController getController() {
+    return rawSwerveDrive.swerveController;
   }
 }
 

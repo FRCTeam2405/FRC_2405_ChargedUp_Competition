@@ -4,17 +4,17 @@
 
 package frc.robot.commands.swerve;
 
-import java.util.List;
+
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.settings.Constants;
-import frc.robot.settings.Constants.Drivetrains.Swerve;
+import frc.robot.settings.Constants.Drivetrains.Swerve.Speed;
 import frc.robot.subsystems.drivetrains.SwerveContainer;
 import swervelib.SwerveController;
 import swervelib.math.SwerveMath;
@@ -24,11 +24,16 @@ public class AbsoluteDrive3Axis extends CommandBase {
   private SwerveContainer swerve;
 
   private DoubleSupplier moveX, moveY;
-  private DoubleSupplier headingTheta;
+  private DoubleSupplier turnTheta;
+
+  private Timer time = new Timer();
+  private double previousTime = 0;
+
+  private double desiredAngle = 0;
 
   /** Creates a new AbsoluteDrive. */
   public AbsoluteDrive3Axis(SwerveContainer swerve,
-    DoubleSupplier moveX, DoubleSupplier moveY, DoubleSupplier headingTheta
+    DoubleSupplier moveX, DoubleSupplier moveY, DoubleSupplier turnTheta
   ) {
 
     this.swerve = swerve;
@@ -36,7 +41,7 @@ public class AbsoluteDrive3Axis extends CommandBase {
     this.moveX = moveX;
     this.moveY = moveY;
 
-    this.headingTheta = headingTheta;
+    this.turnTheta = turnTheta;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.swerve);
@@ -44,17 +49,38 @@ public class AbsoluteDrive3Axis extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    time.start();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Get the desired chassis speeds based on a 2 joystick module.
+
+    // Cube the input values to make small inputs smaller, big inputs bigger
+    double correctedMoveX = Math.pow(moveX.getAsDouble(), 3);
+    double correctedMoveY = Math.pow(moveY.getAsDouble(), 3);
+    double correctedTurnTheta = Math.pow(turnTheta.getAsDouble(), 3);
+
+    if(correctedTurnTheta != 0) {
+      // Use delta time to make this speed consistent over time
+      double deltaTimeSeconds = time.get() - previousTime;
+      desiredAngle += correctedTurnTheta * Speed.MAX_ANGULAR_RPS * deltaTimeSeconds;
+      SmartDashboard.putNumber("deltaTime", deltaTimeSeconds);
+    } else {
+      desiredAngle = swerve.getYaw().getRadians();
+    }
     
-    ChassisSpeeds desiredSpeeds = swerve.getTargetSpeeds(
-      moveX.getAsDouble(),
-      moveY.getAsDouble(),
-      new Rotation2d(headingTheta.getAsDouble() * Constants.Drivetrains.Swerve.Speed.MAX_ANGULAR_RPS)
+    
+    SmartDashboard.putNumber("inputCubed", correctedTurnTheta);
+    SmartDashboard.putNumber("desiredAng", desiredAngle);
+    SmartDashboard.putNumber("configMaxAngularVelocity", swerve.getController().config.maxAngularVelocity);
+
+    ChassisSpeeds desiredSpeeds = swerve.getController().getTargetSpeeds(
+      correctedMoveX,
+      correctedMoveY,
+      desiredAngle,
+      swerve.getYaw().getRadians()
     );
 
     // // Limit velocity to prevent tippy
@@ -81,6 +107,8 @@ public class AbsoluteDrive3Axis extends CommandBase {
       Constants.Drivetrains.Swerve.FIELD_RELATIVE,
       Constants.Drivetrains.Swerve.OPEN_LOOP
     );
+
+    previousTime = time.get();
   }
 
   // Called once the command ends or is interrupted.
