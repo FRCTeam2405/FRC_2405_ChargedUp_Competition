@@ -255,6 +255,9 @@ public final class Constants {
             public static final int WRIST_MOTOR = 35;
             public static final int LEFT_GRIP_MOTOR = 36;
             public static final int RIGHT_GRIP_MOTOR = 37;
+
+            public static final int COMPRESSOR = 0;
+            public static final int SOLENOIDS = 0;
         }
     }
 }
