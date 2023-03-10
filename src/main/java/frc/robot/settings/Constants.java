@@ -196,6 +196,7 @@ public final class Constants {
     public static final class Controllers {
         public static final int DRIVER_JOYSTICK_PORT = 0;
         public static final int DRIVER_WHEEL_PORT = 1;
+        public static final int CODRIVER_PORT = 2;
 
         
         public static final class Axis {
@@ -213,8 +214,8 @@ public final class Constants {
 
     public static final class Intake {
 
-        public static final double INTAKE_SPEED = 0.1;
-        public static final double OUTPUT_SPEED = 0.1;
+        public static final double INTAKE_SPEED = 0.2;
+        public static final double OUTPUT_SPEED = 0.2;
         
         public static final class Positions {
             /**
@@ -256,7 +257,7 @@ public final class Constants {
             public static final int LEFT_GRIP_MOTOR = 36;
             public static final int RIGHT_GRIP_MOTOR = 37;
 
-            public static final int COMPRESSOR = 0;
+            public static final int COMPRESSOR = 7;
             public static final int SOLENOIDS = 0;
         }
     }

@@ -41,7 +41,12 @@ public class Intake extends SubsystemBase {
     wristMotor = new CANSparkMax(Constants.Intake.Ports.WRIST_MOTOR, MotorType.kBrushless);
     wristPID = wristMotor.getPIDController();
 
-    //TODO! settings
+    wristPID.setP(0.5);
+    wristPID.setI(0.005);
+    wristPID.setD(0.001);
+    wristPID.setFF(0);
+
+    wristMotor.burnFlash();
 
     leftGripMotor = new CANSparkMax(Constants.Intake.Ports.LEFT_GRIP_MOTOR, MotorType.kBrushless);
     rightGripMotor = new CANSparkMax(Constants.Intake.Ports.RIGHT_GRIP_MOTOR, MotorType.kBrushless);
@@ -62,7 +67,7 @@ public class Intake extends SubsystemBase {
 
   public void driveGrip(double speed) {
     leftGripMotor.set(speed);
-    rightGripMotor.set(speed);
+    rightGripMotor.set(-speed);
   }
 
   public boolean getGripOpen() { return gripSolenoids.get(); }
