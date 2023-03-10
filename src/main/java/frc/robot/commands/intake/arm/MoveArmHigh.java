@@ -6,7 +6,9 @@ package frc.robot.commands.intake.arm;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.settings.Constants;
+import frc.robot.settings.Constants.LEDs.Colors;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Lights;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -14,8 +16,10 @@ import frc.robot.subsystems.Intake;
 public class MoveArmHigh extends InstantCommand {
 
   private Intake intake;
+  private Lights lights;
 
-  public MoveArmHigh(Intake setIntake) {
+  public MoveArmHigh(Intake setIntake, Lights setLights) {
+    lights = setLights;
     intake = setIntake;
     // Declare subsystem dependencies.
     addRequirements(intake);
@@ -25,5 +29,6 @@ public class MoveArmHigh extends InstantCommand {
   public void initialize() {
     intake.desiredArmPosition = Constants.Intake.Positions.HIGH_ARM;
     intake.desiredWristPosition = Constants.Intake.Positions.EXTENDED_WRIST;
+    lights.setColor(Colors.BLUE);
   }
 }
