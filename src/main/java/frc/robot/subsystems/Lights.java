@@ -15,7 +15,7 @@ public class Lights extends SubsystemBase {
   /** Creates a new Lights subsystem for managing the robot LEDs. */
   public Lights() {
     SmartDashboard.putNumber("LEDSet", Constants.LEDs.Colors.LED_SETTING_DEFAULT);
-    }
+  }
 
   @Override
   public void periodic() {
