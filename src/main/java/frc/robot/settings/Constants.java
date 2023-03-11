@@ -202,7 +202,7 @@ public final class Constants {
         public static final class Axis {
             public static final int JOYSTICK_X = 0;
             public static final int JOYSTICK_Y = 1;
-            public static final int JOYSTICK_Z = 2;
+            public static final int JOYSTICK_Z = 4;
 
             public static final int WHEEL_X = 0;
         }
