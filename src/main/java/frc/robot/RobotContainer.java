@@ -20,6 +20,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.intake.IntakePiece;
 import frc.robot.commands.intake.OutputPiece;
 import frc.robot.commands.intake.ToggleGrip;
+import frc.robot.commands.intake.arm.MoveArmHigh;
+import frc.robot.commands.intake.arm.MoveArmLow;
+import frc.robot.commands.intake.arm.MoveArmMed;
 import frc.robot.commands.swerve.AbsoluteDrive3Axis;
 import frc.robot.settings.Constants;
 import frc.robot.settings.DashboardConfig;
@@ -76,6 +79,10 @@ public class RobotContainer {
     codriverController.leftTrigger().whileTrue(new OutputPiece(intake));
     
     codriverController.x().onTrue(new ToggleGrip(intake));
+    
+    codriverController.a().onTrue(new MoveArmLow(intake, lights));
+    codriverController.b().onTrue(new MoveArmMed(intake, lights));
+    codriverController.y().onTrue(new MoveArmHigh(intake, lights));
   }
 
   public Command getAutonomousCommand() {
