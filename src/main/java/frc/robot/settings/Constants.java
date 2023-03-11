@@ -202,6 +202,7 @@ public final class Constants {
         public static final class Axis {
             public static final int JOYSTICK_X = 0;
             public static final int JOYSTICK_Y = 1;
+            public static final int JOYSTICK_Z = 2;
 
             public static final int WHEEL_X = 0;
         }
@@ -215,7 +216,10 @@ public final class Constants {
     public static final class Intake {
 
         public static final double INTAKE_SPEED = 0.2;
-        public static final double OUTPUT_SPEED = 0.2;
+        public static final double OUTPUT_SPEED = -1.0;
+
+        public static final double ARM_FORWARD_SPEED = -0.1;
+        public static final double ARM_BACKWARD_SPEED = 0.1;
         
         public static final class Positions {
             /**
@@ -247,7 +251,7 @@ public final class Constants {
              * Outer wrist position, for intake
              * and output. Measured in degrees.
             */
-            public static final double EXTENDED_WRIST = 0;
+            public static final double EXTENDED_WRIST = 2;
 
         }
 

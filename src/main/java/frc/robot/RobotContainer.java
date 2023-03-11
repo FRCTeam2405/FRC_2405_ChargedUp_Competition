@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.intake.IntakePiece;
 import frc.robot.commands.intake.OutputPiece;
 import frc.robot.commands.intake.ToggleGrip;
+import frc.robot.commands.intake.arm.MoveArmBackward;
+import frc.robot.commands.intake.arm.MoveArmForward;
 import frc.robot.commands.intake.arm.MoveArmHigh;
 import frc.robot.commands.intake.arm.MoveArmLow;
 import frc.robot.commands.intake.arm.MoveArmMed;
@@ -63,7 +65,7 @@ public class RobotContainer {
       swerveDrive,
       axisDeadband(driverStick, Constants.Controllers.Axis.JOYSTICK_Y, Constants.Controllers.joystickDeadband, true),
       axisDeadband(driverStick, Constants.Controllers.Axis.JOYSTICK_X, Constants.Controllers.joystickDeadband, true),
-      axisDeadband(driverWheel, Constants.Controllers.Axis.WHEEL_X, Constants.Controllers.wheelDeadband, true)
+      axisDeadband(driverStick, Constants.Controllers.Axis.JOYSTICK_Z, Constants.Controllers.wheelDeadband, true)
     ));
   }
 
@@ -75,8 +77,8 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    codriverController.rightTrigger().whileTrue(new IntakePiece(intake));
-    codriverController.leftTrigger().whileTrue(new OutputPiece(intake));
+    codriverController.rightTrigger().whileTrue(new MoveArmForward(intake));
+    codriverController.leftTrigger().whileTrue(new MoveArmBackward(intake));
     
     codriverController.x().onTrue(new ToggleGrip(intake));
     
