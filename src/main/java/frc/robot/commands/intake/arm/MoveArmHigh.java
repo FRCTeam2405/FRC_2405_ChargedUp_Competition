@@ -28,7 +28,7 @@ public class MoveArmHigh extends InstantCommand {
   @Override
   public void initialize() {
     intake.desiredArmPosition = Constants.Intake.Positions.HIGH_ARM;
-    intake.desiredWristPosition = Constants.Intake.Positions.EXTENDED_WRIST;
+    intake.desiredWristPosition = Constants.Intake.Positions.HIGH_WRIST;
     lights.setColor(Colors.BLUE);
   }
 }

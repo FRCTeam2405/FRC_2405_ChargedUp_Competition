@@ -28,7 +28,7 @@ public class MoveArmMed extends InstantCommand {
   @Override 
   public void initialize() {
     intake.desiredArmPosition = Constants.Intake.Positions.MED_ARM;
-    intake.desiredWristPosition = Constants.Intake.Positions.EXTENDED_WRIST;
+    intake.desiredWristPosition = Constants.Intake.Positions.MED_WRIST;
     lights.setColor(Colors.AQUA);
   }
 }

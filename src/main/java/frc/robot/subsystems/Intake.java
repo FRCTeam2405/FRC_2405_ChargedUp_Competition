@@ -69,8 +69,8 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putNumber("wristPos", wristMotor.getEncoder().getPosition());
     SmartDashboard.putNumber("armPosition", armMotor.getSelectedSensorPosition(0));
 
-    // armMotor.set(ControlMode.Position, desiredArmPosition);
-    // wristPID.setReference((desiredWristPosition / 360), ControlType.kPosition);
+    armMotor.set(ControlMode.Position, desiredArmPosition);
+    wristPID.setReference(desiredWristPosition, ControlType.kPosition);
   }
 
   public void driveGrip(double speed) {

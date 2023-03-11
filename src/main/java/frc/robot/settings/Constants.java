@@ -218,8 +218,8 @@ public final class Constants {
         public static final double INTAKE_SPEED = 0.2;
         public static final double OUTPUT_SPEED = -1.0;
 
-        public static final double ARM_FORWARD_SPEED = -0.1;
-        public static final double ARM_BACKWARD_SPEED = 0.1;
+        public static final double ARM_FORWARD_SPEED = -0.3;
+        public static final double ARM_BACKWARD_SPEED = 0.3;
         
         public static final class Positions {
             /**
@@ -228,19 +228,18 @@ public final class Constants {
              * Measured in degrees.
              */
             public static final double LOW_ARM = 0;
+            public static final double TIPPED_CONE_ARM = 0;
             /**
              * Medium arm position, for output
              * to the middle row. Measured in degrees.
              */
-            public static final double MED_ARM = -108768;
+            public static final double MED_ARM = -101765;
+            public static final double SUBSTATION_ARM = -103687;
             /**
              * Highest arm position, for output
              * to the top row. Measured in degrees.
              */
-            public static final double HIGH_ARM = -262884;
-
-            public static final double PICKUP_HIGH = 0;
-
+            public static final double HIGH_ARM = -267090;
 
             /**
              * Inner wrist position, for storage
@@ -251,7 +250,12 @@ public final class Constants {
              * Outer wrist position, for intake
              * and output. Measured in degrees.
             */
-            public static final double EXTENDED_WRIST = 2;
+            public static final double LOW_WRIST = 20.25;
+            public static final double TIPPED_CONE_WRIST = 30.7;
+            public static final double MED_WRIST = 19.7;
+            public static final double HIGH_WRIST = 23.0;
+            public static final double SUBSTATION_WRIST = 21.9;
+            public static final double EJECT_WRIST = 16.5;
 
         }
 
