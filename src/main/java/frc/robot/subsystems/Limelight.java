@@ -17,7 +17,7 @@ public class Limelight extends SubsystemBase {
     limelight = NetworkTableInstance.getDefault().getTable("limelight");
 
     limelight.getEntry("ledMode").setNumber(1);
-    limelight.getEntry("camMode").setNumber(1);
+    // limelight.getEntry("camMode").setNumber(1);
   }
 
   @Override
