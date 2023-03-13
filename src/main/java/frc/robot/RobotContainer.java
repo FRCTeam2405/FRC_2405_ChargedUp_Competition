@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.EdgeDetector;
 import frc.robot.subsystems.drivetrains.Differential;
 import frc.robot.commands.SetLEDLights;
@@ -15,6 +16,7 @@ import frc.robot.settings.Constants;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.swerve.AbsoluteDrive3Axis;
@@ -35,8 +37,11 @@ public class RobotContainer {
   private Limelight limelight;
 
   // Declare controllers
-  private Joystick driverStick = new Joystick(Constants.Controllers.DRIVER_JOYSTICK_PORT);
-  private Joystick driverWheel = new Joystick(Constants.Controllers.DRIVER_WHEEL_PORT);
+  // private Joystick driverStick = new Joystick(Constants.Controllers.DRIVER_JOYSTICK_PORT);
+  // private Joystick driverWheel = new Joystick(Constants.Controllers.DRIVER_WHEEL_PORT);
+
+  private CommandXboxController driverController = new CommandXboxController(0);
+  private CommandXboxController codriverController = new CommandXboxController(1);
 
   public RobotContainer() {
 
@@ -51,13 +56,13 @@ public class RobotContainer {
     // Set default commands
     swerveDrive.setDefaultCommand(new AbsoluteDrive3Axis(
       swerveDrive,
-      axisDeadband(driverStick, Constants.Controllers.Axis.JOYSTICK_Y, Constants.Controllers.joystickDeadband, true),
-      axisDeadband(driverStick, Constants.Controllers.Axis.JOYSTICK_X, Constants.Controllers.joystickDeadband, true),
-      axisDeadband(driverWheel, Constants.Controllers.Axis.WHEEL_X, Constants.Controllers.wheelDeadband, true)
+      axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true),
+      axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true),
+      axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, true)
     ));
   }
 
-  private DoubleSupplier axisDeadband(Joystick controller, int axis, double deadband, boolean inverted) {
+  private DoubleSupplier axisDeadband(CommandXboxController controller, int axis, double deadband, boolean inverted) {
     double invertedMultiplier = inverted ? -1.0 : 1.0;
     return () -> (
       Math.abs(controller.getRawAxis(axis)) > deadband
