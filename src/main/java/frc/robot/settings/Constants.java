@@ -281,7 +281,7 @@ public final class Constants {
             public static final double SHOT_BLUE = -0.83;
 
             public static final double GREEN = 0.77;
-            public static final double AQUA = 0.83;
+            public static final double AQUA = 0.81;
             public static final double BLUE = 0.87;
         }
     }
