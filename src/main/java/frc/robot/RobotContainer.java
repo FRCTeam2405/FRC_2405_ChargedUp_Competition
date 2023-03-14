@@ -19,17 +19,17 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import frc.robot.subsystems.Limelight;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.intake.IntakePiece;
-import frc.robot.commands.intake.OutputPiece;
-import frc.robot.commands.intake.ToggleGrip;
-import frc.robot.commands.intake.arm.MoveArmBackward;
-import frc.robot.commands.intake.arm.MoveArmForward;
-import frc.robot.commands.intake.arm.MoveArmHigh;
-import frc.robot.commands.intake.arm.MoveArmLow;
-import frc.robot.commands.intake.arm.MoveArmMed;
+import frc.robot.commands.intake.arm.MoveArm;
+import frc.robot.commands.intake.arm.MoveWrist;
+import frc.robot.commands.intake.arm.positions.CollapseArm;
+import frc.robot.commands.intake.arm.positions.MoveArmHigh;
+import frc.robot.commands.intake.arm.positions.MoveArmLow;
+import frc.robot.commands.intake.arm.positions.MoveArmMed;
+import frc.robot.commands.intake.arm.positions.MoveArmTipped;
+import frc.robot.commands.intake.grip.CloseGrip;
+import frc.robot.commands.intake.grip.IntakePiece;
+import frc.robot.commands.intake.grip.OpenGrip;
+import frc.robot.commands.intake.grip.OutputPiece;
 import frc.robot.commands.swerve.AbsoluteDrive3Axis;
 import frc.robot.settings.Constants;
 import frc.robot.settings.DashboardConfig;
@@ -81,9 +81,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    // driverController = new XboxController(0); //TODO! convert to constant
-
-    // Driver Controls
+    // DRIVER CONTROLS
 
     // Driving the robot: left stick for movement, right stick for turning
     swerveDrive.setDefaultCommand(new AbsoluteDrive3Axis(
@@ -93,7 +91,45 @@ public class RobotContainer {
       axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, true)
     ));
 
-    // Codriver Controls
+    // Manipulating the claw: A to open, B to close;
+    // RT to drive forward, LT to drive backward
+    driverController.a().onTrue(new OpenGrip(intake));
+    driverController.b().onTrue(new CloseGrip(intake));
+    driverController.rightTrigger().whileTrue(new IntakePiece(intake));
+    driverController.leftTrigger().whileTrue(new OutputPiece(intake));
+
+
+    // CODRIVER CONTROLS
+
+
+    // Auto moving the arm: LB to collapse it, A/X/Y to move the arm Low/Med/High
+    codriverController.leftBumper().onTrue(new CollapseArm(intake, lights));
+    codriverController.a().onTrue(new MoveArmLow(intake, lights));
+    codriverController.b().onTrue(new MoveArmTipped(intake, lights));
+    codriverController.x().onTrue(new MoveArmMed(intake, lights));
+    codriverController.y().onTrue(new MoveArmHigh(intake, lights));
+
+    // Manually moving the arm: Left Stick Y for moving the arm, Right Stick Y
+    // for moving the wrist
+    codriverController.leftStick().whileTrue(new MoveArm(
+      intake,
+      axisDeadband(
+        codriverController,
+        XboxController.Axis.kLeftY.value,
+        0.1,
+        false
+      )
+    ));
+    codriverController.rightStick().whileTrue(new MoveWrist(
+      intake,
+      axisDeadband(
+        codriverController,
+        XboxController.Axis.kRightY.value,
+        0.1,
+        false
+      )
+    ));
+    
   }
 
   public Command getAutonomousCommand() {

@@ -4,19 +4,23 @@
 
 package frc.robot.commands.intake.arm;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.settings.Constants;
 import frc.robot.subsystems.Intake;
 
-public class MoveArmForward extends CommandBase {
+public class MoveWrist extends CommandBase {
 
   private Intake intake;
+  private DoubleSupplier input;
 
-  /** Creates a new MoveArmForward. */
-  public MoveArmForward(Intake setIntake) {
-    intake = setIntake;
+  /** Creates a new MoveArm. */
+  public MoveWrist(Intake intake, DoubleSupplier move) {
+    this.intake = intake;
+    input = move;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intake);
+    addRequirements(this.intake);
   }
 
   // Called when the command is initially scheduled.
@@ -26,7 +30,7 @@ public class MoveArmForward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.driveArm(Constants.Intake.ARM_FORWARD_SPEED);
+    intake.driveWrist(input.getAsDouble() * Constants.Intake.Speed.WRIST);
   }
 
   // Called once the command ends or is interrupted.

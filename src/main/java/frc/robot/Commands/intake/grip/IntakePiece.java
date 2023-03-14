@@ -2,18 +2,18 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.intake;
+package frc.robot.commands.intake.grip;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.settings.Constants;
 import frc.robot.subsystems.Intake;
 
-public class OutputPiece extends CommandBase {
+public class IntakePiece extends CommandBase {
 
   private Intake intake;
 
   /** Creates a new IntakePiece. */
-  public OutputPiece(Intake setIntake) {
+  public IntakePiece(Intake setIntake) {
     intake = setIntake;
     // Declare subsystem dependencies.
     addRequirements(intake);
@@ -21,7 +21,7 @@ public class OutputPiece extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.driveGrip(Constants.Intake.OUTPUT_SPEED);
+    intake.driveGrip(Constants.Intake.Speed.INTAKE);
   }
 
   @Override

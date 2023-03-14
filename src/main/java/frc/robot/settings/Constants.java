@@ -209,11 +209,7 @@ public final class Constants {
 
     public static final class Intake {
 
-        public static final double INTAKE_SPEED = 0.2;
-        public static final double OUTPUT_SPEED = -1.0;
-
-        public static final double ARM_FORWARD_SPEED = -0.3;
-        public static final double ARM_BACKWARD_SPEED = 0.3;
+        
         
         public static final class Positions {
             /**
@@ -253,6 +249,14 @@ public final class Constants {
 
         }
 
+        public static final class Speed {
+            public static final double INTAKE = 0.4;
+            public static final double OUTPUT = -0.4;
+
+            public static final double ARM = 0.3;
+            public static final double WRIST = 0.2;
+        }
+
         public static final class Ports {
             public static final int ARM_MOTOR = 34;
             public static final int WRIST_MOTOR = 35;
@@ -275,6 +279,7 @@ public final class Constants {
             public static final double SHOT_BLUE = -0.83;
 
             public static final double GREEN = 0.77;
+            public static final double YELLOW = 0;
             public static final double AQUA = 0.81;
             public static final double BLUE = 0.87;
         }

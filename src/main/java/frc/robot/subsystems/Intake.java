@@ -81,6 +81,10 @@ public class Intake extends SubsystemBase {
     armMotor.set(ControlMode.PercentOutput, speed);
   }
 
+  public void driveWrist(double speed) {
+    wristMotor.set(speed);
+  }
+
   public boolean getGripOpen() { return gripSolenoids.get(); }
   public void setGripOpen(boolean open) { gripSolenoids.set(open); }
 }
