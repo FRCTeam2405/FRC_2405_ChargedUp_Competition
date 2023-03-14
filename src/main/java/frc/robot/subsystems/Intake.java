@@ -64,7 +64,6 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //TODO! do gear ratio and encoder res
 
     SmartDashboard.putNumber("wristPos", wristMotor.getEncoder().getPosition());
     SmartDashboard.putNumber("armPosition", armMotor.getSelectedSensorPosition(0));

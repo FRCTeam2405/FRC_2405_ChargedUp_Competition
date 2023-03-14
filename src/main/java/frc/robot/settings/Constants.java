@@ -14,7 +14,6 @@ import swervelib.math.Matter;
  *  For settings that should be changed before
  *  building and deploying the code.
  */
-//TODO! Init values
 public final class Constants {
     /** This year we have to support multiple drivetrains, so each drivetrain is a subclass. */
     public static final class Drivetrains {
@@ -22,7 +21,6 @@ public final class Constants {
         public static final class Differential {
             public static final class Motors {
                 public static final class Ports {
-                    //TODO! Init these values
                     public static final int FRONT_LEFT = 10;
                     public static final int FRONT_RIGHT = 11;
                     public static final int BACK_LEFT = 12;
@@ -58,7 +56,6 @@ public final class Constants {
             }
 
             public static final class Odometry {
-                //TODO! FIX ALL
                 // Chassis configuration
                 
                 /** Distance between centers of right and left wheels on robot */
@@ -96,7 +93,6 @@ public final class Constants {
 
             public static final class Motors {
                 public static final class Driving {
-                    //TODO! fix later
                     public static final int FRONT_LEFT_PORT = 20;
                     public static final int FRONT_RIGHT_PORT = 21;
                     public static final int BACK_LEFT_PORT = 22;
@@ -111,7 +107,6 @@ public final class Constants {
                 }
 
                 public static final class Turning {
-                    //TODO! fix later
                     public static final int FRONT_LEFT_PORT = 30;
                     public static final int FRONT_RIGHT_PORT = 31;
                     public static final int BACK_LEFT_PORT = 32;
@@ -127,7 +122,6 @@ public final class Constants {
             }
 
             public static final class Encoders {
-                //TODO! fix later
                 public final int QUAD_COUNTS_PER_ROTATION = 4096;
 
                 public static final int FRONT_LEFT_PORT = 40;
