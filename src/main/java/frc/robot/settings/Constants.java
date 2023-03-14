@@ -196,11 +196,13 @@ public final class Constants {
     public static final class Controllers {
         public static final int DRIVER_JOYSTICK_PORT = 0;
         public static final int DRIVER_WHEEL_PORT = 1;
+        public static final int CODRIVER_PORT = 2;
 
         
         public static final class Axis {
             public static final int JOYSTICK_X = 0;
             public static final int JOYSTICK_Y = 1;
+            public static final int JOYSTICK_Z = 4;
 
             public static final int WHEEL_X = 0;
         }
@@ -209,6 +211,63 @@ public final class Constants {
         public static final double wheelDeadband = 0.2;
         
 
+    }
+
+    public static final class Intake {
+
+        public static final double INTAKE_SPEED = 0.2;
+        public static final double OUTPUT_SPEED = -1.0;
+
+        public static final double ARM_FORWARD_SPEED = -0.3;
+        public static final double ARM_BACKWARD_SPEED = 0.3;
+        
+        public static final class Positions {
+            /**
+             * Lowest arm position, for intake
+             * and output to the bottom row.
+             * Measured in degrees.
+             */
+            public static final double LOW_ARM = 0;
+            public static final double TIPPED_CONE_ARM = 0;
+            /**
+             * Medium arm position, for output
+             * to the middle row. Measured in degrees.
+             */
+            public static final double MED_ARM = -101765;
+            public static final double SUBSTATION_ARM = -103687;
+            /**
+             * Highest arm position, for output
+             * to the top row. Measured in degrees.
+             */
+            public static final double HIGH_ARM = -267090;
+
+            /**
+             * Inner wrist position, for storage
+             * and protection. Measured in degrees.
+             */
+            public static final double COLLAPSED_WRIST = 0;
+            /** 
+             * Outer wrist position, for intake
+             * and output. Measured in degrees.
+            */
+            public static final double LOW_WRIST = 20.25;
+            public static final double TIPPED_CONE_WRIST = 30.7;
+            public static final double MED_WRIST = 19.7;
+            public static final double HIGH_WRIST = 23.0;
+            public static final double SUBSTATION_WRIST = 21.9;
+            public static final double EJECT_WRIST = 16.5;
+
+        }
+
+        public static final class Ports {
+            public static final int ARM_MOTOR = 34;
+            public static final int WRIST_MOTOR = 35;
+            public static final int LEFT_GRIP_MOTOR = 36;
+            public static final int RIGHT_GRIP_MOTOR = 37;
+
+            public static final int COMPRESSOR = 7;
+            public static final int SOLENOIDS = 0;
+        }
     }
 
     public static final class LEDs {
@@ -222,7 +281,7 @@ public final class Constants {
             public static final double SHOT_BLUE = -0.83;
 
             public static final double GREEN = 0.77;
-            public static final double AQUA = 0.83;
+            public static final double AQUA = 0.81;
             public static final double BLUE = 0.87;
         }
     }
