@@ -8,7 +8,6 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrains.SwerveContainer;
 
@@ -17,7 +16,7 @@ public class SwerveAutobalence extends CommandBase {
   SwerveContainer swerveDrive;
   XboxController controller;
   AHRS ahrs;
-  DifferentialDrive drive;
+
 
   /** Creates a new DriveSwerve. */
   public SwerveAutobalence(SwerveContainer swerve) {
@@ -32,7 +31,7 @@ public class SwerveAutobalence extends CommandBase {
   static final double kOonBalanceAngleThresholdDegrees  = 5;
 
   public void operatorControl() {
-          drive.setSafetyEnabled(true);
+          //drive.setSafetyEnabled(true);
 
           double xAxisRate = 0;
           double yAxisRate = 0;
@@ -83,7 +82,9 @@ public class SwerveAutobalence extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    ahrs = new AHRS();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
