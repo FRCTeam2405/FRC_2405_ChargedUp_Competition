@@ -54,12 +54,7 @@ public class RobotContainer {
     edgeDetector = new EdgeDetector();
 
     // Set default commands
-    swerveDrive.setDefaultCommand(new AbsoluteDrive3Axis(
-      swerveDrive,
-      axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true),
-      axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true),
-      axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, true)
-    ));
+    
   }
 
   private DoubleSupplier axisDeadband(CommandXboxController controller, int axis, double deadband, boolean inverted) {
@@ -71,6 +66,18 @@ public class RobotContainer {
 
   private void configureBindings() {
     // driverController = new XboxController(0); //TODO! convert to constant
+
+    // Driver Controls
+
+    // Driving the robot: left stick for movement, right stick for turning
+    swerveDrive.setDefaultCommand(new AbsoluteDrive3Axis(
+      swerveDrive,
+      axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true),
+      axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true),
+      axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, true)
+    ));
+
+    // Codriver Controls
   }
 
   public Command getAutonomousCommand() {
