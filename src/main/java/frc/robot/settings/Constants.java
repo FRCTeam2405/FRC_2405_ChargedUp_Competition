@@ -287,7 +287,7 @@ public final class Constants {
 
     public static final class EdgeDetection {
 
-        public static final boolean ENABLED_DEFAULT = false;
+        public static final boolean ENABLED_DEFAULT = true;
         public static final double EDGE_THRESHOLD = 34524;
 
         public static final class Ports {

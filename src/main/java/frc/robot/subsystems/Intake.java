@@ -6,10 +6,12 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -40,9 +42,11 @@ public class Intake extends SubsystemBase {
     desiredWristPosition = Constants.Intake.Positions.COLLAPSED_WRIST;
 
     armMotor = new WPI_TalonFX(Constants.Intake.Ports.ARM_MOTOR);
+    armMotor.setNeutralMode(NeutralMode.Brake);
     armMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
 
     wristMotor = new CANSparkMax(Constants.Intake.Ports.WRIST_MOTOR, MotorType.kBrushless);
+    wristMotor.setIdleMode(IdleMode.kBrake);
     wristPID = wristMotor.getPIDController();
 
     wristPID.setP(0.5);
@@ -68,8 +72,8 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putNumber("wristPos", wristMotor.getEncoder().getPosition());
     SmartDashboard.putNumber("armPosition", armMotor.getSelectedSensorPosition(0));
 
-    armMotor.set(ControlMode.Position, desiredArmPosition);
-    wristPID.setReference(desiredWristPosition, ControlType.kPosition);
+    // armMotor.set(ControlMode.Position, desiredArmPosition);
+    // wristPID.setReference(desiredWristPosition, ControlType.kPosition);
   }
 
   public void driveGrip(double speed) {

@@ -111,7 +111,7 @@ public class RobotContainer {
 
     // Manually moving the arm: Left Stick Y for moving the arm, Right Stick Y
     // for moving the wrist
-    codriverController.leftStick().whileTrue(new MoveArm(
+    codriverController.leftStick().whileFalse(new MoveArm(
       intake,
       axisDeadband(
         codriverController,
@@ -120,7 +120,7 @@ public class RobotContainer {
         false
       )
     ));
-    codriverController.rightStick().whileTrue(new MoveWrist(
+    codriverController.rightStick().whileFalse(new MoveWrist(
       intake,
       axisDeadband(
         codriverController,
