@@ -27,8 +27,8 @@ public class SwerveAutobalence extends CommandBase {
     addRequirements(swerveDrive);
   }
 
-  static final double kOffBalanceAngleThresholdDegrees = 10;
-  static final double kOonBalanceAngleThresholdDegrees  = 5;
+  static final double kOffBalanceAngleThresholdDegrees = 4;
+  static final double kOonBalanceAngleThresholdDegrees  = 4;
 
   public void operatorControl() {
           //drive.setSafetyEnabled(true);

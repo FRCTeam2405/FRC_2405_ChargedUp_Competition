@@ -72,8 +72,7 @@ public class RobotContainer {
     //driverMainButtonX.whenHeld();
     //driverMainButtonB.whenHeld();
     //driverMainButtonY.whenHeld();
-    driverController.a().onTrue(commandBalence);
-
+    driverController.a().whileTrue(commandBalence);
 
   }
 
