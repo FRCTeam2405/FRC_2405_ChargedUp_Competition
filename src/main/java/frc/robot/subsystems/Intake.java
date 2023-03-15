@@ -38,8 +38,8 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public Intake() {
     
-    desiredArmPosition = Constants.Intake.Positions.LOW_ARM;
-    desiredWristPosition = Constants.Intake.Positions.COLLAPSED_WRIST;
+    desiredArmPosition = Constants.Intake.Positions.Arm.COLLAPSED;
+    desiredWristPosition = Constants.Intake.Positions.Wrist.COLLAPSED;
 
     armMotor = new WPI_TalonFX(Constants.Intake.Ports.ARM_MOTOR);
     armMotor.setNeutralMode(NeutralMode.Brake);
@@ -50,9 +50,11 @@ public class Intake extends SubsystemBase {
     wristPID = wristMotor.getPIDController();
 
     wristPID.setP(0.5);
-    wristPID.setI(0.005);
-    wristPID.setD(0.001);
+    wristPID.setI(0.0001);
+    wristPID.setD(0.0);
     wristPID.setFF(0);
+
+    wristPID.setOutputRange(-0.2, 0.2);
 
     wristMotor.burnFlash();
 
@@ -72,8 +74,8 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putNumber("wristPos", wristMotor.getEncoder().getPosition());
     SmartDashboard.putNumber("armPosition", armMotor.getSelectedSensorPosition(0));
 
-    // armMotor.set(ControlMode.Position, desiredArmPosition);
-    // wristPID.setReference(desiredWristPosition, ControlType.kPosition);
+    armMotor.set(ControlMode.Position, desiredArmPosition);
+    wristPID.setReference(desiredWristPosition, ControlType.kPosition);
   }
 
   public void driveGrip(double speed) {

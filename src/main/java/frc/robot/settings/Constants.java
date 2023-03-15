@@ -212,41 +212,26 @@ public final class Constants {
         
         
         public static final class Positions {
-            /**
-             * Lowest arm position, for intake
-             * and output to the bottom row.
-             * Measured in degrees.
-             */
-            public static final double LOW_ARM = 0;
-            public static final double TIPPED_CONE_ARM = 0;
-            /**
-             * Medium arm position, for output
-             * to the middle row. Measured in degrees.
-             */
-            public static final double MED_ARM = -101765;
-            public static final double SUBSTATION_ARM = -103687;
-            /**
-             * Highest arm position, for output
-             * to the top row. Measured in degrees.
-             */
-            public static final double HIGH_ARM = -267090;
 
-            /**
-             * Inner wrist position, for storage
-             * and protection. Measured in degrees.
-             */
-            public static final double COLLAPSED_WRIST = 0;
-            /** 
-             * Outer wrist position, for intake
-             * and output. Measured in degrees.
-            */
-            public static final double LOW_WRIST = 20.25;
-            public static final double TIPPED_CONE_WRIST = 30.7;
-            public static final double MED_WRIST = 19.7;
-            public static final double HIGH_WRIST = 23.0;
-            public static final double SUBSTATION_WRIST = 21.9;
-            public static final double EJECT_WRIST = 16.5;
+            public static final class Wrist {          
+                public static final double LOW = 15.2;
+                public static final double MED = 13.8;
+                public static final double HIGH = 17.2;
+                public static final double COLLAPSED = 0.0;
+                public static final double TIPPED = 26.5;
+                public static final double CHUTE = 0.0;
+                public static final double SHELF = 0.0;
+            }
 
+            public static final class Arm {         
+                public static final double LOW = 0;
+                public static final double MED = -101765;
+                public static final double HIGH = -267090;
+                public static final double COLLAPSED = LOW;
+                public static final double TIPPED = LOW;
+                public static final double CHUTE = LOW;
+                public static final double SHELF = -103687;
+            }
         }
 
         public static final class Speed {

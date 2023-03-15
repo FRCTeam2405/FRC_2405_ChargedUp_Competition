@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.EdgeDetector;
 import frc.robot.subsystems.drivetrains.Differential;
 import frc.robot.commands.SetLEDLights;
@@ -22,10 +23,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.intake.arm.MoveArm;
 import frc.robot.commands.intake.arm.MoveWrist;
 import frc.robot.commands.intake.arm.positions.CollapseArm;
-import frc.robot.commands.intake.arm.positions.MoveArmHigh;
-import frc.robot.commands.intake.arm.positions.MoveArmLow;
-import frc.robot.commands.intake.arm.positions.MoveArmMed;
-import frc.robot.commands.intake.arm.positions.MoveArmTipped;
+import frc.robot.commands.intake.arm.positions.pickup.PickupChute;
+import frc.robot.commands.intake.arm.positions.pickup.PickupShelf;
+import frc.robot.commands.intake.arm.positions.pickup.PickupTipped;
+import frc.robot.commands.intake.arm.positions.placing.PlaceHigh;
+import frc.robot.commands.intake.arm.positions.placing.PlaceLow;
+import frc.robot.commands.intake.arm.positions.placing.PlaceMed;
 import frc.robot.commands.intake.grip.CloseGrip;
 import frc.robot.commands.intake.grip.IntakePiece;
 import frc.robot.commands.intake.grip.OpenGrip;
@@ -101,17 +104,31 @@ public class RobotContainer {
 
     // CODRIVER CONTROLS
 
+    // Triggers if any dpad position is hit, except for middle (untouched dpad)
+    Trigger hitPov = codriverController.povUp()
+      .or(codriverController.povUpRight())
+      .or(codriverController.povRight())
+      .or(codriverController.povDownRight())
+      .or(codriverController.povDown())
+      .or(codriverController.povDownLeft())
+      .or(codriverController.povLeft())
+      .or(codriverController.povUpLeft());
 
-    // Auto moving the arm: LB to collapse it, A/X/Y to move the arm Low/Med/High
-    codriverController.leftBumper().onTrue(new CollapseArm(intake, lights));
-    codriverController.a().onTrue(new MoveArmLow(intake, lights));
-    codriverController.b().onTrue(new MoveArmTipped(intake, lights));
-    codriverController.x().onTrue(new MoveArmMed(intake, lights));
-    codriverController.y().onTrue(new MoveArmHigh(intake, lights));
+    // Auto moving the arm: DPad to collapse it, A/X/Y to move the arm Low/Med/High 
+    hitPov.onTrue(new CollapseArm(intake, lights));
+    codriverController.a().onTrue(new PlaceLow(intake, lights));
+    codriverController.x().onTrue(new PlaceMed(intake, lights));
+    codriverController.y().onTrue(new PlaceHigh(intake, lights));
+
+    // Pickup Moves: B to tip the arm down, LB to pick up from the shelf,
+    // RB to pick up from the chute
+    codriverController.b().onTrue(new PickupTipped(intake, lights));
+    codriverController.leftBumper().onTrue(new PickupChute(intake, lights));
+    codriverController.rightBumper().onTrue(new PickupShelf(intake, lights));
 
     // Manually moving the arm: Left Stick Y for moving the arm, Right Stick Y
     // for moving the wrist
-    codriverController.leftStick().whileFalse(new MoveArm(
+    codriverController.rightTrigger().whileTrue(new MoveArm(
       intake,
       axisDeadband(
         codriverController,
@@ -120,7 +137,7 @@ public class RobotContainer {
         false
       )
     ));
-    codriverController.rightStick().whileFalse(new MoveWrist(
+    codriverController.leftTrigger().whileTrue(new MoveWrist(
       intake,
       axisDeadband(
         codriverController,

@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.intake.arm.positions;
+package frc.robot.commands.intake.arm.positions.pickup;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.settings.Constants.Intake.Positions;
@@ -13,12 +13,12 @@ import frc.robot.subsystems.Lights;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class MoveArmTipped extends InstantCommand {
+public class PickupChute extends InstantCommand {
 
   private Intake intake;
   private Lights lights;
 
-  public MoveArmTipped(Intake intake, Lights lights) {
+  public PickupChute(Intake intake, Lights lights) {
     this.intake = intake;
     this.lights = lights;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -28,8 +28,8 @@ public class MoveArmTipped extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.desiredArmPosition = Positions.TIPPED_CONE_ARM;
-    intake.desiredWristPosition = Positions.TIPPED_CONE_WRIST;
+    intake.desiredArmPosition = Positions.Arm.CHUTE;
+    intake.desiredWristPosition = Positions.Arm.CHUTE;
 
     lights.setColor(Colors.YELLOW);
   }
