@@ -14,6 +14,8 @@ import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,6 +28,7 @@ public class Intake extends SubsystemBase {
   public double desiredWristPosition;
 
   WPI_TalonFX armMotor;
+  PIDController armPID;
 
   CANSparkMax wristMotor;
   SparkMaxPIDController wristPID;
@@ -44,6 +47,13 @@ public class Intake extends SubsystemBase {
     armMotor = new WPI_TalonFX(Constants.Intake.Ports.ARM_MOTOR);
     armMotor.setNeutralMode(NeutralMode.Brake);
     armMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    armPID = new PIDController(
+      0.000005,
+      0.0000000001,
+      0
+    );
+
+    armMotor.config_kP(0, 0.000005);
 
     wristMotor = new CANSparkMax(Constants.Intake.Ports.WRIST_MOTOR, MotorType.kBrushless);
     wristMotor.setIdleMode(IdleMode.kBrake);
@@ -74,7 +84,10 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putNumber("wristPos", wristMotor.getEncoder().getPosition());
     SmartDashboard.putNumber("armPosition", armMotor.getSelectedSensorPosition(0));
 
-    armMotor.set(ControlMode.Position, desiredArmPosition);
+    armPID.setSetpoint(desiredArmPosition);
+    double calculation = armPID.calculate(armMotor.getSelectedSensorPosition(), desiredArmPosition);
+    armMotor.set(ControlMode.PercentOutput, MathUtil.clamp(calculation, -1, 1));
+
     wristPID.setReference(desiredWristPosition, ControlType.kPosition);
   }
 
