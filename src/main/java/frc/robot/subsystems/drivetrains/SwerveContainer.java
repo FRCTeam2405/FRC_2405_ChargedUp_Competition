@@ -39,6 +39,12 @@ public class SwerveContainer extends SubsystemBase {
     SmartDashboard.putNumber("gyroPitch", rawSwerveDrive.getPitch().getDegrees());
     SmartDashboard.putNumber("gyroRoll", rawSwerveDrive.getRoll().getDegrees());
     SmartDashboard.putNumber("gyroYaw", rawSwerveDrive.getYaw().getDegrees());
+
+    SmartDashboard.putNumber("FLEncoderPos", rawSwerveDrive.getModulePositions()[0].angle.getDegrees());
+    SmartDashboard.putNumber("FREncoderPos", rawSwerveDrive.getModulePositions()[1].angle.getDegrees());
+    SmartDashboard.putNumber("BLEncoderPos", rawSwerveDrive.getModulePositions()[2].angle.getDegrees());
+    SmartDashboard.putNumber("BREncoderPos", rawSwerveDrive.getModulePositions()[3].angle.getDegrees());
+
   }
 
   /** 
