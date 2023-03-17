@@ -205,6 +205,7 @@ public class RobotContainer {
     PathPlannerTrajectory wio = PathPlanner.loadPath(Paths.WIO, 1.5, 1.5);
     PathPlannerTrajectory cioda = PathPlanner.loadPath(Paths.CIODA, 1.5, 1.5);
     PathPlannerTrajectory ciodn = PathPlanner.loadPath(Paths.CIODN, 1.5, 1.5);
+    PathPlannerTrajectory out = PathPlanner.loadPath("[Either Side] Out", 0.5, 0.5);
 
 
     autonomousDropDown = new SendableChooser<>();
@@ -214,6 +215,7 @@ public class RobotContainer {
     autonomousDropDown.addOption(Paths.CIODA, pathBuilder.fullAuto(cioda));
     autonomousDropDown.addOption(Paths.CIODN, pathBuilder.fullAuto(ciodn));
     autonomousDropDown.addOption("Place Piece, no movement", new PlacePiece(arm, grip, lights));
+    autonomousDropDown.addOption("[Either Side] Out", pathBuilder.fullAuto(out));
     autonomousDropDown.addOption("None", null);
 
     SmartDashboard.putData("Auton Routine", autonomousDropDown);
