@@ -9,24 +9,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.swerve.AbsoluteDrive;
 import frc.robot.commands.swerve.SwerveAutobalance;
 import frc.robot.commands.swerve.SwerveBrake;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.EdgeDetector;
-import frc.robot.subsystems.drivetrains.Differential;
-import frc.robot.commands.SetLEDLights;
-import frc.robot.commands.autonomous.AutoRoutineType;
 import frc.robot.settings.Constants;
 import frc.robot.subsystems.Lights;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import frc.robot.subsystems.Limelight;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.autonomous.AutoCollapseArm;
+import frc.robot.commands.autonomous.AutoOutputPiece;
+import frc.robot.commands.autonomous.AutoPlaceLow;
 import frc.robot.commands.intake.arm.MoveArm;
 import frc.robot.commands.intake.arm.MoveWrist;
 import frc.robot.commands.intake.arm.positions.CollapseArm;
@@ -48,21 +43,16 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.drivetrains.SwerveContainer;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
-import com.pathplanner.lib.PathPlannerTrajectory.EventMarker;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
-import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 public class RobotContainer {
 
   private final DashboardConfig config;
-
-  private AutoRoutineType chosenRoutine = AutoRoutineType.IN_AND_OUT;
 
   // Declare subsystems
   private final SwerveContainer swerveDrive;
@@ -109,8 +99,8 @@ public class RobotContainer {
     // Set default commands
   }
 
-  private DoubleSupplier axisDeadband(CommandXboxController controller, int axis, double deadband, boolean inverted) {
-    double invertedMultiplier = inverted ? -1.0 : 1.0;
+  private DoubleSupplier axisDeadband(CommandXboxController controller, int axis, double deadband, boolean inverted, double multiplier) {
+    double invertedMultiplier = inverted ? -multiplier : multiplier;
     return () -> (
       Math.abs(controller.getRawAxis(axis)) > deadband
     ) ? controller.getRawAxis(axis) * invertedMultiplier : 0;
@@ -119,12 +109,18 @@ public class RobotContainer {
   private void configureBindings() {
     // DRIVER CONTROLS
 
-    // Driving the robot: left stick for movement, right stick for turning
+    // Driving the robot: left stick for movement, right stick for turning, LB to quarter speed
     swerveDrive.setDefaultCommand(new AbsoluteDrive3Axis(
       swerveDrive,
-      axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true),
-      axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true),
-      axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, true)
+      axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true, 1.0),
+      axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true, 1.0),
+      axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, false, 1.0)
+    ));
+    driverController.leftBumper().whileTrue(new AbsoluteDrive3Axis(
+      swerveDrive,
+      axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true, 0.25),
+      axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true, 0.25),
+      axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, false, 0.25)
     ));
 
     // Manipulating the claw: A to open, B to close;
@@ -154,7 +150,7 @@ public class RobotContainer {
     codriverController.a().onTrue(new PlaceLow(intake, lights));
     codriverController.x().onTrue(new PlaceMed(intake, lights));
     codriverController.y().onTrue(new PlaceHigh(intake, lights));
-
+  
     // Pickup Moves: B to tip the arm down, LB to pick up from the shelf,
     // RB to pick up from the chute
     codriverController.b().onTrue(new PickupTipped(intake, lights));
@@ -169,7 +165,8 @@ public class RobotContainer {
         codriverController,
         XboxController.Axis.kLeftY.value,
         0.1,
-        false
+        false,
+        1.0
       )
     ));
     codriverController.leftTrigger().whileTrue(new MoveWrist(
@@ -178,7 +175,8 @@ public class RobotContainer {
         codriverController,
         XboxController.Axis.kRightY.value,
         0.1,
-        false
+        false,
+        1.0
       )
     ));
     
@@ -187,6 +185,11 @@ public class RobotContainer {
   private void configureCommands() {
 
     commandMap = new HashMap<>();
+
+    // Connect markers in the path file to our auton commands
+    commandMap.put("collapseArm", new AutoCollapseArm(intake, lights));
+    commandMap.put("placeLow", new AutoPlaceLow(intake, lights));
+    commandMap.put("outputPiece", new AutoOutputPiece(intake));
 
     pathBuilder = new SwerveAutoBuilder(
       swerveDrive::getPose,
@@ -202,7 +205,7 @@ public class RobotContainer {
 
     autonomousDropDown = new SendableChooser<>();
 
-    autonomousDropDown.addOption("In and Out", pathBuilder.followPath(inAndOut));
+    autonomousDropDown.setDefaultOption("In and Out", pathBuilder.followPath(inAndOut));
     autonomousDropDown.addOption("None", null);
   }
 

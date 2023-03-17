@@ -6,20 +6,20 @@ package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.intake.arm.positions.placing.PlaceLow;
+import frc.robot.commands.intake.arm.positions.CollapseArm;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lights;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoPlaceLow extends SequentialCommandGroup {
-  /** Creates a new AutoPlaceLow. */
-  public AutoPlaceLow(Intake intake, Lights lights) {
+public class AutoCollapseArm extends SequentialCommandGroup {
+  /** Creates a new AutoCollapseArm. */
+  public AutoCollapseArm(Intake intake, Lights lights) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PlaceLow(intake, lights),
+      new CollapseArm(intake, lights),
       Commands.waitSeconds(0.5)
     );
   }

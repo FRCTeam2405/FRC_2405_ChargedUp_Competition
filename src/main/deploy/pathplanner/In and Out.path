@@ -17,8 +17,9 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "lowerGrip",
-          "ejectPiece"
+          "placeLow",
+          "outputPiece",
+          "collapseArm"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "after",
