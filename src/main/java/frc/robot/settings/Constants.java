@@ -53,8 +53,8 @@ public final class Constants {
             public static final class Paths {
                 public static final String PIO = "[Pickup Side] In, Out";
                 public static final String WIO = "[Wire Side] In, Out";
-                public static final String CIODA = "[Center] In, Out, Dock (Autobalance)";
-                public static final String CIODN = "[Center] In, Out, Dock (No balance)";
+                public static final String CIODA = "[Center] IO, Dock (Autobalance)";
+                public static final String CIODN = "[Center] IO, Dock (No balance)";
             }
 
             public static final class Speed {
@@ -277,7 +277,7 @@ public final class Constants {
 
     public static final class EdgeDetection {
 
-        public static final boolean ENABLED_DEFAULT = true;
+        public static final boolean ENABLED_DEFAULT = false;
         public static final double EDGE_THRESHOLD = 34524;
 
         public static final class Ports {

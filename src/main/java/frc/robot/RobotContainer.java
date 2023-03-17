@@ -211,6 +211,8 @@ public class RobotContainer {
     autonomousDropDown.addOption(Paths.CIODA, pathBuilder.fullAuto(cioda));
     autonomousDropDown.addOption(Paths.CIODN, pathBuilder.fullAuto(ciodn));
     autonomousDropDown.addOption("None", null);
+
+    SmartDashboard.putData(autonomousDropDown);
   }
 
   public Command getAutonomousCommand() {
