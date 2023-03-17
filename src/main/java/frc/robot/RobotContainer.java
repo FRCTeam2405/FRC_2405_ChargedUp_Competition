@@ -39,8 +39,9 @@ import frc.robot.commands.swerve.AbsoluteDrive3Axis;
 import frc.robot.settings.Constants;
 import frc.robot.settings.DashboardConfig;
 import frc.robot.settings.Constants.Controllers;
-import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.drivetrains.SwerveContainer;
+import frc.robot.subsystems.intake.Arm;
+import frc.robot.subsystems.intake.Grip;
 
 import java.util.HashMap;
 import java.util.function.DoubleSupplier;
@@ -56,7 +57,8 @@ public class RobotContainer {
 
   // Declare subsystems
   private final SwerveContainer swerveDrive;
-  private final Intake intake;
+  private final Arm arm;
+  private final Grip grip;
   final Lights lights = new Lights();
   private EdgeDetector edgeDetector;
   private Limelight limelight;
@@ -87,7 +89,8 @@ public class RobotContainer {
     config = new DashboardConfig();
 
     swerveDrive = new SwerveContainer();
-    intake = new Intake();
+    arm = new Arm();
+    grip = new Grip();
     limelight = new Limelight();
     edgeDetector = new EdgeDetector();
 
@@ -125,12 +128,12 @@ public class RobotContainer {
 
     // Manipulating the claw: A to open, B to close;
     // RT to drive forward, LT to drive backward
-    driverController.a().onTrue(new OpenGrip(intake));
-    driverController.b().onTrue(new CloseGrip(intake));
+    driverController.a().onTrue(new OpenGrip(grip));
+    driverController.b().onTrue(new CloseGrip(grip));
     driverController.x().onTrue(new SwerveAutobalance(swerveDrive));
     driverController.rightBumper().whileTrue(new SwerveBrake(swerveDrive));
-    driverController.rightTrigger().whileTrue(new IntakePiece(intake));
-    driverController.leftTrigger().whileTrue(new OutputPiece(intake));
+    driverController.rightTrigger().whileTrue(new IntakePiece(grip));
+    driverController.leftTrigger().whileTrue(new OutputPiece(grip));
 
 
     // CODRIVER CONTROLS
@@ -146,21 +149,21 @@ public class RobotContainer {
       .or(codriverController.povUpLeft());
 
     // Auto moving the arm: DPad to collapse it, A/X/Y to move the arm Low/Med/High 
-    hitPov.onTrue(new CollapseArm(intake, lights));
-    codriverController.a().onTrue(new PlaceLow(intake, lights));
-    codriverController.x().onTrue(new PlaceMed(intake, lights));
-    codriverController.y().onTrue(new PlaceHigh(intake, lights));
+    hitPov.onTrue(new CollapseArm(arm, lights));
+    codriverController.a().onTrue(new PlaceLow(arm, lights));
+    codriverController.x().onTrue(new PlaceMed(arm, lights));
+    codriverController.y().onTrue(new PlaceHigh(arm, lights));
   
     // Pickup Moves: B to tip the arm down, LB to pick up from the shelf,
     // RB to pick up from the chute
-    codriverController.b().onTrue(new PickupTipped(intake, lights));
-    codriverController.leftBumper().onTrue(new PickupChute(intake, lights));
-    codriverController.rightBumper().onTrue(new PickupShelf(intake, lights));
+    codriverController.b().onTrue(new PickupTipped(arm, lights));
+    codriverController.leftBumper().onTrue(new PickupChute(arm, lights));
+    codriverController.rightBumper().onTrue(new PickupShelf(arm, lights));
 
     // Manually moving the arm: Left Stick Y for moving the arm, Right Stick Y
     // for moving the wrist
     codriverController.rightTrigger().whileTrue(new MoveArm(
-      intake,
+      arm,
       axisDeadband(
         codriverController,
         XboxController.Axis.kLeftY.value,
@@ -170,7 +173,7 @@ public class RobotContainer {
       )
     ));
     codriverController.leftTrigger().whileTrue(new MoveWrist(
-      intake,
+      arm,
       axisDeadband(
         codriverController,
         XboxController.Axis.kRightY.value,
@@ -187,9 +190,9 @@ public class RobotContainer {
     commandMap = new HashMap<>();
 
     // Connect markers in the path file to our auton commands
-    commandMap.put("collapseArm", new AutoCollapseArm(intake, lights));
-    commandMap.put("placeLow", new AutoPlaceLow(intake, lights));
-    commandMap.put("outputPiece", new AutoOutputPiece(intake));
+    commandMap.put("collapseArm", new AutoCollapseArm(arm, lights));
+    commandMap.put("placeLow", new AutoPlaceLow(arm, lights));
+    commandMap.put("outputPiece", new AutoOutputPiece(grip));
 
     pathBuilder = new SwerveAutoBuilder(
       swerveDrive::getPose,

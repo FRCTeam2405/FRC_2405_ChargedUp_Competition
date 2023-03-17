@@ -5,16 +5,16 @@
 package frc.robot.commands.intake.grip;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.intake.Grip;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class OpenGrip extends InstantCommand {
 
-  Intake intake;
+  Grip intake;
 
-  public OpenGrip(Intake intake) {
+  public OpenGrip(Grip intake) {
     this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.intake);

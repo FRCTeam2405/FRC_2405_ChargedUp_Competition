@@ -8,15 +8,15 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.settings.Constants;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.intake.Arm;
 
 public class MoveArm extends CommandBase {
 
-  private Intake intake;
+  private Arm intake;
   private DoubleSupplier input;
 
   /** Creates a new MoveArm. */
-  public MoveArm(Intake intake, DoubleSupplier move) {
+  public MoveArm(Arm intake, DoubleSupplier move) {
     this.intake = intake;
     input = move;
     // Use addRequirements() here to declare subsystem dependencies.

@@ -7,18 +7,18 @@ package frc.robot.commands.intake.arm.positions.placing;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.settings.Constants;
 import frc.robot.settings.Constants.LEDs.Colors;
-import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lights;
+import frc.robot.subsystems.intake.Arm;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class PlaceLow extends InstantCommand {
 
-  private Intake intake;
+  private Arm intake;
   private Lights lights;
 
-  public PlaceLow(Intake setIntake, Lights setLights) {
+  public PlaceLow(Arm setIntake, Lights setLights) {
     intake = setIntake;
     lights = setLights;
     // Declare subsystem dependencies.

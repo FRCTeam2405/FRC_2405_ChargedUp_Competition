@@ -7,18 +7,18 @@ package frc.robot.commands.intake.arm.positions.pickup;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.settings.Constants.Intake.Positions;
 import frc.robot.settings.Constants.LEDs.Colors;
-import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lights;
+import frc.robot.subsystems.intake.Arm;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class PickupShelf extends InstantCommand {
 
-  private Intake intake;
+  private Arm intake;
   private Lights lights;
 
-  public PickupShelf(Intake intake, Lights lights) {
+  public PickupShelf(Arm intake, Lights lights) {
     this.intake = intake;
     this.lights = lights;
     // Use addRequirements() here to declare subsystem dependencies.

@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.intake;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Constants;
 
-public class Intake extends SubsystemBase {
+public class Arm extends SubsystemBase {
 
   public double desiredArmPosition;
   public double desiredWristPosition;
@@ -33,13 +33,8 @@ public class Intake extends SubsystemBase {
   CANSparkMax wristMotor;
   SparkMaxPIDController wristPID;
 
-  CANSparkMax leftGripMotor;
-  CANSparkMax rightGripMotor;
-
-  Solenoid gripSolenoids;
-
   /** Creates a new Intake. */
-  public Intake() {
+  public Arm() {
     
     desiredArmPosition = Constants.Intake.Positions.Arm.COLLAPSED;
     desiredWristPosition = Constants.Intake.Positions.Wrist.COLLAPSED;
@@ -67,15 +62,6 @@ public class Intake extends SubsystemBase {
     wristPID.setOutputRange(-0.2, 0.2);
 
     wristMotor.burnFlash();
-
-    leftGripMotor = new CANSparkMax(Constants.Intake.Ports.LEFT_GRIP_MOTOR, MotorType.kBrushless);
-    rightGripMotor = new CANSparkMax(Constants.Intake.Ports.RIGHT_GRIP_MOTOR, MotorType.kBrushless);
-
-    gripSolenoids = new Solenoid(
-      Constants.Intake.Ports.COMPRESSOR,
-      PneumaticsModuleType.CTREPCM,
-      Constants.Intake.Ports.SOLENOIDS
-    );
   }
 
   @Override
@@ -91,11 +77,6 @@ public class Intake extends SubsystemBase {
     wristPID.setReference(desiredWristPosition, ControlType.kPosition);
   }
 
-  public void driveGrip(double speed) {
-    leftGripMotor.set(speed);
-    rightGripMotor.set(-speed);
-  }
-
   public void driveArm(double speed) {
     armMotor.set(ControlMode.PercentOutput, speed);
   }
@@ -103,9 +84,6 @@ public class Intake extends SubsystemBase {
   public void driveWrist(double speed) {
     wristMotor.set(speed);
   }
-
-  public boolean getGripOpen() { return gripSolenoids.get(); }
-  public void setGripOpen(boolean open) { gripSolenoids.set(open); }
 
   public double getArmPosition() { return armMotor.getSelectedSensorPosition(); }
   public double getWristPosition() { return wristMotor.getEncoder().getPosition(); }

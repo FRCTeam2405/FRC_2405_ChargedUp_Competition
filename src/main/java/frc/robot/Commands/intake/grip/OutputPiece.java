@@ -6,14 +6,14 @@ package frc.robot.commands.intake.grip;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.settings.Constants;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.intake.Grip;
 
 public class OutputPiece extends CommandBase {
 
-  private Intake intake;
+  private Grip intake;
 
   /** Creates a new IntakePiece. */
-  public OutputPiece(Intake setIntake) {
+  public OutputPiece(Grip setIntake) {
     intake = setIntake;
     // Declare subsystem dependencies.
     addRequirements(intake);
