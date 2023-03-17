@@ -39,6 +39,7 @@ import frc.robot.commands.swerve.AbsoluteDrive3Axis;
 import frc.robot.settings.Constants;
 import frc.robot.settings.DashboardConfig;
 import frc.robot.settings.Constants.Controllers;
+import frc.robot.settings.Constants.Drivetrains.Swerve.Paths;
 import frc.robot.subsystems.drivetrains.SwerveContainer;
 import frc.robot.subsystems.intake.Arm;
 import frc.robot.subsystems.intake.Grip;
@@ -77,9 +78,6 @@ public class RobotContainer {
   // Globally loaded path planner stuff
   private SwerveAutoBuilder pathBuilder;
   private HashMap<String, Command> commandMap;
-
-  private PathPlannerTrajectory inAndOut;
-
 
   public RobotContainer() {
 
@@ -199,11 +197,18 @@ public class RobotContainer {
       swerveDrive
     );
 
-    inAndOut = PathPlanner.loadPath("In and Out", 3, 4);
+    PathPlannerTrajectory pio = PathPlanner.loadPath(Paths.PIO, 3, 4);
+    PathPlannerTrajectory wio = PathPlanner.loadPath(Paths.WIO, 3, 4);
+    PathPlannerTrajectory cioda = PathPlanner.loadPath(Paths.CIODA, 3, 4);
+    PathPlannerTrajectory ciodn = PathPlanner.loadPath(Paths.CIODN, 3, 4);
+
 
     autonomousDropDown = new SendableChooser<>();
 
-    autonomousDropDown.setDefaultOption("In and Out", pathBuilder.followPath(inAndOut));
+    autonomousDropDown.setDefaultOption(Paths.PIO, pathBuilder.fullAuto(pio));
+    autonomousDropDown.addOption(Paths.WIO, pathBuilder.fullAuto(wio));
+    autonomousDropDown.addOption(Paths.CIODA, pathBuilder.fullAuto(cioda));
+    autonomousDropDown.addOption(Paths.CIODN, pathBuilder.fullAuto(ciodn));
     autonomousDropDown.addOption("None", null);
   }
 

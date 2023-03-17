@@ -50,6 +50,13 @@ public final class Constants {
             public static final boolean FIELD_RELATIVE = true;
             public static final boolean OPEN_LOOP = false;
 
+            public static final class Paths {
+                public static final String PIO = "[Pickup Side] In, Out";
+                public static final String WIO = "[Wire Side] In, Out";
+                public static final String CIODA = "[Center] In, Out, Dock (Autobalance)";
+                public static final String CIODN = "[Center] In, Out, Dock (No balance)";
+            }
+
             public static final class Speed {
                 public static final double MAX_TRANSLATION_MPS = 4.0;
                 public static final double MAX_ANGULAR_RPS = 0.4 * (2 * Math.PI); // radians per second
@@ -208,8 +215,6 @@ public final class Constants {
     }
 
     public static final class Intake {
-
-        
         
         public static final class Positions {
 
