@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.autonomous.AutoCollapseArm;
 import frc.robot.commands.autonomous.AutoOutputPiece;
 import frc.robot.commands.autonomous.AutoPlaceLow;
+import frc.robot.commands.autonomous.PlacePiece;
 import frc.robot.commands.intake.arm.MoveArm;
 import frc.robot.commands.intake.arm.MoveWrist;
 import frc.robot.commands.intake.arm.positions.CollapseArm;
@@ -210,9 +211,10 @@ public class RobotContainer {
     autonomousDropDown.addOption(Paths.WIO, pathBuilder.fullAuto(wio));
     autonomousDropDown.addOption(Paths.CIODA, pathBuilder.fullAuto(cioda));
     autonomousDropDown.addOption(Paths.CIODN, pathBuilder.fullAuto(ciodn));
+    autonomousDropDown.addOption("Place Piece, no movement", new PlacePiece(arm, grip, lights));
     autonomousDropDown.addOption("None", null);
 
-    SmartDashboard.putData(autonomousDropDown);
+    SmartDashboard.putData("Auton Routine", autonomousDropDown);
   }
 
   public Command getAutonomousCommand() {
