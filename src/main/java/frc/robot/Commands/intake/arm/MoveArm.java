@@ -31,6 +31,7 @@ public class MoveArm extends CommandBase {
   @Override
   public void execute() {
     intake.driveArm(input.getAsDouble() * Constants.Intake.Speed.ARM);
+    intake.desiredArmPosition = intake.getArmPosition();
   }
 
   // Called once the command ends or is interrupted.

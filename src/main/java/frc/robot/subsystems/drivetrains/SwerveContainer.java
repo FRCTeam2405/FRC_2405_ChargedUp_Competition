@@ -14,6 +14,7 @@ import frc.robot.settings.Constants;
 import frc.robot.settings.Constants.Drivetrains.Swerve.Speed;
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
+import swervelib.math.SwerveModuleState2;
 import swervelib.parser.SwerveDriveConfiguration;
 import swervelib.parser.SwerveParser;
 
@@ -93,6 +94,10 @@ public class SwerveContainer extends SubsystemBase {
     return rawSwerveDrive.getPose();
   }
 
+  public void resetPose(Pose2d pose) {
+    rawSwerveDrive.resetOdometry(pose);
+  }
+
   public ChassisSpeeds getFieldVelocity() {
     return rawSwerveDrive.getFieldVelocity();
   }
@@ -107,6 +112,14 @@ public class SwerveContainer extends SubsystemBase {
 
   public SwerveController getController() {
     return rawSwerveDrive.swerveController;
+  }
+
+  public void setModuleStates(SwerveModuleState2[] desiredStates) {
+    rawSwerveDrive.setModuleStates(desiredStates, false);
+  }
+
+  public void setChassisSpeeds(ChassisSpeeds speeds) {
+    rawSwerveDrive.setChassisSpeeds(speeds);
   }
 }
 

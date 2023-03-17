@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.EdgeDetector;
 import frc.robot.subsystems.drivetrains.Differential;
 import frc.robot.commands.SetLEDLights;
+import frc.robot.commands.autonomous.AutoRoutineType;
 import frc.robot.settings.Constants;
 import frc.robot.subsystems.Lights;
 import edu.wpi.first.wpilibj.Compressor;
@@ -39,11 +40,23 @@ import frc.robot.settings.DashboardConfig;
 import frc.robot.settings.Constants.Controllers;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.drivetrains.SwerveContainer;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.DoubleSupplier;
+
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.PathPlannerTrajectory.EventMarker;
+import com.pathplanner.lib.auto.PIDConstants;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 public class RobotContainer {
 
   private final DashboardConfig config;
+
+  private AutoRoutineType chosenRoutine = AutoRoutineType.IN_AND_OUT;
 
   // Declare subsystems
   private final SwerveContainer swerveDrive;
@@ -61,6 +74,12 @@ public class RobotContainer {
   private CommandXboxController driverController = new CommandXboxController(0);
   private CommandXboxController codriverController = new CommandXboxController(1);
 
+  // Globally loaded path planner stuff
+  private SwerveAutoBuilder pathBuilder;
+  private HashMap<String, Command> commandMap;
+
+  private PathPlannerTrajectory inAndOut;
+
   public RobotContainer() {
 
     config = new DashboardConfig();
@@ -68,9 +87,10 @@ public class RobotContainer {
     swerveDrive = new SwerveContainer();
     intake = new Intake();
     limelight = new Limelight();
+    edgeDetector = new EdgeDetector();
 
     configureBindings();
-    edgeDetector = new EdgeDetector();
+    configureCommands();
 
     // Set default commands
     
@@ -98,6 +118,7 @@ public class RobotContainer {
     // RT to drive forward, LT to drive backward
     driverController.a().onTrue(new OpenGrip(intake));
     driverController.b().onTrue(new CloseGrip(intake));
+    driverController.x().onTrue(Commands.print("TODO"));
     driverController.rightTrigger().whileTrue(new IntakePiece(intake));
     driverController.leftTrigger().whileTrue(new OutputPiece(intake));
 
@@ -149,7 +170,29 @@ public class RobotContainer {
     
   }
 
+  private void configureCommands() {
+
+    commandMap = new HashMap<>();
+
+    pathBuilder = new SwerveAutoBuilder(
+      swerveDrive::getPose,
+      swerveDrive::resetPose,
+      new PIDConstants(0, 0, 0),
+      new PIDConstants(0, 0, 0),
+      swerveDrive::setChassisSpeeds,
+      commandMap,
+      swerveDrive
+    );
+
+    inAndOut = PathPlanner.loadPath("In and Out", 3, 4);
+  }
+
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    switch(chosenRoutine) {
+      case IN_AND_OUT:
+        return pathBuilder.followPath(inAndOut);
+      default:
+        return Commands.print("No autonomous command selcted.");
+    }
   }
 }

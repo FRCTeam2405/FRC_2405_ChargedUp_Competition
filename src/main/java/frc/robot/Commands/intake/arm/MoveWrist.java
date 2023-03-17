@@ -31,6 +31,7 @@ public class MoveWrist extends CommandBase {
   @Override
   public void execute() {
     intake.driveWrist(input.getAsDouble() * Constants.Intake.Speed.WRIST);
+    intake.desiredWristPosition = intake.getWristPosition();
   }
 
   // Called once the command ends or is interrupted.

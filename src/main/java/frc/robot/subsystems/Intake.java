@@ -106,4 +106,7 @@ public class Intake extends SubsystemBase {
 
   public boolean getGripOpen() { return gripSolenoids.get(); }
   public void setGripOpen(boolean open) { gripSolenoids.set(open); }
+
+  public double getArmPosition() { return armMotor.getSelectedSensorPosition(); }
+  public double getWristPosition() { return wristMotor.getEncoder().getPosition(); }
 }
