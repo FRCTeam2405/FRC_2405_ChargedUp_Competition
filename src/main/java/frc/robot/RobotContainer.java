@@ -198,10 +198,10 @@ public class RobotContainer {
       swerveDrive
     );
 
-    PathPlannerTrajectory pio = PathPlanner.loadPath(Paths.PIO, 3, 4);
-    PathPlannerTrajectory wio = PathPlanner.loadPath(Paths.WIO, 3, 4);
-    PathPlannerTrajectory cioda = PathPlanner.loadPath(Paths.CIODA, 3, 4);
-    PathPlannerTrajectory ciodn = PathPlanner.loadPath(Paths.CIODN, 3, 4);
+    PathPlannerTrajectory pio = PathPlanner.loadPath(Paths.PIO, 1.5, 1.5);
+    PathPlannerTrajectory wio = PathPlanner.loadPath(Paths.WIO, 1.5, 1.5);
+    PathPlannerTrajectory cioda = PathPlanner.loadPath(Paths.CIODA, 1.5, 1.5);
+    PathPlannerTrajectory ciodn = PathPlanner.loadPath(Paths.CIODN, 1.5, 1.5);
 
 
     autonomousDropDown = new SendableChooser<>();
