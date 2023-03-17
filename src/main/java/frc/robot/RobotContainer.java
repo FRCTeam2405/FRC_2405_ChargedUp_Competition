@@ -65,9 +65,6 @@ public class RobotContainer {
   
   private final Compressor airCompressor = new Compressor(Constants.Intake.Ports.COMPRESSOR, PneumaticsModuleType.CTREPCM);
 
-  //Declare commands
-  private final SwerveAutobalance commandBalance;
-
   private SendableChooser<Command> autonomousDropDown;
 
   // Declare controllers
@@ -93,8 +90,6 @@ public class RobotContainer {
     grip = new Grip();
     limelight = new Limelight();
     edgeDetector = new EdgeDetector();
-
-    commandBalance = new SwerveAutobalance(swerveDrive);
 
     configureBindings();
     configureCommands();
