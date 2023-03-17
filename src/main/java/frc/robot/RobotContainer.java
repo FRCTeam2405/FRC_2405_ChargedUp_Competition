@@ -4,13 +4,15 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.swerve.AbsoluteDrive;
-import frc.robot.commands.swerve.SwerveAutobalence;
+import frc.robot.commands.swerve.SwerveAutobalance;
+import frc.robot.commands.swerve.SwerveBrake;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -72,7 +74,9 @@ public class RobotContainer {
   private final Compressor airCompressor = new Compressor(Constants.Intake.Ports.COMPRESSOR, PneumaticsModuleType.CTREPCM);
 
   //Declare commands
-  private final SwerveAutobalence commandBalence;
+  private final SwerveAutobalance commandBalance;
+
+  private SendableChooser<Command> autonomousDropDown;
 
   // Declare controllers
   // private Joystick driverStick = new Joystick(Constants.Controllers.DRIVER_JOYSTICK_PORT);
@@ -97,7 +101,7 @@ public class RobotContainer {
     limelight = new Limelight();
     edgeDetector = new EdgeDetector();
 
-    commandBalence = new SwerveAutobalence(swerveDrive);
+    commandBalance = new SwerveAutobalance(swerveDrive);
 
     configureBindings();
     configureCommands();
@@ -127,7 +131,8 @@ public class RobotContainer {
     // RT to drive forward, LT to drive backward
     driverController.a().onTrue(new OpenGrip(intake));
     driverController.b().onTrue(new CloseGrip(intake));
-    driverController.x().onTrue(Commands.print("TODO"));
+    driverController.x().onTrue(new SwerveAutobalance(swerveDrive));
+    driverController.rightBumper().whileTrue(new SwerveBrake(swerveDrive));
     driverController.rightTrigger().whileTrue(new IntakePiece(intake));
     driverController.leftTrigger().whileTrue(new OutputPiece(intake));
 
@@ -194,14 +199,18 @@ public class RobotContainer {
     );
 
     inAndOut = PathPlanner.loadPath("In and Out", 3, 4);
+
+    autonomousDropDown = new SendableChooser<>();
+
+    autonomousDropDown.addOption("In and Out", pathBuilder.followPath(inAndOut));
+    autonomousDropDown.addOption("None", null);
   }
 
   public Command getAutonomousCommand() {
-    switch(chosenRoutine) {
-      case IN_AND_OUT:
-        return pathBuilder.followPath(inAndOut);
-      default:
-        return Commands.print("No autonomous command selcted.");
+    Command command = autonomousDropDown.getSelected();
+    if(command == null) {
+      return Commands.print("No autonomous command selected.");
     }
+    return command;
   }
 }

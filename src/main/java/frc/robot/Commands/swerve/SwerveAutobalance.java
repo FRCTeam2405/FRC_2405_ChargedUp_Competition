@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrains.SwerveContainer;
 
-public class SwerveAutobalence extends CommandBase {
+public class SwerveAutobalance extends CommandBase {
 
   SwerveContainer swerveDrive;
   XboxController controller;
@@ -19,7 +19,7 @@ public class SwerveAutobalence extends CommandBase {
 
 
   /** Creates a new DriveSwerve. */
-  public SwerveAutobalence(SwerveContainer swerve) {
+  public SwerveAutobalance(SwerveContainer swerve) {
 
     swerveDrive = swerve;
 

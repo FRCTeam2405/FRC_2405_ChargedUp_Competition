@@ -121,5 +121,9 @@ public class SwerveContainer extends SubsystemBase {
   public void setChassisSpeeds(ChassisSpeeds speeds) {
     rawSwerveDrive.setChassisSpeeds(speeds);
   }
+
+  public void setBrakes(boolean enabled) {
+    rawSwerveDrive.setMotorIdleMode(enabled);
+  }
 }
 
