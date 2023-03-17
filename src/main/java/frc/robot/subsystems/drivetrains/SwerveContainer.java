@@ -126,5 +126,24 @@ public class SwerveContainer extends SubsystemBase {
   public void setBrakes(boolean enabled) {
     rawSwerveDrive.setMotorIdleMode(enabled);
   }
+
+  public void moveX() {
+
+    SwerveModuleState2[] states = new SwerveModuleState2[4];
+
+    states[0] = new SwerveModuleState2(0, new Rotation2d(0.25 * Math.PI), 0);
+    states[1] = new SwerveModuleState2(0, new Rotation2d(0.75 * Math.PI), 0);
+    states[2] = new SwerveModuleState2(0, new Rotation2d(1.25 * Math.PI), 0);
+    states[3] = new SwerveModuleState2(0, new Rotation2d(1.75 * Math.PI), 0);
+
+    rawSwerveDrive.setModuleStates(states, false);
+  }
+
+  public void resetYaw() {
+    rawSwerveDrive.resetOdometry(new Pose2d(
+      getPose().getTranslation(),
+      new Rotation2d(0)
+    ));
+  }
 }
 

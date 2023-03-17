@@ -37,6 +37,7 @@ import frc.robot.commands.intake.grip.IntakePiece;
 import frc.robot.commands.intake.grip.OpenGrip;
 import frc.robot.commands.intake.grip.OutputPiece;
 import frc.robot.commands.swerve.AbsoluteDrive3Axis;
+import frc.robot.commands.swerve.RecenterRotation;
 import frc.robot.settings.Constants;
 import frc.robot.settings.DashboardConfig;
 import frc.robot.settings.Constants.Controllers;
@@ -125,6 +126,7 @@ public class RobotContainer {
     driverController.a().onTrue(new OpenGrip(grip));
     driverController.b().onTrue(new CloseGrip(grip));
     driverController.x().onTrue(new SwerveAutobalance(swerveDrive));
+    driverController.y().onTrue(new RecenterRotation(swerveDrive));
     driverController.rightBumper().whileTrue(new SwerveBrake(swerveDrive));
     driverController.rightTrigger().whileTrue(new IntakePiece(grip));
     driverController.leftTrigger().whileTrue(new OutputPiece(grip));
