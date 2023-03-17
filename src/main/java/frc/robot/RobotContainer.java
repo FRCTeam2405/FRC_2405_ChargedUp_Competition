@@ -186,6 +186,7 @@ public class RobotContainer {
     commandMap.put("collapseArm", new AutoCollapseArm(arm, lights));
     commandMap.put("placeLow", new AutoPlaceLow(arm, lights));
     commandMap.put("outputPiece", new AutoOutputPiece(grip));
+    commandMap.put("autobalance", new SwerveAutobalance(swerveDrive));
 
     pathBuilder = new SwerveAutoBuilder(
       swerveDrive::getPose,
