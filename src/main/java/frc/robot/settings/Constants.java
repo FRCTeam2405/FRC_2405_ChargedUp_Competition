@@ -14,25 +14,35 @@ import swervelib.math.Matter;
  *  For settings that should be changed before
  *  building and deploying the code.
  */
-//TODO! Init values
 public final class Constants {
     /** This year we have to support multiple drivetrains, so each drivetrain is a subclass. */
     public static final class Drivetrains {
 
         public static final class Differential {
-            public static final class Motors {               
-                public static final int FRONT_LEFT_PORT = 0;
-                public static final int FRONT_RIGHT_PORT = 0;
-                public static final int BACK_LEFT_PORT = 0;
-                public static final int BACK_RIGHT_PORT = 0;
+            public static final class Motors {
+                public static final class Ports {
+                    public static final int FRONT_LEFT = 10;
+                    public static final int FRONT_RIGHT = 11;
+                    public static final int BACK_LEFT = 12;
+                    public static final int BACK_RIGHT = 13;
+                }
                 
                 public static final class Encoders {
                     public static final int FRONT_LEFT_PORT = 0;
                     public static final int FRONT_RIGHT_PORT = 0;
                     public static final int BACK_LEFT_PORT = 0;
                     public static final int BACK_RIGHT_PORT = 0;
+
                 }
+
+                public static final boolean FRONT_LEFT_REVERSED = true;
+                public static final boolean FRONT_RIGHT_REVERSED = false;
+                public static final boolean BACK_LEFT_REVERSED = true;
+                public static final boolean BACK_RIGHT_REVERSED = false;
+
             }
+
+            public static final double SPEED_LIMIT = 0.1;
         }
 
         public static final class Swerve {
@@ -41,12 +51,11 @@ public final class Constants {
             public static final boolean OPEN_LOOP = false;
 
             public static final class Speed {
-                public static final double MAX_TRANSLATION_MPS = 0.5;
-                public static final double MAX_ANGULAR_RPS = 0.25 * (2 * Math.PI); // radians per second
+                public static final double MAX_TRANSLATION_MPS = 4.0;
+                public static final double MAX_ANGULAR_RPS = 0.4 * (2 * Math.PI); // radians per second
             }
 
             public static final class Odometry {
-                //TODO! FIX ALL
                 // Chassis configuration
                 
                 /** Distance between centers of right and left wheels on robot */
@@ -84,7 +93,6 @@ public final class Constants {
 
             public static final class Motors {
                 public static final class Driving {
-                    //TODO! fix later
                     public static final int FRONT_LEFT_PORT = 20;
                     public static final int FRONT_RIGHT_PORT = 21;
                     public static final int BACK_LEFT_PORT = 22;
@@ -99,7 +107,6 @@ public final class Constants {
                 }
 
                 public static final class Turning {
-                    //TODO! fix later
                     public static final int FRONT_LEFT_PORT = 30;
                     public static final int FRONT_RIGHT_PORT = 31;
                     public static final int BACK_LEFT_PORT = 32;
@@ -115,7 +122,6 @@ public final class Constants {
             }
 
             public static final class Encoders {
-                //TODO! fix later
                 public final int QUAD_COUNTS_PER_ROTATION = 4096;
 
                 public static final int FRONT_LEFT_PORT = 40;
@@ -182,20 +188,104 @@ public final class Constants {
     }
 
     public static final class Controllers {
-        public static final int DRIVER_CONTROLLER_PORT = 0;
+        public static final int DRIVER_JOYSTICK_PORT = 0;
+        public static final int DRIVER_WHEEL_PORT = 1;
+        public static final int CODRIVER_PORT = 2;
 
-        public static final class DriverController {
-            public static final double joystickDeadband = 0;
+        
+        public static final class Axis {
+            public static final int JOYSTICK_X = 0;
+            public static final int JOYSTICK_Y = 1;
+            public static final int JOYSTICK_Z = 4;
 
-            public static final double speedX = 0;
-            public static final double speedY = 0;
-            public static final double rotationX = 0;
-            public static final double rotationY = 0;
-            
-            public static final int DRIVER_CONTROLLER_BUTTON_X = 3;
-            public static final int DRIVER_CONTROLLER_BUTTON_B = 2;
-            public static final int DRIVER_CONTROLLER_BUTTON_Y = 4;
-            public static final int DRIVER_CONTROLLER_BUTTON_A = 1;
+            public static final int WHEEL_X = 0;
+        }
+        
+        public static final double joystickDeadband = 0.05;
+        public static final double wheelDeadband = 0.2;
+        
+
+    }
+
+    public static final class Intake {
+
+        
+        
+        public static final class Positions {
+
+            public static final class Wrist {          
+                public static final double LOW = 15.2;
+                public static final double MED = 13.8;
+                public static final double HIGH = 17.2;
+                public static final double COLLAPSED = 0.0;
+                public static final double TIPPED = 26.5;
+                public static final double CHUTE = 0.0;
+                public static final double SHELF = 0.0;
+            }
+
+            public static final class Arm {         
+                public static final double LOW = 0;
+                public static final double MED = -101765;
+                public static final double HIGH = -267090;
+                public static final double COLLAPSED = LOW;
+                public static final double TIPPED = LOW;
+                public static final double CHUTE = LOW;
+                public static final double SHELF = -103687;
+            }
+        }
+
+        public static final class Speed {
+            public static final double INTAKE = 0.4;
+            public static final double OUTPUT = -0.4;
+
+            public static final double ARM = 0.3;
+            public static final double WRIST = 0.2;
+        }
+
+        public static final class Ports {
+            public static final int ARM_MOTOR = 34;
+            public static final int WRIST_MOTOR = 35;
+            public static final int LEFT_GRIP_MOTOR = 36;
+            public static final int RIGHT_GRIP_MOTOR = 37;
+
+            public static final int COMPRESSOR = 7;
+            public static final int SOLENOIDS = 0;
+        }
+    }
+
+    public static final class LEDs {
+        public static final int PORT = 0;
+        public static final class Colors {
+            public static final double LED_SETTING_DEFAULT = -0.95;
+            public static final double STROBE_RED = -0.11;
+            public static final double HEARTBEAT_RED = -0.25;
+            public static final double SOLID_RED = 0.61;
+
+            public static final double SHOT_BLUE = -0.83;
+
+            public static final double GREEN = 0.77;
+            public static final double YELLOW = 0;
+            public static final double AQUA = 0.81;
+            public static final double BLUE = 0.87;
+        }
+    }
+
+    public static final class EdgeDetection {
+
+        public static final boolean ENABLED_DEFAULT = true;
+        public static final double EDGE_THRESHOLD = 34524;
+
+        public static final class Ports {
+
+            public static final int FRONT_LEFT_PING = 0;
+            public static final int FRONT_RIGHT_PING = 2;
+            public static final int BACK_LEFT_PING = 4;
+            public static final int BACK_RIGHT_PING = 6;
+
+            public static final int FRONT_LEFT_ECHO = 1;
+            public static final int FRONT_RIGHT_ECHO = 3;
+            public static final int BACK_LEFT_ECHO = 5;
+            public static final int BACK_RIGHT_ECHO = 7;
         }
     }
 }

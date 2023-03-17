@@ -11,7 +11,10 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Constants;
+import frc.robot.settings.Constants.Drivetrains.Swerve.Speed;
+import swervelib.SwerveController;
 import swervelib.SwerveDrive;
+import swervelib.math.SwerveModuleState2;
 import swervelib.parser.SwerveDriveConfiguration;
 import swervelib.parser.SwerveParser;
 
@@ -24,12 +27,25 @@ public class SwerveContainer extends SubsystemBase {
       rawSwerveDrive = new SwerveParser(new File(Filesystem.getDeployDirectory(), "swerve")).createSwerveDrive();
     } catch(IOException exception) {
       SmartDashboard.putString("ERROR", "Swerve failed to init: " + exception.getMessage() + ". Did you remember to enter the swerve configuration?");
+      return;
     }
+
+    rawSwerveDrive.setMotorIdleMode(false);
   }
 
   @Override
   public void periodic() {
     rawSwerveDrive.updateOdometry();
+
+    SmartDashboard.putNumber("gyroPitch", rawSwerveDrive.getPitch().getDegrees());
+    SmartDashboard.putNumber("gyroRoll", rawSwerveDrive.getRoll().getDegrees());
+    SmartDashboard.putNumber("gyroYaw", rawSwerveDrive.getYaw().getDegrees());
+
+    SmartDashboard.putNumber("FLEncoderPos", rawSwerveDrive.getModulePositions()[0].angle.getDegrees());
+    SmartDashboard.putNumber("FREncoderPos", rawSwerveDrive.getModulePositions()[1].angle.getDegrees());
+    SmartDashboard.putNumber("BLEncoderPos", rawSwerveDrive.getModulePositions()[2].angle.getDegrees());
+    SmartDashboard.putNumber("BREncoderPos", rawSwerveDrive.getModulePositions()[3].angle.getDegrees());
+
   }
 
   /** 
@@ -37,6 +53,7 @@ public class SwerveContainer extends SubsystemBase {
    * Inputs should be in a range from -1.0 to 1.0
    */
   public void drive(double moveX, double moveY, double rotTheta) {
+
     // Multiply the inputs (range -1 to 1) by the max speeds
     moveX *= Constants.Drivetrains.Swerve.Speed.MAX_TRANSLATION_MPS;
     moveY *= Constants.Drivetrains.Swerve.Speed.MAX_TRANSLATION_MPS;
@@ -62,6 +79,13 @@ public class SwerveContainer extends SubsystemBase {
     return rawSwerveDrive.swerveController.getTargetSpeeds(xInput, yInput, headingX, headingY, rawSwerveDrive.getYaw().getRadians());
   }
 
+  public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, Rotation2d angle)
+  {
+    xInput = Math.pow(xInput, 3);
+    yInput = Math.pow(yInput, 3);
+    return rawSwerveDrive.swerveController.getTargetSpeeds(xInput, yInput, angle.getRadians(), rawSwerveDrive.getYaw().getRadians());
+  }
+
   public void driveRaw(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
     rawSwerveDrive.drive(translation, rotation, fieldRelative, isOpenLoop);
   }
@@ -70,12 +94,32 @@ public class SwerveContainer extends SubsystemBase {
     return rawSwerveDrive.getPose();
   }
 
+  public void resetPose(Pose2d pose) {
+    rawSwerveDrive.resetOdometry(pose);
+  }
+
   public ChassisSpeeds getFieldVelocity() {
     return rawSwerveDrive.getFieldVelocity();
   }
 
   public SwerveDriveConfiguration getSwerveDriveConfiguration() {
     return rawSwerveDrive.swerveDriveConfiguration;
+  }
+
+  public Rotation2d getYaw() {
+    return rawSwerveDrive.getYaw();
+  }
+
+  public SwerveController getController() {
+    return rawSwerveDrive.swerveController;
+  }
+
+  public void setModuleStates(SwerveModuleState2[] desiredStates) {
+    rawSwerveDrive.setModuleStates(desiredStates, false);
+  }
+
+  public void setChassisSpeeds(ChassisSpeeds speeds) {
+    rawSwerveDrive.setChassisSpeeds(speeds);
   }
 }
 
