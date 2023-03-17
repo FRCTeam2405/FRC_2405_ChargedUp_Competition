@@ -7,6 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.swerve.AbsoluteDrive;
+import frc.robot.commands.swerve.SwerveAutobalence;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -67,6 +71,9 @@ public class RobotContainer {
   
   private final Compressor airCompressor = new Compressor(Constants.Intake.Ports.COMPRESSOR, PneumaticsModuleType.CTREPCM);
 
+  //Declare commands
+  private final SwerveAutobalence commandBalence;
+
   // Declare controllers
   // private Joystick driverStick = new Joystick(Constants.Controllers.DRIVER_JOYSTICK_PORT);
   // private Joystick driverWheel = new Joystick(Constants.Controllers.DRIVER_WHEEL_PORT);
@@ -80,6 +87,7 @@ public class RobotContainer {
 
   private PathPlannerTrajectory inAndOut;
 
+
   public RobotContainer() {
 
     config = new DashboardConfig();
@@ -89,11 +97,12 @@ public class RobotContainer {
     limelight = new Limelight();
     edgeDetector = new EdgeDetector();
 
+    commandBalence = new SwerveAutobalence(swerveDrive);
+
     configureBindings();
     configureCommands();
 
     // Set default commands
-    
   }
 
   private DoubleSupplier axisDeadband(CommandXboxController controller, int axis, double deadband, boolean inverted) {
