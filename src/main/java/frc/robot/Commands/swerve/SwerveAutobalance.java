@@ -65,11 +65,11 @@ public class SwerveAutobalance extends CommandBase {
           
           if ( autoBalanceXMode ) {
               double pitchAngleRadians = pitchAngleDegrees * (Math.PI / 180.0);
-              xAxisRate = Math.sin(pitchAngleRadians) * -0.15;
+              xAxisRate = Math.sin(pitchAngleRadians) * -0.3;
           }
           if ( autoBalanceYMode ) {
               double rollAngleRadians = rollAngleDegrees * (Math.PI / 180.0);
-              yAxisRate = Math.sin(rollAngleRadians) * -0.15;
+              yAxisRate = Math.sin(rollAngleRadians) * -0.3;
           }
           
           try {

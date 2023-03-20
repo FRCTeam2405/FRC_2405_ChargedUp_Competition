@@ -106,6 +106,15 @@ public class SwerveContainer extends SubsystemBase {
     return rawSwerveDrive.swerveDriveConfiguration;
   }
 
+  public Rotation2d getPitch() {
+    return rawSwerveDrive.getPitch();
+  }
+
+  public Rotation2d getRoll() {
+    return rawSwerveDrive.getRoll();
+  }
+
+
   public Rotation2d getYaw() {
     return rawSwerveDrive.getYaw();
   }

@@ -2,8 +2,16 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Auton Routine": "String Chooser",
       "/SmartDashboard/Field": "Field2d",
       "/SmartDashboard/navX-Sensor[1]": "Gyro"
+    },
+    "windows": {
+      "/SmartDashboard/Auton Routine": {
+        "window": {
+          "visible": true
+        }
+      }
     }
   },
   "NetworkTables": {

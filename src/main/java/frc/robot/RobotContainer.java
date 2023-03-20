@@ -38,6 +38,7 @@ import frc.robot.commands.intake.grip.OpenGrip;
 import frc.robot.commands.intake.grip.OutputPiece;
 import frc.robot.commands.swerve.AbsoluteDrive3Axis;
 import frc.robot.commands.swerve.RecenterRotation;
+import frc.robot.commands.swerve.SnapRotation;
 import frc.robot.settings.Constants;
 import frc.robot.settings.DashboardConfig;
 import frc.robot.settings.Constants.Controllers;
@@ -131,6 +132,11 @@ public class RobotContainer {
     driverController.rightTrigger().whileTrue(new IntakePiece(grip));
     driverController.leftTrigger().whileTrue(new OutputPiece(grip));
 
+    driverController.povUp().onTrue(new SnapRotation(swerveDrive, 0));
+    driverController.povRight().onTrue(new SnapRotation(swerveDrive, (0.5 * Math.PI)));
+    driverController.povDown().onTrue(new SnapRotation(swerveDrive, (1 * Math.PI)));
+    driverController.povLeft().onTrue(new SnapRotation(swerveDrive, (1.5 *  Math.PI)));
+
 
     // CODRIVER CONTROLS
 
@@ -198,6 +204,7 @@ public class RobotContainer {
       new PIDConstants(0, 0, 0),
       swerveDrive::setChassisSpeeds,
       commandMap,
+      true,
       swerveDrive
     );
 
@@ -208,6 +215,9 @@ public class RobotContainer {
     PathPlannerTrajectory out = PathPlanner.loadPath("[Either Side] Out", 1, 1);
 
 
+    PathPlannerTrajectory bpio = PathPlanner.loadPath("[Blue Pickup Side] In, Out", 1, 1);
+    PathPlannerTrajectory bwio = PathPlanner.loadPath("[Blue Wire Side] In, Out", 1, 1);
+
     autonomousDropDown = new SendableChooser<>();
 
     autonomousDropDown.setDefaultOption(Paths.PIO, pathBuilder.fullAuto(pio));
@@ -216,7 +226,8 @@ public class RobotContainer {
     autonomousDropDown.addOption(Paths.CIODN, pathBuilder.fullAuto(ciodn));
     autonomousDropDown.addOption("Place Piece, no movement", new PlacePiece(arm, grip, lights));
     autonomousDropDown.addOption("[Either Side] Out", pathBuilder.fullAuto(out));
-    autonomousDropDown.addOption("None", null);
+    autonomousDropDown.addOption("[Blue Pickup Side] In, Out", pathBuilder.fullAuto(bpio));
+    autonomousDropDown.addOption("[Blue Wire Side] In, Out", pathBuilder.fullAuto(bwio));
 
     SmartDashboard.putData("Auton Routine", autonomousDropDown);
   }
