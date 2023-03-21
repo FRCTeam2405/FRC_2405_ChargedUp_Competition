@@ -37,7 +37,7 @@ public class YawTest extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(swerve.getYaw().getRotations() >= 5) {
+    if(Math.abs(swerve.getYaw().getRotations()) >= 5) {
       return true;
     }
     return false;

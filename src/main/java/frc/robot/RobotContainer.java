@@ -23,6 +23,7 @@ import frc.robot.commands.autonomous.AutoCollapseArm;
 import frc.robot.commands.autonomous.AutoOutputPiece;
 import frc.robot.commands.autonomous.AutoPlaceLow;
 import frc.robot.commands.autonomous.PlacePiece;
+import frc.robot.commands.autonomous.YawTest;
 import frc.robot.commands.intake.arm.MoveArm;
 import frc.robot.commands.intake.arm.MoveWrist;
 import frc.robot.commands.intake.arm.positions.CollapseArm;
@@ -228,6 +229,7 @@ public class RobotContainer {
     autonomousDropDown.addOption("[Either Side] Out", pathBuilder.fullAuto(out));
     autonomousDropDown.addOption("[Blue Pickup Side] In, Out", pathBuilder.fullAuto(bpio));
     autonomousDropDown.addOption("[Blue Wire Side] In, Out", pathBuilder.fullAuto(bwio));
+    autonomousDropDown.addOption("Yaw Test", new YawTest(swerveDrive));
 
     SmartDashboard.putData("Auton Routine", autonomousDropDown);
   }
