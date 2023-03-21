@@ -31,6 +31,7 @@ public class YawTest extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    swerve.setBrakes(true);
     swerve.drive(0, 0, 0);
   }
 
