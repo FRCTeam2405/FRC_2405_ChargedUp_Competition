@@ -216,8 +216,8 @@ public class RobotContainer {
     PathPlannerTrajectory out = PathPlanner.loadPath("[Either Side] Out", 1, 1);
 
 
-    PathPlannerTrajectory bpio = PathPlanner.loadPath("[Blue Pickup Side] In, Out", 1, 1);
-    PathPlannerTrajectory bwio = PathPlanner.loadPath("[Blue Wire Side] In, Out", 1, 1);
+    // PathPlannerTrajectory bpio = PathPlanner.loadPath("[Blue Pickup Side] In, Out", 1, 1);
+    // PathPlannerTrajectory bwio = PathPlanner.loadPath("[Blue Wire Side] In, Out", 1, 1);
 
     autonomousDropDown = new SendableChooser<>();
 
@@ -227,8 +227,8 @@ public class RobotContainer {
     autonomousDropDown.addOption(Paths.CIODN, pathBuilder.fullAuto(ciodn));
     autonomousDropDown.addOption("Place Piece, no movement", new PlacePiece(arm, grip, lights));
     autonomousDropDown.addOption("[Either Side] Out", pathBuilder.fullAuto(out));
-    autonomousDropDown.addOption("[Blue Pickup Side] In, Out", pathBuilder.fullAuto(bpio));
-    autonomousDropDown.addOption("[Blue Wire Side] In, Out", pathBuilder.fullAuto(bwio));
+    // autonomousDropDown.addOption("[Blue Pickup Side] In, Out", pathBuilder.fullAuto(bpio));
+    // autonomousDropDown.addOption("[Blue Wire Side] In, Out", pathBuilder.fullAuto(bwio));
     autonomousDropDown.addOption("Yaw Test", new YawTest(swerveDrive));
 
     SmartDashboard.putData("Auton Routine", autonomousDropDown);
