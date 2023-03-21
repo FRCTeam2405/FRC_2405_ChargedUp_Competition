@@ -5,6 +5,9 @@
 package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.autonomous.arm.AutoOutputPiece;
+import frc.robot.commands.autonomous.arm.positions.AutoCollapseArm;
+import frc.robot.commands.autonomous.arm.positions.AutoPlaceLow;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.intake.Arm;
 import frc.robot.subsystems.intake.Grip;
