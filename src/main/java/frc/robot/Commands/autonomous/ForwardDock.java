@@ -30,7 +30,7 @@ public class ForwardDock extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Math.abs(swerve.getPitch().getDegrees()) > 11) {
+    if(Math.abs(swerve.getPitch().getDegrees()) > 14) {
       onChargeStation = true;
       startPosition = swerve.getPose().getTranslation();
     }
