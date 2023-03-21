@@ -216,7 +216,7 @@ public class RobotContainer {
     PathPlannerTrajectory cioda = PathPlanner.loadPath(Paths.CIODA, 1, 1);
     PathPlannerTrajectory ciodn = PathPlanner.loadPath(Paths.CIODN, 1, 1);
     PathPlannerTrajectory out = PathPlanner.loadPath("[Either Side] Out", 1, 1);
-    PathPlannerTrajectory blueCenterDock = PathPlanner.loadPath("[Blue Center] Dock", null)
+    PathPlannerTrajectory blueCenterDock = PathPlanner.loadPath("[Blue Center] Dock", 1, 1);
 
 
     // PathPlannerTrajectory bpio = PathPlanner.loadPath("[Blue Pickup Side] In, Out", 1, 1);
