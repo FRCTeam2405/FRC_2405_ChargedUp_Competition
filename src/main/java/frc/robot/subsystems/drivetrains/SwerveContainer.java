@@ -128,6 +128,7 @@ public class SwerveContainer extends SubsystemBase {
   }
 
   public void setChassisSpeeds(ChassisSpeeds speeds) {
+    speeds.vxMetersPerSecond *= 0.5;
     speeds.vyMetersPerSecond *= -1.0;
     rawSwerveDrive.setChassisSpeeds(speeds);
   }
