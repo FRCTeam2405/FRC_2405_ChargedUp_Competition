@@ -203,8 +203,8 @@ public class RobotContainer {
     pathBuilder = new SwerveAutoBuilder(
       swerveDrive::getPose,
       swerveDrive::resetPose,
-      new PIDConstants(0.005, 0.0001, 0),
-      new PIDConstants(0.005, 0.0001, 0),
+      new PIDConstants(0.0005, 0.0001, 0),
+      new PIDConstants(0.0005, 0.0001, 0),
       swerveDrive::setChassisSpeeds,
       commandMap,
       true,
