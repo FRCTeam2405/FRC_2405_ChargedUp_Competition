@@ -4,21 +4,23 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+import java.util.function.DoubleSupplier;
+
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.auto.PIDConstants;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
+
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.swerve.SwerveAutobalance;
-import frc.robot.commands.swerve.SwerveBrake;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.subsystems.EdgeDetector;
-import frc.robot.settings.Constants;
-import frc.robot.subsystems.Lights;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import frc.robot.subsystems.Limelight;
-import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.autonomous.ForwardDock;
 import frc.robot.commands.autonomous.PlacePiece;
 import frc.robot.commands.autonomous.YawTest;
@@ -41,21 +43,17 @@ import frc.robot.commands.intake.grip.OutputPiece;
 import frc.robot.commands.swerve.AbsoluteDrive3Axis;
 import frc.robot.commands.swerve.RecenterRotation;
 import frc.robot.commands.swerve.SnapRotation;
+import frc.robot.commands.swerve.SwerveAutobalance;
+import frc.robot.commands.swerve.SwerveBrake;
 import frc.robot.settings.Constants;
-import frc.robot.settings.DashboardConfig;
-import frc.robot.settings.Constants.Controllers;
 import frc.robot.settings.Constants.Drivetrains.Swerve.Paths;
+import frc.robot.settings.DashboardConfig;
+import frc.robot.subsystems.EdgeDetector;
+import frc.robot.subsystems.Lights;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.drivetrains.SwerveContainer;
 import frc.robot.subsystems.intake.Arm;
 import frc.robot.subsystems.intake.Grip;
-
-import java.util.HashMap;
-import java.util.function.DoubleSupplier;
-
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
-import com.pathplanner.lib.auto.PIDConstants;
-import com.pathplanner.lib.auto.SwerveAutoBuilder;
 
 public class RobotContainer {
 
@@ -218,7 +216,6 @@ public class RobotContainer {
     PathPlannerTrajectory out = PathPlanner.loadPath("[Either Side] Out", 1, 1);
     PathPlannerTrajectory blueCenterDock = PathPlanner.loadPath("[Blue Center] Dock", 1, 1);
 
-
     // PathPlannerTrajectory bpio = PathPlanner.loadPath("[Blue Pickup Side] In, Out", 1, 1);
     // PathPlannerTrajectory bwio = PathPlanner.loadPath("[Blue Wire Side] In, Out", 1, 1);
 
@@ -234,6 +231,7 @@ public class RobotContainer {
     // autonomousDropDown.addOption("[Blue Wire Side] In, Out", pathBuilder.fullAuto(bwio));
     autonomousDropDown.addOption("Yaw Test", new YawTest(swerveDrive));
     autonomousDropDown.addOption("[Center] Dock", pathBuilder.followPath(blueCenterDock));
+    autonomousDropDown.addOption("[Center] Dock", new ForwardDock(swerveDrive));
 
     SmartDashboard.putData("Auton Routine", autonomousDropDown);
   }
