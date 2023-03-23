@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.autonomous.BackwardDock;
 import frc.robot.commands.autonomous.ForwardDock;
 import frc.robot.commands.autonomous.PlacePiece;
 import frc.robot.commands.autonomous.YawTest;
@@ -197,6 +198,7 @@ public class RobotContainer {
     commandMap.put("outputPiece", new AutoOutputPiece(grip));
     commandMap.put("autobalance", new SwerveAutobalance(swerveDrive));
     commandMap.put("lazyAutobalance", new ForwardDock(swerveDrive));
+    commandMap.put("backAutobalance", new BackwardDock(swerveDrive));
 
     pathBuilder = new SwerveAutoBuilder(
       swerveDrive::getPose,
@@ -214,7 +216,7 @@ public class RobotContainer {
     PathPlannerTrajectory cioda = PathPlanner.loadPath(Paths.CIODA, 1, 1);
     PathPlannerTrajectory ciodn = PathPlanner.loadPath(Paths.CIODN, 1, 1);
     PathPlannerTrajectory out = PathPlanner.loadPath("[Either Side] Out", 1, 1);
-    PathPlannerTrajectory blueCenterDock = PathPlanner.loadPath("[Blue Center] Dock", 1, 1);
+    PathPlannerTrajectory blueCenterDock = PathPlanner.loadPath("[Center] Dock", 1, 1);
 
     // PathPlannerTrajectory bpio = PathPlanner.loadPath("[Blue Pickup Side] In, Out", 1, 1);
     // PathPlannerTrajectory bwio = PathPlanner.loadPath("[Blue Wire Side] In, Out", 1, 1);
@@ -231,7 +233,7 @@ public class RobotContainer {
     // autonomousDropDown.addOption("[Blue Wire Side] In, Out", pathBuilder.fullAuto(bwio));
     autonomousDropDown.addOption("Yaw Test", new YawTest(swerveDrive));
     autonomousDropDown.addOption("[Center] Dock", pathBuilder.followPath(blueCenterDock));
-    autonomousDropDown.addOption("[Center] Dock", new ForwardDock(swerveDrive));
+    autonomousDropDown.addOption("[Center] Dock", new BackwardDock(swerveDrive));
 
     SmartDashboard.putData("Auton Routine", autonomousDropDown);
   }
