@@ -155,5 +155,9 @@ public class SwerveContainer extends SubsystemBase {
       new Rotation2d(0)
     ));
   }
+
+  public SwerveController getSwerveController() {
+    return rawSwerveDrive.swerveController;
+  }
 }
 
