@@ -46,6 +46,7 @@ import frc.robot.commands.swerve.RecenterRotation;
 import frc.robot.commands.swerve.SnapRotation;
 import frc.robot.commands.swerve.SwerveAutobalance;
 import frc.robot.commands.swerve.SwerveBrake;
+import frc.robot.commands.swerve.TeleopDrive;
 import frc.robot.settings.Constants;
 import frc.robot.settings.Constants.Drivetrains.Swerve.Paths;
 import frc.robot.settings.DashboardConfig;
@@ -110,17 +111,45 @@ public class RobotContainer {
     // DRIVER CONTROLS
 
     // Driving the robot: left stick for movement, right stick for turning, LB to quarter speed
-    swerveDrive.setDefaultCommand(new AbsoluteDrive3Axis(
+    // swerveDrive.setDefaultCommand(new AbsoluteDrive3Axis(
+    //   swerveDrive,
+    //   axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true, 1.0),
+    //   axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true, 1.0),
+    //   axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, false, 1.0)
+    // ));
+    // driverController.leftBumper().whileTrue(new AbsoluteDrive3Axis(
+    //   swerveDrive,
+    //   axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true, 0.25),
+    //   axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true, 0.25),
+    //   axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, false, 0.25)
+    // ));
+
+    swerveDrive.setDefaultCommand(new TeleopDrive(
       swerveDrive,
-      axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true, 1.0),
-      axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true, 1.0),
-      axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, false, 1.0)
-    ));
-    driverController.leftBumper().whileTrue(new AbsoluteDrive3Axis(
-      swerveDrive,
-      axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true, 0.25),
-      axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true, 0.25),
-      axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, false, 0.25)
+      axisDeadband(
+        driverController,
+        XboxController.Axis.kLeftY.value,
+        Constants.Controllers.joystickDeadband,
+        true,
+        1.0
+      ),
+      axisDeadband(
+        driverController,
+        XboxController.Axis.kLeftX.value,
+        Constants.Controllers.joystickDeadband,
+        true,
+        1.0
+      ),
+      axisDeadband(
+        driverController,
+        XboxController.Axis.kRightX.value,
+        Constants.Controllers.wheelDeadband,
+        false,
+        1.0
+      ),
+      () -> true,
+      Constants.Drivetrains.Swerve.OPEN_LOOP,
+      true
     ));
 
     // Manipulating the claw: A to open, B to close;
