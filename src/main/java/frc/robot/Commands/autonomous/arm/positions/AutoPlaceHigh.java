@@ -7,7 +7,6 @@ package frc.robot.commands.autonomous.arm.positions;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.intake.arm.positions.placing.PlaceHigh;
-import frc.robot.commands.intake.arm.positions.placing.PlaceLow;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.intake.Arm;
 

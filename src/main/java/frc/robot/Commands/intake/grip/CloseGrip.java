@@ -5,7 +5,6 @@
 package frc.robot.commands.intake.grip;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.intake.Arm;
 import frc.robot.subsystems.intake.Grip;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
