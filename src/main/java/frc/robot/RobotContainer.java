@@ -24,9 +24,10 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.autonomous.BackwardDock;
 import frc.robot.commands.autonomous.ForwardDock;
 import frc.robot.commands.autonomous.PlacePiece;
+import frc.robot.commands.autonomous.PlacePieceHigh;
 import frc.robot.commands.autonomous.YawTest;
 import frc.robot.commands.autonomous.arm.AutoOutputPiece;
-import frc.robot.commands.autonomous.arm.positions.AutoCollapseArm;
+import frc.robot.commands.autonomous.arm.positions.AutoCollapseArmLong;
 import frc.robot.commands.autonomous.arm.positions.AutoPlaceLow;
 import frc.robot.commands.intake.arm.MoveArm;
 import frc.robot.commands.intake.arm.MoveWrist;
@@ -224,7 +225,7 @@ public class RobotContainer {
     commandMap = new HashMap<>();
 
     // Connect markers in the path file to our auton commands
-    commandMap.put("collapseArm", new AutoCollapseArm(arm, lights));
+    commandMap.put("collapseArm", new AutoCollapseArmLong(arm, lights));
     commandMap.put("placeLow", new AutoPlaceLow(arm, lights));
     commandMap.put("outputPiece", new AutoOutputPiece(grip));
     commandMap.put("autobalance", new SwerveAutobalance(swerveDrive));
@@ -263,8 +264,9 @@ public class RobotContainer {
     // autonomousDropDown.addOption("[Blue Pickup Side] In, Out", pathBuilder.fullAuto(bpio));
     // autonomousDropDown.addOption("[Blue Wire Side] In, Out", pathBuilder.fullAuto(bwio));
     autonomousDropDown.addOption("Yaw Test", new YawTest(swerveDrive));
-    autonomousDropDown.addOption("[Center] Dock", pathBuilder.followPath(blueCenterDock));
-    autonomousDropDown.addOption("[Center] Dock", new BackwardDock(swerveDrive));
+    // autonomousDropDown.addOption("[Center] Dock", pathBuilder.followPath(blueCenterDock));
+    autonomousDropDown.addOption("[Center] Dock", new ForwardDock(swerveDrive));
+    autonomousDropDown.addOption("Place Piece High", new PlacePieceHigh(arm, grip, lights));
 
     SmartDashboard.putData("Auton Routine", autonomousDropDown);
   }

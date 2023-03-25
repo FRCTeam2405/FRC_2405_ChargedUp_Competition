@@ -20,7 +20,7 @@ public class AutoPlaceHigh extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PlaceHigh(intake, lights),
-      Commands.waitSeconds(1.0)
+      Commands.waitSeconds(2.0)
     );
   }
 }
