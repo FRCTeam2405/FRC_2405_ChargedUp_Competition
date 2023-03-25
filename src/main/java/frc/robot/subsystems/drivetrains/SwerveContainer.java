@@ -150,10 +150,7 @@ public class SwerveContainer extends SubsystemBase {
   }
 
   public void resetYaw() {
-    rawSwerveDrive.resetOdometry(new Pose2d(
-      getPose().getTranslation(),
-      new Rotation2d(0)
-    ));
+    rawSwerveDrive.zeroGyro();
   }
 
   public SwerveController getSwerveController() {

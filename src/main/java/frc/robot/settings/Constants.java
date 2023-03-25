@@ -221,7 +221,7 @@ public final class Constants {
             public static final class Wrist {          
                 public static final double LOW = 15.2;
                 public static final double MED = 5.73;
-                public static final double HIGH = 14.78;
+                public static final double HIGH = 11.12;
                 public static final double COLLAPSED = 0.0;
                 public static final double TIPPED = 26.5;
                 public static final double CHUTE = 2.31;

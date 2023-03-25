@@ -111,12 +111,12 @@ public class RobotContainer {
     // DRIVER CONTROLS
 
     // Driving the robot: left stick for movement, right stick for turning, LB to quarter speed
-    // swerveDrive.setDefaultCommand(new AbsoluteDrive3Axis(
-    //   swerveDrive,
-    //   axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true, 1.0),
-    //   axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true, 1.0),
-    //   axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, false, 1.0)
-    // ));
+    swerveDrive.setDefaultCommand(new AbsoluteDrive3Axis(
+      swerveDrive,
+      axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true, 1.0),
+      axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true, 1.0),
+      axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, false, 1.0)
+    ));
     // driverController.leftBumper().whileTrue(new AbsoluteDrive3Axis(
     //   swerveDrive,
     //   axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true, 0.25),
@@ -124,40 +124,42 @@ public class RobotContainer {
     //   axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, false, 0.25)
     // ));
 
-    swerveDrive.setDefaultCommand(new TeleopDrive(
-      swerveDrive,
-      axisDeadband(
-        driverController,
-        XboxController.Axis.kLeftY.value,
-        Constants.Controllers.joystickDeadband,
-        true,
-        1.0
-      ),
-      axisDeadband(
-        driverController,
-        XboxController.Axis.kLeftX.value,
-        Constants.Controllers.joystickDeadband,
-        true,
-        1.0
-      ),
-      axisDeadband(
-        driverController,
-        XboxController.Axis.kRightX.value,
-        Constants.Controllers.wheelDeadband,
-        false,
-        1.0
-      ),
-      () -> true,
-      Constants.Drivetrains.Swerve.OPEN_LOOP,
-      true
-    ));
+    // swerveDrive.setDefaultCommand(new TeleopDrive(
+    //   swerveDrive,
+    //   axisDeadband(
+    //     driverController,
+    //     XboxController.Axis.kLeftY.value,
+    //     Constants.Controllers.joystickDeadband,
+    //     true,
+    //     1.0
+    //   ),
+    //   axisDeadband(
+    //     driverController,
+    //     XboxController.Axis.kLeftX.value,
+    //     Constants.Controllers.joystickDeadband,
+    //     true,
+    //     1.0
+    //   ),
+    //   axisDeadband(
+    //     driverController,
+    //     XboxController.Axis.kRightX.value,
+    //     Constants.Controllers.wheelDeadband,
+    //     false,
+    //     1.0
+    //   ),
+    //   () -> true,
+    //   Constants.Drivetrains.Swerve.OPEN_LOOP,
+    //   true
+    // ));
 
     // Manipulating the claw: A to open, B to close;
     // RT to drive forward, LT to drive backward
-    driverController.a().onTrue(new OpenGrip(grip));
-    driverController.b().onTrue(new CloseGrip(grip));
+    // driverController.a().onTrue(new OpenGrip(grip));
+    // driverController.b().onTrue(new CloseGrip(grip));
     driverController.x().onTrue(new SwerveAutobalance(swerveDrive));
     driverController.y().onTrue(new RecenterRotation(swerveDrive));
+    driverController.leftBumper().onTrue(new OpenGrip(grip));
+    driverController.leftBumper().onFalse(new CloseGrip(grip));
     driverController.rightBumper().whileTrue(new SwerveBrake(swerveDrive));
     driverController.rightTrigger().whileTrue(new IntakePiece(grip));
     driverController.leftTrigger().whileTrue(new OutputPiece(grip));
