@@ -10,12 +10,12 @@ import frc.robot.subsystems.intake.Arm;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class MoveWrist extends InstantCommand {
+public class MoveWristPos extends InstantCommand {
 
   Arm arm;
   double position;
 
-  public MoveWrist(Arm arm, double pos) {
+  public MoveWristPos(Arm arm, double pos) {
     this.arm = arm;
     position = pos;
     // Use addRequirements() here to declare subsystem dependencies.

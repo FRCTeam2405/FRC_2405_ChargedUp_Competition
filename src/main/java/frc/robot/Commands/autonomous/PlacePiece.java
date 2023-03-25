@@ -10,8 +10,8 @@ import frc.robot.commands.autonomous.arm.AutoOutputPiece;
 import frc.robot.commands.autonomous.arm.positions.AutoCollapseArm;
 import frc.robot.commands.autonomous.arm.positions.AutoCollapseArmLong;
 import frc.robot.commands.autonomous.arm.positions.AutoPlaceLow;
-import frc.robot.commands.autonomous.arm.positions.MoveArm;
-import frc.robot.commands.autonomous.arm.positions.MoveWrist;
+import frc.robot.commands.autonomous.arm.positions.MoveArmPos;
+import frc.robot.commands.autonomous.arm.positions.MoveWristPos;
 import frc.robot.settings.Constants;
 import frc.robot.settings.Constants.Intake.Positions;
 import frc.robot.subsystems.Lights;
@@ -27,14 +27,14 @@ public class PlacePiece extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new MoveArm(arm, Positions.Arm.LOW),
+      new MoveArmPos(arm, Positions.Arm.LOW),
       Commands.waitSeconds(0.25),
-      new MoveWrist(arm, Positions.Wrist.LOW),
+      new MoveWristPos(arm, Positions.Wrist.LOW),
       Commands.waitSeconds(0.25),
       new AutoOutputPiece(grip),
-      new MoveArm(arm, Positions.Arm.COLLAPSED),
+      new MoveArmPos(arm, Positions.Arm.COLLAPSED),
       Commands.waitSeconds(0.25),
-      new MoveWrist(arm, Positions.Wrist.COLLAPSED),
+      new MoveWristPos(arm, Positions.Wrist.COLLAPSED),
       Commands.waitSeconds(0.25)
     );
   }

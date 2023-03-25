@@ -241,7 +241,7 @@ public final class Constants {
 
         public static final class Speed {
             public static final double INTAKE = 0.4;
-            public static final double OUTPUT = -0.4;
+            public static final double OUTPUT = -0.2;
 
             public static final double ARM = 0.3;
             public static final double WRIST = 0.2;

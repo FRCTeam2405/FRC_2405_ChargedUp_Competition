@@ -4,11 +4,15 @@
 
 package frc.robot.commands.autonomous;
 
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.autonomous.arm.AutoOutputPiece;
 import frc.robot.commands.autonomous.arm.positions.AutoCollapseArmLong;
 import frc.robot.commands.autonomous.arm.positions.AutoPlaceHigh;
+import frc.robot.commands.autonomous.arm.positions.MoveArmPos;
+import frc.robot.commands.autonomous.arm.positions.MoveWristPos;
 import frc.robot.commands.intake.grip.IntakePiece;
+import frc.robot.settings.Constants.Intake.Positions;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.intake.Arm;
 import frc.robot.subsystems.intake.Grip;
@@ -21,6 +25,16 @@ public class PlaceCubeHigh extends SequentialCommandGroup {
   public PlaceCubeHigh(Arm arm, Grip grip, Lights lights) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AutoPlaceHigh(arm, lights), new AutoOutputPiece(grip), new AutoCollapseArmLong(arm, lights));
+    addCommands(
+      new MoveArmPos(arm, Positions.Arm.HIGH),
+      Commands.waitSeconds(1.0),
+      new MoveWristPos(arm, Positions.Wrist.HIGH),
+      Commands.waitSeconds(1.0),
+      new AutoOutputPiece(grip),
+      new MoveArmPos(arm, Positions.Arm.COLLAPSED),
+      Commands.waitSeconds(1.0),
+      new MoveWristPos(arm, Positions.Wrist.COLLAPSED),
+      Commands.waitSeconds(1.0)
+    );
   }
 }
