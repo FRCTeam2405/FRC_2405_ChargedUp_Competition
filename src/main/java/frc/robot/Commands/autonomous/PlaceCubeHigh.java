@@ -16,9 +16,9 @@ import frc.robot.subsystems.intake.Grip;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class PlacePieceHigh extends SequentialCommandGroup {
+public class PlaceCubeHigh extends SequentialCommandGroup {
   /** Creates a new PlacePieceHigh. */
-  public PlacePieceHigh(Arm arm, Grip grip, Lights lights) {
+  public PlaceCubeHigh(Arm arm, Grip grip, Lights lights) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new AutoPlaceHigh(arm, lights), new AutoOutputPiece(grip), new AutoCollapseArmLong(arm, lights));

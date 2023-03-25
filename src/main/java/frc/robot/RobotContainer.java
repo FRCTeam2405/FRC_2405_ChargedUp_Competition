@@ -4,7 +4,9 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.PathPlanner;
@@ -23,8 +25,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.autonomous.BackwardDock;
 import frc.robot.commands.autonomous.ForwardDock;
+import frc.robot.commands.autonomous.PlaceConeHigh;
 import frc.robot.commands.autonomous.PlacePiece;
-import frc.robot.commands.autonomous.PlacePieceHigh;
+import frc.robot.commands.autonomous.PlaceCubeHigh;
 import frc.robot.commands.autonomous.YawTest;
 import frc.robot.commands.autonomous.arm.AutoOutputPiece;
 import frc.robot.commands.autonomous.arm.positions.AutoCollapseArmLong;
@@ -118,12 +121,12 @@ public class RobotContainer {
       axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true, 1.0),
       axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, false, 1.0)
     ));
-    // driverController.leftBumper().whileTrue(new AbsoluteDrive3Axis(
-    //   swerveDrive,
-    //   axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true, 0.25),
-    //   axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true, 0.25),
-    //   axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, false, 0.25)
-    // ));
+    driverController.rightBumper().whileTrue(new AbsoluteDrive3Axis(
+      swerveDrive,
+      axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true, 0.5),
+      axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true, 0.5),
+      axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, false, 0.5)
+    ));
 
     // swerveDrive.setDefaultCommand(new TeleopDrive(
     //   swerveDrive,
@@ -161,7 +164,7 @@ public class RobotContainer {
     driverController.y().onTrue(new RecenterRotation(swerveDrive));
     driverController.leftBumper().onTrue(new OpenGrip(grip));
     driverController.leftBumper().onFalse(new CloseGrip(grip));
-    driverController.rightBumper().whileTrue(new SwerveBrake(swerveDrive));
+    // driverController.rightBumper().whileTrue(new SwerveBrake(swerveDrive));
     driverController.rightTrigger().whileTrue(new IntakePiece(grip));
     driverController.leftTrigger().whileTrue(new OutputPiece(grip));
 
@@ -235,8 +238,8 @@ public class RobotContainer {
     pathBuilder = new SwerveAutoBuilder(
       swerveDrive::getPose,
       swerveDrive::resetPose,
-      new PIDConstants(0.7, 0, 0),
-      new PIDConstants(0.4, 0, 0.01),
+      new PIDConstants(0.1, 0, 0),
+      new PIDConstants(0.02, 0, 0.0005),
       swerveDrive::setChassisSpeeds,
       commandMap,
       true,
@@ -249,6 +252,10 @@ public class RobotContainer {
     PathPlannerTrajectory ciodn = PathPlanner.loadPath(Paths.CIODN, 1, 1);
     PathPlannerTrajectory out = PathPlanner.loadPath("[Either Side] Out", 1, 1);
     PathPlannerTrajectory blueCenterDock = PathPlanner.loadPath("[Center] Dock", 1, 1);
+    List<PathPlannerTrajectory> brokenL = new ArrayList<PathPlannerTrajectory>();
+    brokenL.add(PathPlanner.loadPath("Move Right", 1, 1));
+    brokenL.add(PathPlanner.loadPath("Move Out Far", 1, 1));
+
 
     // PathPlannerTrajectory bpio = PathPlanner.loadPath("[Blue Pickup Side] In, Out", 1, 1);
     // PathPlannerTrajectory bwio = PathPlanner.loadPath("[Blue Wire Side] In, Out", 1, 1);
@@ -266,7 +273,9 @@ public class RobotContainer {
     autonomousDropDown.addOption("Yaw Test", new YawTest(swerveDrive));
     // autonomousDropDown.addOption("[Center] Dock", pathBuilder.followPath(blueCenterDock));
     autonomousDropDown.addOption("[Center] Dock", new ForwardDock(swerveDrive));
-    autonomousDropDown.addOption("Place Piece High", new PlacePieceHigh(arm, grip, lights));
+    autonomousDropDown.addOption("Place Cube High", new PlaceCubeHigh(arm, grip, lights));
+    autonomousDropDown.addOption("Place Cone High", new PlaceConeHigh(arm, grip, lights));
+    autonomousDropDown.addOption("Broken L Right", pathBuilder.fullAuto(brokenL));
 
     SmartDashboard.putData("Auton Routine", autonomousDropDown);
   }

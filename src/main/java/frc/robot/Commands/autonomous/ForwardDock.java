@@ -5,6 +5,7 @@
 package frc.robot.commands.autonomous;
 
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrains.SwerveContainer;
 
@@ -29,13 +30,13 @@ public class ForwardDock extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Math.abs(swerve.getPitch().getDegrees()) > 14) {
+    if(Math.abs(swerve.getPitch().getDegrees() - 360) > 7) {
       onChargeStation = true;
       startPosition = swerve.getPose().getTranslation();
     }
 
     if(!onChargeStation) {
-      swerve.drive(0.5, 0, 0);
+      swerve.drive(0.25, 0, 0);
       return;
     }
 
@@ -43,12 +44,14 @@ public class ForwardDock extends CommandBase {
       swerve.getPose().getTranslation().getX() -
       startPosition.getX();
 
-    if(Math.abs(distance) > 0.9) {
+    SmartDashboard.putNumber("autoDistance", distance);
+
+    if(Math.abs(distance) > 0.2) {
       finished = true;
       return;
     }
 
-    swerve.drive(0.25, 0, 0);
+    swerve.drive(0.1, 0, 0);
   }
 
   // Called once the command ends or is interrupted.
