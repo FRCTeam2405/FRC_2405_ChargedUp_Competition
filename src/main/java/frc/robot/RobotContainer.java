@@ -27,6 +27,7 @@ import frc.robot.commands.autonomous.YawTest;
 import frc.robot.commands.autonomous.arm.AutoOutputPiece;
 import frc.robot.commands.autonomous.drive.BackwardDock;
 import frc.robot.commands.autonomous.drive.ForwardDock;
+import frc.robot.commands.autonomous.groups.PlaceAndDock;
 import frc.robot.commands.autonomous.groups.PlaceConeHigh;
 import frc.robot.commands.autonomous.groups.PlaceCubeHigh;
 import frc.robot.commands.autonomous.groups.PlacePieceLow;
@@ -274,12 +275,10 @@ public class RobotContainer {
     autonomousDropDown.addOption("Place Cube High", new PlaceCubeHigh(arm, grip, lights));
     autonomousDropDown.addOption("Place Cone High", new PlaceConeHigh(arm, grip, lights));
 
-    autonomousDropDown.addOption("[Center] Dock", new ForwardDock(swerveDrive, lights));
+    autonomousDropDown.addOption("Dock", new ForwardDock(swerveDrive, lights));
+    autonomousDropDown.addOption("Place Cube High and Dock", new PlaceAndDock(arm, grip, swerveDrive, lights));
 
     autonomousDropDown.addOption("Yaw Test", new YawTest(swerveDrive));
-    
-   
-    
     
 
     SmartDashboard.putData("Auton Routine", autonomousDropDown);

@@ -30,7 +30,6 @@ public class PlaceCubeHigh extends SequentialCommandGroup {
       Commands.waitSeconds(1.0),
       new AutoOutputPiece(grip),
       new MoveArmPos(arm, Positions.Arm.COLLAPSED),
-      Commands.waitSeconds(1.0),
       new MoveWristPos(arm, Positions.Wrist.COLLAPSED),
       Commands.waitSeconds(1.0)
     );

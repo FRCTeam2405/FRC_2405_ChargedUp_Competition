@@ -54,7 +54,7 @@ public class ForwardDock extends CommandBase {
 
     SmartDashboard.putNumber("autoDistance", distance);
 
-    if(Math.abs(distance) > 0.06) {
+    if(Math.abs(distance) > 0.04) {
       swerve.drive(-0.05, 0, 0);
       swerve.setBrakes(true);
       lights.setColor(Colors.GREEN);
