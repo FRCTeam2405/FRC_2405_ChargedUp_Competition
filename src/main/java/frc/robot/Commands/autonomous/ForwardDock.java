@@ -7,25 +7,32 @@ package frc.robot.commands.autonomous;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.settings.Constants.LEDs.Colors;
+import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.drivetrains.SwerveContainer;
 
 public class ForwardDock extends CommandBase {
 
   private SwerveContainer swerve;
+  private Lights lights;
+
   private boolean onChargeStation = false;
   private boolean finished = false;
   private Translation2d startPosition;
 
   /** Creates a new ForwardDock. */
-  public ForwardDock(SwerveContainer swervee) {
-    swerve = swervee;
+  public ForwardDock(SwerveContainer swerve, Lights lights) {
+    this.swerve = swerve;
+    this.lights = lights;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(swerve);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    lights.setColor(Colors.SOLID_RED);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -33,6 +40,7 @@ public class ForwardDock extends CommandBase {
     if(Math.abs(swerve.getPitch().getDegrees() - 360) > 7) {
       onChargeStation = true;
       startPosition = swerve.getPose().getTranslation();
+      lights.setColor(Colors.YELLOW);
     }
 
     if(!onChargeStation) {
@@ -47,6 +55,10 @@ public class ForwardDock extends CommandBase {
     SmartDashboard.putNumber("autoDistance", distance);
 
     if(Math.abs(distance) > 0.06) {
+      swerve.drive(-0.05, 0, 0);
+      swerve.setBrakes(true);
+      lights.setColor(Colors.GREEN);
+      
       finished = true;
       return;
     }
@@ -57,8 +69,7 @@ public class ForwardDock extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    swerve.drive(-0.05, 0, 0);
-    swerve.setBrakes(true);
+    
   }
 
   // Returns true when the command should end.
