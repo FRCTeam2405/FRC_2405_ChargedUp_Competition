@@ -23,15 +23,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.autonomous.BackwardDock;
-import frc.robot.commands.autonomous.ForwardDock;
-import frc.robot.commands.autonomous.PlaceConeHigh;
-import frc.robot.commands.autonomous.PlacePiece;
-import frc.robot.commands.autonomous.PlaceCubeHigh;
 import frc.robot.commands.autonomous.YawTest;
 import frc.robot.commands.autonomous.arm.AutoOutputPiece;
-import frc.robot.commands.autonomous.arm.positions.AutoCollapseArmLong;
-import frc.robot.commands.autonomous.arm.positions.AutoPlaceLow;
+import frc.robot.commands.autonomous.drive.BackwardDock;
+import frc.robot.commands.autonomous.drive.ForwardDock;
+import frc.robot.commands.autonomous.groups.PlaceConeHigh;
+import frc.robot.commands.autonomous.groups.PlaceCubeHigh;
+import frc.robot.commands.autonomous.groups.PlacePieceLow;
 import frc.robot.commands.intake.arm.MoveArm;
 import frc.robot.commands.intake.arm.MoveWrist;
 import frc.robot.commands.intake.arm.positions.CollapseArm;
@@ -225,36 +223,36 @@ public class RobotContainer {
 
   private void configureCommands() {
 
-    commandMap = new HashMap<>();
+    // commandMap = new HashMap<>();
 
-    // Connect markers in the path file to our auton commands
-    commandMap.put("collapseArm", new AutoCollapseArmLong(arm, lights));
-    commandMap.put("placeLow", new AutoPlaceLow(arm, lights));
-    commandMap.put("outputPiece", new AutoOutputPiece(grip));
-    commandMap.put("autobalance", new SwerveAutobalance(swerveDrive));
-    commandMap.put("lazyAutobalance", new ForwardDock(swerveDrive));
-    commandMap.put("backAutobalance", new BackwardDock(swerveDrive));
+    // // Connect markers in the path file to our auton commands
+    // commandMap.put("collapseArm", new AutoCollapseArmLong(arm, lights));
+    // commandMap.put("placeLow", new AutoPlaceLow(arm, lights));
+    // commandMap.put("outputPiece", new AutoOutputPiece(grip));
+    // commandMap.put("autobalance", new SwerveAutobalance(swerveDrive));
+    // commandMap.put("lazyAutobalance", new ForwardDock(swerveDrive));
+    // commandMap.put("backAutobalance", new BackwardDock(swerveDrive));
 
-    pathBuilder = new SwerveAutoBuilder(
-      swerveDrive::getPose,
-      swerveDrive::resetPose,
-      new PIDConstants(0.1, 0, 0),
-      new PIDConstants(0.02, 0, 0.0005),
-      swerveDrive::setChassisSpeeds,
-      commandMap,
-      true,
-      swerveDrive
-    );
+    // pathBuilder = new SwerveAutoBuilder(
+    //   swerveDrive::getPose,
+    //   swerveDrive::resetPose,
+    //   new PIDConstants(0.1, 0, 0),
+    //   new PIDConstants(0.02, 0, 0.0005),
+    //   swerveDrive::setChassisSpeeds,
+    //   commandMap,
+    //   true,
+    //   swerveDrive
+    // );
 
-    PathPlannerTrajectory pio = PathPlanner.loadPath(Paths.PIO, 1, 1);
-    PathPlannerTrajectory wio = PathPlanner.loadPath(Paths.WIO, 1, 1);
-    PathPlannerTrajectory cioda = PathPlanner.loadPath(Paths.CIODA, 1, 1);
-    PathPlannerTrajectory ciodn = PathPlanner.loadPath(Paths.CIODN, 1, 1);
-    PathPlannerTrajectory out = PathPlanner.loadPath("[Either Side] Out", 1, 1);
-    PathPlannerTrajectory blueCenterDock = PathPlanner.loadPath("[Center] Dock", 1, 1);
-    List<PathPlannerTrajectory> brokenL = new ArrayList<PathPlannerTrajectory>();
-    brokenL.add(PathPlanner.loadPath("Move Right", 1, 1));
-    brokenL.add(PathPlanner.loadPath("Move Out Far", 1, 1));
+    // PathPlannerTrajectory pio = PathPlanner.loadPath(Paths.PIO, 1, 1);
+    // PathPlannerTrajectory wio = PathPlanner.loadPath(Paths.WIO, 1, 1);
+    // PathPlannerTrajectory cioda = PathPlanner.loadPath(Paths.CIODA, 1, 1);
+    // PathPlannerTrajectory ciodn = PathPlanner.loadPath(Paths.CIODN, 1, 1);
+    // PathPlannerTrajectory out = PathPlanner.loadPath("[Either Side] Out", 1, 1);
+    // PathPlannerTrajectory blueCenterDock = PathPlanner.loadPath("[Center] Dock", 1, 1);
+    // List<PathPlannerTrajectory> brokenL = new ArrayList<PathPlannerTrajectory>();
+    // brokenL.add(PathPlanner.loadPath("Move Right", 1, 1));
+    // brokenL.add(PathPlanner.loadPath("Move Out Far", 1, 1));
 
 
     // PathPlannerTrajectory bpio = PathPlanner.loadPath("[Blue Pickup Side] In, Out", 1, 1);
@@ -262,20 +260,27 @@ public class RobotContainer {
 
     autonomousDropDown = new SendableChooser<>();
 
-    autonomousDropDown.setDefaultOption(Paths.PIO, pathBuilder.fullAuto(pio));
-    autonomousDropDown.addOption(Paths.WIO, pathBuilder.fullAuto(wio));
-    autonomousDropDown.addOption(Paths.CIODA, pathBuilder.fullAuto(cioda));
-    autonomousDropDown.addOption(Paths.CIODN, pathBuilder.fullAuto(ciodn));
-    autonomousDropDown.addOption("Place Piece, no movement", new PlacePiece(arm, grip, lights));
-    autonomousDropDown.addOption("[Either Side] Out", pathBuilder.fullAuto(out));
+    // autonomousDropDown.setDefaultOption(Paths.PIO, pathBuilder.fullAuto(pio));
+    // autonomousDropDown.addOption(Paths.WIO, pathBuilder.fullAuto(wio));
+    // autonomousDropDown.addOption(Paths.CIODA, pathBuilder.fullAuto(cioda));
+    // autonomousDropDown.addOption(Paths.CIODN, pathBuilder.fullAuto(ciodn));
     // autonomousDropDown.addOption("[Blue Pickup Side] In, Out", pathBuilder.fullAuto(bpio));
-    // autonomousDropDown.addOption("[Blue Wire Side] In, Out", pathBuilder.fullAuto(bwio));
-    autonomousDropDown.addOption("Yaw Test", new YawTest(swerveDrive));
+    // autonomousDropDown.addOption("[Blue Wire Side] In, Out", pathBuilder.fullAuto(bwio));   
+    // autonomousDropDown.addOption("Broken L Right", pathBuilder.fullAuto(brokenL));
     // autonomousDropDown.addOption("[Center] Dock", pathBuilder.followPath(blueCenterDock));
-    autonomousDropDown.addOption("[Center] Dock", new ForwardDock(swerveDrive));
+    // autonomousDropDown.addOption("[Either Side] Out", pathBuilder.fullAuto(out));
+
+    autonomousDropDown.addOption("Place Piece Low", new PlacePieceLow(arm, grip, lights));
     autonomousDropDown.addOption("Place Cube High", new PlaceCubeHigh(arm, grip, lights));
     autonomousDropDown.addOption("Place Cone High", new PlaceConeHigh(arm, grip, lights));
-    autonomousDropDown.addOption("Broken L Right", pathBuilder.fullAuto(brokenL));
+
+    autonomousDropDown.addOption("[Center] Dock", new ForwardDock(swerveDrive, lights));
+
+    autonomousDropDown.addOption("Yaw Test", new YawTest(swerveDrive));
+    
+   
+    
+    
 
     SmartDashboard.putData("Auton Routine", autonomousDropDown);
   }
