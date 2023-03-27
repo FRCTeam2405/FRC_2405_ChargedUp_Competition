@@ -17,7 +17,8 @@ public class ForwardDock extends CommandBase {
   private SwerveContainer swerve;
   private Lights lights;
 
-  private boolean onChargeStation = false;
+  private boolean tipOne = false;
+  private boolean tipTwo = false;
   private boolean finished = false;
   private Translation2d startPosition;
 
@@ -46,38 +47,36 @@ public class ForwardDock extends CommandBase {
       return;
     }
 
-    if(Math.abs(swerve.getPitch().getDegrees() - 360) > 7) {
-      onChargeStation = true;
-      startPosition = swerve.getPose().getTranslation();
+    if((swerve.getPitch().getDegrees() - 360) > 7) {
+      tipOne = true;
       lights.setColor(Colors.YELLOW);
+    } else if((swerve.getPitch().getDegrees() - 360) < -7) {
+      tipTwo = true;
+      startPosition = swerve.getPose().getTranslation();
     }
 
-    if(!onChargeStation) {
-      swerve.drive(0.15, 0, 0);
+    if(tipOne) {
+      swerve.drive(0.05, 0, 0);
       return;
     }
 
+    if(tipTwo) {
 
+      double distance =
+        Math.abs(
+          startPosition.getX() -
+          swerve.getPose().getX()
+        );
 
-    double distance =
-      swerve.getPose().getTranslation().getX() -
-      startPosition.getX();
+      if(distance > 0.02) {
+        finished = true;
+        return;
+      }
 
-    SmartDashboard.putNumber("autoDistance", distance);
-
-    if(Math.abs(distance) > 0.01) {
-      swerve.drive(0, 0.001, 0);
-      swerve.setBrakes(true);
-      lights.setColor(Colors.GREEN);
-
-      finished = true;
-      timer.start();
-      return;
+      swerve.drive(-0.05, 0, 0);
     }
 
-
-
-    swerve.drive(0.05, 0, 0);
+    swerve.drive(0.15, 0, 0);
   }
 
   // Called once the command ends or is interrupted.
