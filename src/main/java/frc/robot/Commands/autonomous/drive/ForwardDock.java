@@ -50,12 +50,15 @@ public class ForwardDock extends CommandBase {
     if((swerve.getPitch().getDegrees() - 360) > 7) {
       tipOne = true;
       lights.setColor(Colors.YELLOW);
-    } else if((swerve.getPitch().getDegrees() - 360) < -7) {
-      tipTwo = true;
-      startPosition = swerve.getPose().getTranslation();
     }
 
-    if(tipOne) {
+    if(tipOne && (swerve.getPitch().getDegrees() - 360) < -3) {
+      tipTwo = true;
+      startPosition = swerve.getPose().getTranslation();
+      lights.setColor(Colors.STROBE_RED);
+    }
+
+    if(tipOne && !tipTwo) {
       swerve.drive(0.05, 0, 0);
       return;
     }
@@ -68,12 +71,14 @@ public class ForwardDock extends CommandBase {
           swerve.getPose().getX()
         );
 
-      if(distance > 0.02) {
+      if(distance > 0.001) {
         finished = true;
         return;
       }
 
       swerve.drive(-0.05, 0, 0);
+
+      return;
     }
 
     swerve.drive(0.15, 0, 0);
@@ -93,14 +98,14 @@ public class ForwardDock extends CommandBase {
   }
 
   private void driveSideways() {
-    if(timer.get() > 0.1) {
-      swerve.drive(-0.01, 0, 0);
+    if(timer.get() > 0.3) {
+      swerve.drive(0, 0.01, 0);
       swerve.setBrakes(true);
-      lights.setColor(Colors.GREEN);
+      
     } else {
       swerve.drive(0, 0, 0);
       swerve.setBrakes(true);
     }
-    
+    lights.setColor(Colors.GREEN);
   }
 }
