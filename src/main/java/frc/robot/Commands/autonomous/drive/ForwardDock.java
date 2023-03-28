@@ -55,6 +55,8 @@ public class ForwardDock extends CommandBase {
     if(tipOne && (swerve.getPitch().getDegrees() - 360) < -3) {
       tipTwo = true;
       startPosition = swerve.getPose().getTranslation();
+      timer = new Timer();
+      timer.start();
       lights.setColor(Colors.STROBE_RED);
     }
 
@@ -65,18 +67,25 @@ public class ForwardDock extends CommandBase {
 
     if(tipTwo) {
 
-      double distance =
-        Math.abs(
-          startPosition.getX() -
-          swerve.getPose().getX()
-        );
+      SmartDashboard.putNumber("balanceTimer", timer.get());
 
-      if(distance > 0.001) {
+      // double distance =
+      //   Math.abs(
+      //     startPosition.getX() -
+      //     swerve.getPose().getX()
+      //   );
+
+      // if(distance >= 0.00025) {
+      //   finished = true;
+      //   return;
+      // }
+
+      if(timer.get() > 0.01) {
         finished = true;
         return;
       }
 
-      swerve.drive(-0.05, 0, 0);
+      swerve.drive(-0.03, 0, 0);
 
       return;
     }
@@ -98,14 +107,14 @@ public class ForwardDock extends CommandBase {
   }
 
   private void driveSideways() {
-    if(timer.get() > 0.3) {
+    if(true) {
       swerve.drive(0, 0.01, 0);
       swerve.setBrakes(true);
       
-    } else {
-      swerve.drive(0, 0, 0);
-      swerve.setBrakes(true);
-    }
+    } // else {
+    //   swerve.drive(0, 0, 0);
+    //   swerve.setBrakes(true);
+    // }
     lights.setColor(Colors.GREEN);
   }
 }

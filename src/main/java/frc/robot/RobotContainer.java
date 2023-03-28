@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.autonomous.YawTest;
@@ -280,7 +281,7 @@ public class RobotContainer {
     autonomousDropDown.addOption("Place Cube High and Dock", new PlaceAndDock(arm, grip, swerveDrive, lights));
 
     autonomousDropDown.addOption("Yaw Test", new YawTest(swerveDrive));
-    autonomousDropDown.addOption("Move Test", new MoveX(swerveDrive, 0.02));
+    autonomousDropDown.addOption("Move Test", new SequentialCommandGroup(new PlaceCubeHigh(arm, grip, lights), new MoveX(swerveDrive, 4)));
     
 
     SmartDashboard.putData("Auton Routine", autonomousDropDown);
