@@ -26,12 +26,12 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.autonomous.YawTest;
 import frc.robot.commands.autonomous.arm.AutoOutputPiece;
-import frc.robot.commands.autonomous.drive.BackwardDock;
-import frc.robot.commands.autonomous.drive.ForwardDock;
 import frc.robot.commands.autonomous.drive.MoveX;
+import frc.robot.commands.autonomous.groups.ForwardDock;
 import frc.robot.commands.autonomous.groups.PlaceAndDock;
 import frc.robot.commands.autonomous.groups.PlaceConeHigh;
 import frc.robot.commands.autonomous.groups.PlaceCubeHigh;
+import frc.robot.commands.autonomous.groups.PlaceMobilityDock;
 import frc.robot.commands.autonomous.groups.PlacePieceLow;
 import frc.robot.commands.intake.arm.MoveArm;
 import frc.robot.commands.intake.arm.MoveWrist;
@@ -279,6 +279,7 @@ public class RobotContainer {
 
     autonomousDropDown.addOption("Dock", new ForwardDock(swerveDrive, lights));
     autonomousDropDown.addOption("Place Cube High and Dock", new PlaceAndDock(arm, grip, swerveDrive, lights));
+    autonomousDropDown.addOption("Place Cube, Mobility, Dock", new PlaceMobilityDock(swerveDrive, arm, grip, lights));
 
     autonomousDropDown.addOption("Yaw Test", new YawTest(swerveDrive));
     autonomousDropDown.addOption("Move Test", new SequentialCommandGroup(new PlaceCubeHigh(arm, grip, lights), new MoveX(swerveDrive, 4)));
