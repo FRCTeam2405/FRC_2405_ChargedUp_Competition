@@ -23,7 +23,7 @@ public class PlaceMobilityDock extends SequentialCommandGroup {
     addCommands(
       new PlaceCubeHigh(arm, grip, lights),
       Commands.waitSeconds(0.5),
-      new MoveX(swerve, 3.8),
+      new MoveX(swerve, 3.6),
       new BackwardDock(swerve, lights)
     );
   }

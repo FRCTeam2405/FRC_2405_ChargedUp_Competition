@@ -24,7 +24,13 @@ public class BackwardDock extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+
       new SetLights(lights, Colors.SOLID_RED),
+      new ParallelRaceGroup(
+        new DriveConstant(swerve, -0.15, 0, 0),
+        Commands.waitSeconds(0.5)
+      ),
+      
       new MoveTiltForward(swerve, -0.2),
 
       new SetLights(lights, Colors.STROBE_RED),
