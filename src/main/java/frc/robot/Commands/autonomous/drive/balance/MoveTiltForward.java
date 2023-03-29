@@ -28,7 +28,7 @@ public class MoveTiltForward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if((swerve.getPitch().getDegrees() - 360) < -3) {
+    if((swerve.getPitch().getDegrees() - 360) < -7) {
       finished = true;
       return;
     }

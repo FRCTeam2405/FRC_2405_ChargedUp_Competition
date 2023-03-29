@@ -19,7 +19,7 @@ public class AutoOutputPiece extends ParallelRaceGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new OutputPiece(intake),
-      Commands.waitSeconds(2.0) // Time for intake to run for
+      Commands.waitSeconds(1.0) // Time for intake to run for
     );
   }
 }
