@@ -161,7 +161,7 @@ public class RobotContainer {
     // RT to drive forward, LT to drive backward
     // driverController.a().onTrue(new OpenGrip(grip));
     // driverController.b().onTrue(new CloseGrip(grip));
-    driverController.x().onTrue(new SwerveAutobalance(swerveDrive));
+    driverController.x().onTrue(new PlaceConeHigh(arm, grip, lights));
     driverController.y().onTrue(new RecenterRotation(swerveDrive));
     driverController.leftBumper().onTrue(new OpenGrip(grip));
     driverController.leftBumper().onFalse(new CloseGrip(grip));

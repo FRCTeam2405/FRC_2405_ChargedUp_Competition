@@ -32,9 +32,9 @@ public class PlaceConeHigh extends SequentialCommandGroup {
       Commands.waitSeconds(1.0),
       new OpenGrip(grip),
       new MoveArmPos(arm, Positions.Arm.COLLAPSED),
-      Commands.waitSeconds(1.0),
       new MoveWristPos(arm, Positions.Wrist.COLLAPSED),
-      Commands.waitSeconds(1.0)
+      Commands.waitSeconds(1.0),
+      new CloseGrip(grip)
     );
   }
 }
