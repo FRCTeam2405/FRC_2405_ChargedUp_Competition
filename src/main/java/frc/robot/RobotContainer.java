@@ -14,6 +14,9 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CameraServerCvJNI;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
@@ -76,6 +79,7 @@ public class RobotContainer {
   private Limelight limelight;
   
   private final Compressor airCompressor = new Compressor(Constants.Intake.Ports.COMPRESSOR, PneumaticsModuleType.CTREPCM);
+  private final UsbCamera camera = CameraServer.startAutomaticCapture();
 
   private SendableChooser<Command> autonomousDropDown;
 
@@ -93,6 +97,7 @@ public class RobotContainer {
   public RobotContainer() {
 
     config = new DashboardConfig();
+    camera.setResolution(640, 480);
 
     swerveDrive = new SwerveContainer();
     arm = new Arm();
