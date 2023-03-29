@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.SetLights;
 import frc.robot.commands.autonomous.drive.DriveConstant;
-import frc.robot.commands.autonomous.drive.balance.MoveTiltBack;
 import frc.robot.commands.autonomous.drive.balance.MoveTiltForward;
 import frc.robot.settings.Constants.LEDs.Colors;
 import frc.robot.subsystems.Lights;
@@ -26,6 +25,7 @@ public class BackwardDock extends SequentialCommandGroup {
     addCommands(
 
       new SetLights(lights, Colors.SOLID_RED),
+      //TODO! convert this to a class for reuse
       new ParallelRaceGroup(
         new DriveConstant(swerve, -0.15, 0, 0),
         Commands.waitSeconds(1.0)
