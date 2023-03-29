@@ -4,6 +4,7 @@
 
 package frc.robot.commands.autonomous.groups;
 
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.autonomous.drive.MoveX;
 import frc.robot.subsystems.Lights;
@@ -21,7 +22,8 @@ public class PlaceMobilityDock extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PlaceCubeHigh(arm, grip, lights),
-      new MoveX(swerve, 4),
+      Commands.waitSeconds(0.5),
+      new MoveX(swerve, 3.8),
       new BackwardDock(swerve, lights)
     );
   }

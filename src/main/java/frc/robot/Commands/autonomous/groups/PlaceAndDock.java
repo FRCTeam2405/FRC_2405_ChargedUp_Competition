@@ -22,7 +22,7 @@ public class PlaceAndDock extends SequentialCommandGroup {
     addCommands(
       new PlaceCubeHigh(arm, grip, lights),
       Commands.waitSeconds(0.5),
-      new BackwardDock(swerve, lights)
+      new ForwardDock(swerve, lights)
     );
   }
 }

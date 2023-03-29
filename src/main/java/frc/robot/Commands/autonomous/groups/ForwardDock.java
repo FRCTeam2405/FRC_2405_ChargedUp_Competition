@@ -25,15 +25,15 @@ public class ForwardDock extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new SetLights(lights, Colors.SOLID_RED),
-      new MoveTiltBack(swerve, 0.15),
+      new MoveTiltBack(swerve, 0.2),
 
       new SetLights(lights, Colors.YELLOW),
       new MoveTiltForward(swerve, 0.05),
 
       new SetLights(lights, Colors.STROBE_RED),
       new ParallelRaceGroup(
-        new DriveConstant(swerve, -0.03, 0, 0),
-        Commands.waitSeconds(1.25)
+        new DriveConstant(swerve, -0.05, 0, 0),
+        Commands.waitSeconds(2)
       ),
       
       new SetLights(lights, Colors.GREEN),

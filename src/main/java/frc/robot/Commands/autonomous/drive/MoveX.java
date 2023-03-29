@@ -45,7 +45,7 @@ public class MoveX extends CommandBase {
         return;
       }
 
-      swerve.drive(0.1, 0, 0);
+      swerve.drive(0.15, 0, 0);
       return;
     }
 
@@ -54,7 +54,7 @@ public class MoveX extends CommandBase {
       return;
     }
 
-    swerve.drive(-0.1, 0, 0);
+    swerve.drive(-0.15, 0, 0);
   }
 
   // Called once the command ends or is interrupted.
