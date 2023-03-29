@@ -30,6 +30,7 @@ import frc.robot.commands.autonomous.drive.MoveX;
 import frc.robot.commands.autonomous.groups.ForwardDock;
 import frc.robot.commands.autonomous.groups.PlaceAndDock;
 import frc.robot.commands.autonomous.groups.PlaceConeHigh;
+import frc.robot.commands.autonomous.groups.PlaceConeOut;
 import frc.robot.commands.autonomous.groups.PlaceCubeHigh;
 import frc.robot.commands.autonomous.groups.PlaceMobilityDock;
 import frc.robot.commands.autonomous.groups.PlacePieceLow;
@@ -273,16 +274,18 @@ public class RobotContainer {
     // autonomousDropDown.addOption("[Center] Dock", pathBuilder.followPath(blueCenterDock));
     // autonomousDropDown.addOption("[Either Side] Out", pathBuilder.fullAuto(out));
 
-    autonomousDropDown.addOption("Place Piece Low", new PlacePieceLow(arm, grip, lights));
-    autonomousDropDown.addOption("Place Cube High", new PlaceCubeHigh(arm, grip, lights));
-    autonomousDropDown.addOption("Place Cone High", new PlaceConeHigh(arm, grip, lights));
+    // autonomousDropDown.addOption("Place Piece Low", new PlacePieceLow(arm, grip, lights));
+    // autonomousDropDown.addOption("Place Cube High", new PlaceCubeHigh(arm, grip, lights));
+    // autonomousDropDown.addOption("Place Cone High", new PlaceConeHigh(arm, grip, lights));
 
-    autonomousDropDown.addOption("Dock", new ForwardDock(swerveDrive, lights));
+    // autonomousDropDown.addOption("Dock", new ForwardDock(swerveDrive, lights));
+
+    autonomousDropDown.addOption("Place Cone, Mobility", new PlaceConeOut(swerveDrive, arm, grip, lights));
     autonomousDropDown.addOption("Place Cube High and Dock", new PlaceAndDock(arm, grip, swerveDrive, lights));
     autonomousDropDown.addOption("Place Cube, Mobility, Dock", new PlaceMobilityDock(swerveDrive, arm, grip, lights));
 
-    autonomousDropDown.addOption("Yaw Test", new YawTest(swerveDrive));
-    autonomousDropDown.addOption("Move Test", new SequentialCommandGroup(new PlaceCubeHigh(arm, grip, lights), new MoveX(swerveDrive, 4)));
+    // autonomousDropDown.addOption("Yaw Test", new YawTest(swerveDrive));
+    // autonomousDropDown.addOption("Move Test", new SequentialCommandGroup(new PlaceCubeHigh(arm, grip, lights), new MoveX(swerveDrive, 4)));
     
 
     SmartDashboard.putData("Auton Routine", autonomousDropDown);
