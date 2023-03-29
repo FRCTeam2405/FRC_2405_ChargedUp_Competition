@@ -35,8 +35,8 @@ public class BackwardDock extends SequentialCommandGroup {
 
       new SetLights(lights, Colors.STROBE_RED),
       new ParallelRaceGroup(
-        new DriveConstant(swerve, -0.05, 0, 0),
-        Commands.waitSeconds(1.25)
+        new DriveConstant(swerve, -0.07, 0, 0),
+        Commands.waitSeconds(3)
       ),
       
       new SetLights(lights, Colors.GREEN),
