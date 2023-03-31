@@ -10,6 +10,7 @@ import frc.robot.commands.autonomous.arm.AutoOutputPiece;
 import frc.robot.commands.autonomous.arm.positions.MoveArmPos;
 import frc.robot.commands.autonomous.arm.positions.MoveWristPos;
 import frc.robot.commands.intake.grip.IntakePiece;
+import frc.robot.commands.intake.grip.OpenGrip;
 import frc.robot.settings.Constants.Intake.Positions;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.intake.Arm;
@@ -28,7 +29,9 @@ public class PlaceCubeHigh extends SequentialCommandGroup {
       Commands.waitSeconds(0.5),
       new MoveWristPos(arm, Positions.Wrist.HIGH),
       Commands.waitSeconds(1.0),
+      new OpenGrip(grip),
       new AutoOutputPiece(grip),
+      // Delay of 1 second here from AutoOutputPiece
       new MoveArmPos(arm, Positions.Arm.COLLAPSED),
       new MoveWristPos(arm, Positions.Wrist.COLLAPSED),
       Commands.waitSeconds(1.0)
