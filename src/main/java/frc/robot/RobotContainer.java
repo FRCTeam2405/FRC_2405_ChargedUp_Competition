@@ -280,7 +280,7 @@ public class RobotContainer {
     // autonomousDropDown.addOption("[Either Side] Out", pathBuilder.fullAuto(out));
 
     // autonomousDropDown.addOption("Place Piece Low", new PlacePieceLow(arm, grip, lights));
-    // autonomousDropDown.addOption("Place Cube High", new PlaceCubeHigh(arm, grip, lights));
+    autonomousDropDown.addOption("Place Cube High", new PlaceCubeHigh(arm, grip, lights));
     // autonomousDropDown.addOption("Place Cone High", new PlaceConeHigh(arm, grip, lights));
 
     // autonomousDropDown.addOption("Dock", new ForwardDock(swerveDrive, lights));
