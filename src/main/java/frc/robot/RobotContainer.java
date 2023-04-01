@@ -34,6 +34,7 @@ import frc.robot.commands.autonomous.groups.ForwardDock;
 import frc.robot.commands.autonomous.groups.PlaceAndDock;
 import frc.robot.commands.autonomous.groups.PlaceConeHigh;
 import frc.robot.commands.autonomous.groups.PlaceConeOut;
+import frc.robot.commands.autonomous.groups.PlaceCubeOut;
 import frc.robot.commands.autonomous.groups.PlaceCubeHigh;
 import frc.robot.commands.autonomous.groups.PlaceMobilityDock;
 import frc.robot.commands.autonomous.groups.PlacePieceLow;
@@ -285,6 +286,7 @@ public class RobotContainer {
 
     // autonomousDropDown.addOption("Dock", new ForwardDock(swerveDrive, lights));
 
+    autonomousDropDown.addOption("Place Cube, Mobility", new PlaceCubeOut(swerveDrive, arm, grip, lights));
     autonomousDropDown.addOption("Place Cone, Mobility", new PlaceConeOut(swerveDrive, arm, grip, lights));
     autonomousDropDown.addOption("Place Cube High and Dock", new PlaceAndDock(arm, grip, swerveDrive, lights));
     autonomousDropDown.addOption("Place Cube, Mobility, Dock", new PlaceMobilityDock(swerveDrive, arm, grip, lights));
