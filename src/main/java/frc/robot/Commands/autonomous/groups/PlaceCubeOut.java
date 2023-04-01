@@ -20,7 +20,7 @@ public class PlaceCubeOut extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PlaceConeHigh(arm, grip, lights),
+      new PlaceCubeHigh(arm, grip, lights),
       new MoveX(swerve, 4)
     );
   }
