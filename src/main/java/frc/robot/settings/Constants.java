@@ -293,4 +293,18 @@ public final class Constants {
             public static final int BACK_RIGHT_ECHO = 7;
         }
     }
+
+    public static final class Limelight {
+        public static final class Settings {
+            public static final class CameraMode {
+                public static final int DRIVER_VISION = 1;
+                public static final int AUTO_VISION = 0;
+            }
+            public static final class Pipelines {
+                public static final int LED_OFF = 0;
+                public static final int REFLECTIVE_TAPE = 1;
+                public static final int APRIl_TAGS = 2;
+            }
+        }
+    }
 }
