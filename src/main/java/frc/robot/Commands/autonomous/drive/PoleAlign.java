@@ -40,7 +40,7 @@ public class PoleAlign extends CommandBase {
     // Sign is negative if tx is negative, vice versa
     double sign = tx < 0 ? -1 : 1;
 
-    swerve.drive(0, (0.1 * sign), 0);
+    swerve.drive(0, (0.07 * sign), 0);
   }
 
   // Called once the command ends or is interrupted.
