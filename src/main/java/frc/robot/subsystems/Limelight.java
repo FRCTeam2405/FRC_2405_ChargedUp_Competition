@@ -43,4 +43,8 @@ public class Limelight extends SubsystemBase {
 
     limelight.getEntry("pipeline").setNumber(pipeline);
   }
+
+  public double getDouble(String variable) {
+    return limelight.getEntry(variable).getDouble(0);
+  }
 }

@@ -295,6 +295,9 @@ public final class Constants {
     }
 
     public static final class Limelight {
+
+        public static final double POLE_THRESHOLD = 0;
+
         public static final class Settings {
             public static final class CameraMode {
                 public static final int DRIVER_VISION = 1;
