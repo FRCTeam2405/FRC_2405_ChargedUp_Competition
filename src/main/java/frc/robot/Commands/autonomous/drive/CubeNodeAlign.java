@@ -10,13 +10,13 @@ import frc.robot.settings.Constants.Limelight.Settings.Pipelines;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.drivetrains.SwerveContainer;
 
-public class PoleAlign extends CommandBase {
+public class CubeNodeAlign extends CommandBase {
 
   SwerveContainer swerve;
   Limelight limelight;
 
-  /** Creates a new PoleAlign. */
-  public PoleAlign(SwerveContainer swerve, Limelight limelight) {
+  /** Creates a new CubeNodeAlign. */
+  public CubeNodeAlign(SwerveContainer swerve, Limelight limelight) {
     this.swerve = swerve;
     this.limelight = limelight;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -28,7 +28,7 @@ public class PoleAlign extends CommandBase {
   public void initialize() {
     // Set the limelight to track reflective tape
     limelight.setVisionEnabled(true);
-    limelight.setPipeline(Pipelines.REFLECTIVE_TAPE);
+    limelight.setPipeline(Pipelines.APRIl_TAGS);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -53,7 +53,7 @@ public class PoleAlign extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    boolean finished = Math.abs(limelight.getDouble("tx")) < Constants.Limelight.POLE_THRESHOLD;
+    boolean finished = Math.abs(limelight.getDouble("tx")) < Constants.Limelight.CUBE_COLUMN_THRESHOLD;
     return finished;
   }
 }

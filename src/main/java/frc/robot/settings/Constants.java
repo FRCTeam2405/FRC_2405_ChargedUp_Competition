@@ -296,7 +296,8 @@ public final class Constants {
 
     public static final class Limelight {
 
-        public static final double POLE_THRESHOLD = 0;
+        public static final double CONE_COLUMN_THRESHOLD = 0;
+        public static final double CUBE_COLUMN_THRESHOLD = 0;
 
         public static final class Settings {
             public static final class CameraMode {
