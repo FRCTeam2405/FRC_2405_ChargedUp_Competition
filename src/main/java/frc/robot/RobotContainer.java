@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.autonomous.YawTest;
 import frc.robot.commands.autonomous.arm.AutoOutputPiece;
+import frc.robot.commands.autonomous.drive.ConeNodeAlign;
 import frc.robot.commands.autonomous.drive.MoveX;
 import frc.robot.commands.autonomous.groups.ForwardDock;
 import frc.robot.commands.autonomous.groups.PlaceAndDock;
@@ -293,6 +294,7 @@ public class RobotContainer {
 
     // autonomousDropDown.addOption("Yaw Test", new YawTest(swerveDrive));
     // autonomousDropDown.addOption("Move Test", new SequentialCommandGroup(new PlaceCubeHigh(arm, grip, lights), new MoveX(swerveDrive, 4)));
+    autonomousDropDown.addOption("Retroreflect Test", new ConeNodeAlign(swerveDrive, limelight));
     
 
     SmartDashboard.putData("Auton Routine", autonomousDropDown);

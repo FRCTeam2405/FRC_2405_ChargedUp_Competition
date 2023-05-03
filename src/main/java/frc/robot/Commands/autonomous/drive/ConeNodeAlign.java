@@ -4,6 +4,7 @@
 
 package frc.robot.commands.autonomous.drive;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.settings.Constants;
 import frc.robot.settings.Constants.Limelight.Settings.Pipelines;
@@ -14,6 +15,8 @@ public class ConeNodeAlign extends CommandBase {
 
   SwerveContainer swerve;
   Limelight limelight;
+
+  boolean pipelineSwitched = false;
 
   /** Creates a new PoleAlign. */
   public ConeNodeAlign(SwerveContainer swerve, Limelight limelight) {
@@ -34,13 +37,20 @@ public class ConeNodeAlign extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    if(limelight.getDouble("tx") != 0.0) {
+      pipelineSwitched = true;
+    }
+
     // The horizontal offset between the crosshair and the closest target
-    double tx = limelight.getDouble("tx");
+    double ty = limelight.getDouble("ty") + 10.5;
 
-    // Sign is negative if tx is negative, vice versa
-    double sign = tx < 0 ? -1 : 1;
-
-    swerve.drive(0, (0.07 * sign), 0);
+    swerve.driveRaw(
+      new Translation2d(0, (ty / 25) * 0.15),
+      0,
+      false,
+      true
+    );
   }
 
   // Called once the command ends or is interrupted.
@@ -53,7 +63,7 @@ public class ConeNodeAlign extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    boolean finished = Math.abs(limelight.getDouble("tx")) < Constants.Limelight.CONE_COLUMN_THRESHOLD;
-    return finished;
+
+    return false;
   }
 }
