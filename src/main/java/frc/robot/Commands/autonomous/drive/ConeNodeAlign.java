@@ -16,8 +16,6 @@ public class ConeNodeAlign extends CommandBase {
   SwerveContainer swerve;
   Limelight limelight;
 
-  boolean pipelineSwitched = false;
-
   /** Creates a new PoleAlign. */
   public ConeNodeAlign(SwerveContainer swerve, Limelight limelight) {
     this.swerve = swerve;
@@ -37,16 +35,11 @@ public class ConeNodeAlign extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    if(limelight.getDouble("tx") != 0.0) {
-      pipelineSwitched = true;
-    }
-
     // The horizontal offset between the crosshair and the closest target
     double ty = limelight.getDouble("ty") + 10.5;
 
     swerve.driveRaw(
-      new Translation2d(0, (ty / 25) * 0.15),
+      new Translation2d(0, (ty / 25) * 0.2),
       0,
       false,
       true
@@ -63,7 +56,6 @@ public class ConeNodeAlign extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
     return false;
   }
 }
