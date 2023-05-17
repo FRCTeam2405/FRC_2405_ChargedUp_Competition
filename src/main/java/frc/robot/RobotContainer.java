@@ -32,6 +32,7 @@ import frc.robot.commands.autonomous.arm.AutoOutputPiece;
 import frc.robot.commands.autonomous.drive.ConeNodeAlign;
 import frc.robot.commands.autonomous.drive.MoveX;
 import frc.robot.commands.autonomous.groups.ForwardDock;
+import frc.robot.commands.autonomous.groups.MoveConeAlignedPlaceHigh;
 import frc.robot.commands.autonomous.groups.PlaceAndDock;
 import frc.robot.commands.autonomous.groups.PlaceConeHigh;
 import frc.robot.commands.autonomous.groups.PlaceConeOut;
@@ -169,7 +170,17 @@ public class RobotContainer {
     // RT to drive forward, LT to drive backward
     // driverController.a().onTrue(new OpenGrip(grip));
     // driverController.b().onTrue(new CloseGrip(grip));
-    driverController.x().onTrue(new PlaceConeHigh(arm, grip, lights));
+    driverController.x().onTrue(new MoveConeAlignedPlaceHigh(
+      new AbsoluteDrive3Axis(
+        swerveDrive,
+        axisDeadband(driverController, XboxController.Axis.kLeftY.value, Constants.Controllers.joystickDeadband, true, 1.0),
+        axisDeadband(driverController, XboxController.Axis.kLeftX.value, Constants.Controllers.joystickDeadband, true, 1.0),
+        axisDeadband(driverController, XboxController.Axis.kRightX.value, Constants.Controllers.wheelDeadband, false, 1.0)
+     ),
+      limelight,
+      arm,
+      grip
+    ));
     driverController.y().onTrue(new RecenterRotation(swerveDrive));
     driverController.leftBumper().onTrue(new OpenGrip(grip));
     driverController.leftBumper().onFalse(new CloseGrip(grip));
