@@ -13,6 +13,7 @@ import frc.robot.subsystems.drivetrains.SwerveContainer;
 
 public class ConeNodeAlign extends CommandBase {
 
+
   SwerveContainer swerve;
   Limelight limelight;
 
@@ -36,10 +37,10 @@ public class ConeNodeAlign extends CommandBase {
   @Override
   public void execute() {
     // The horizontal offset between the crosshair and the closest target
-    double ty = limelight.getDouble("ty") + 10.5;
+    double ty = limelight.getDouble("ty") + 9.9;
 
     swerve.driveRaw(
-      new Translation2d(0, (ty / 25) * 0.2),
+      new Translation2d(0, (ty / 25) * 0.25),
       0,
       false,
       true
