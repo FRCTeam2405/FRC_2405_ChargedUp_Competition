@@ -10,8 +10,10 @@ import frc.robot.settings.Constants.Limelight.Settings.Pipelines;
 import frc.robot.subsystems.Limelight;
 
 public class EndOnConeAlign extends CommandBase {
+
   Limelight limelight;
   boolean isFinished;
+  
   /** Creates a new EndOnConeAlign. */
   public EndOnConeAlign(Limelight limelight) {
     this.limelight = limelight;
