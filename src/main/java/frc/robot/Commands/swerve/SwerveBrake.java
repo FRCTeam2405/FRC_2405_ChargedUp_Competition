@@ -22,7 +22,7 @@ public class SwerveBrake extends CommandBase {
   @Override
   public void initialize() {
     swerve.setBrakes(true);
-    swerve.moveX();
+    // swerve.moveX();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

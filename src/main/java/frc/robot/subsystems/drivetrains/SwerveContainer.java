@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Constants;
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
-import swervelib.math.SwerveModuleState2;
+// import swervelib.math.SwerveModuleState2;
 import swervelib.parser.SwerveDriveConfiguration;
 import swervelib.parser.SwerveParser;
 
@@ -125,9 +125,9 @@ public class SwerveContainer extends SubsystemBase {
     return rawSwerveDrive.swerveController;
   }
 
-  public void setModuleStates(SwerveModuleState2[] desiredStates) {
-    rawSwerveDrive.setModuleStates(desiredStates, false);
-  }
+  // public void setModuleStates(SwerveModuleState2[] desiredStates) {
+  //   rawSwerveDrive.setModuleStates(desiredStates, false);
+  // }
 
   public void setChassisSpeeds(ChassisSpeeds speeds) {
     speeds.vxMetersPerSecond *= 1.0;
@@ -139,17 +139,17 @@ public class SwerveContainer extends SubsystemBase {
     rawSwerveDrive.setMotorIdleMode(enabled);
   }
 
-  public void moveX() {
+  // public void moveX() {
 
-    SwerveModuleState2[] states = new SwerveModuleState2[4];
+  //   SwerveModuleState2[] states = new SwerveModuleState2[4];
 
-    states[0] = new SwerveModuleState2(0, new Rotation2d(0.25 * Math.PI), 0);
-    states[1] = new SwerveModuleState2(0, new Rotation2d(0.75 * Math.PI), 0);
-    states[2] = new SwerveModuleState2(0, new Rotation2d(1.25 * Math.PI), 0);
-    states[3] = new SwerveModuleState2(0, new Rotation2d(1.75 * Math.PI), 0);
+  //   states[0] = new SwerveModuleState2(0, new Rotation2d(0.25 * Math.PI), 0);
+  //   states[1] = new SwerveModuleState2(0, new Rotation2d(0.75 * Math.PI), 0);
+  //   states[2] = new SwerveModuleState2(0, new Rotation2d(1.25 * Math.PI), 0);
+  //   states[3] = new SwerveModuleState2(0, new Rotation2d(1.75 * Math.PI), 0);
 
-    rawSwerveDrive.setModuleStates(states, false);
-  }
+  //   rawSwerveDrive.setModuleStates(states, false);
+  // }
 
   public void resetYaw() {
     rawSwerveDrive.zeroGyro();
